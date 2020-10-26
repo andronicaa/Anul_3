@@ -46,10 +46,11 @@ semiPareComp l = [x `div` 2 | x <- l, even x]
 
 -- Exercitii
 --L2.2
+-- cu sabloane de liste
 inIntervalRec :: Int -> Int -> [Int] -> [Int]
 inIntervalRec _ _ [] = []
 inIntervalRec a b (x:xs)
-    | a<=x && x<=b = x: (inIntervalRec a b xs)
+    | a <= x && x <= b = x: (inIntervalRec a b xs)
     | otherwise = inIntervalRec a b xs
 
 inIntervalComp :: Int -> Int -> [Int] -> [Int]
