@@ -46,12 +46,13 @@ select last_name, department_name
 from employees e, departments d
 where e.department_id = d.department_id(+);
 
--- 13
+-- 13 - se pune (+) in dreptul informatiei deficitare
 select last_name, department_name
 from employees e, departments d
 where e.department_id(+) = d.department_id;
 
 -- 14 ii afiseaza si pe ce care nu au sef
+-- punem (+) in dreptul tabelei e2 deoarece din aceasta extragem numele managerilor
 select e1.employee_id, e1.last_name, e1.manager_id, e2.last_name
 from employees e1, employees e2
 where e1.manager_id = e2.employee_id(+);
@@ -64,6 +65,9 @@ from employees e;
 
 -- 16
 -- a
+-- mai intai iau toate departamentele din tabelul departments s
+-- dupa care scad toate departamentele care apar in tabelul employees, deoarece inseamna ca existand in acel tabel  => lucreaza
+-- cineva in ele 
 select department_id
 from departments
 minus
