@@ -266,3 +266,121 @@ end;
 create table octombrie_aan
 (id number,
 data date);
+select * from title;
+
+
+
+select * from member;
+-- 3
+set SERVEROUTPUT on
+declare
+    v_name varchar2(30) := '&name';
+    v_selected_id member.member_id%type;
+    v_rental_count number(2);
+begin
+    -- trebuie sa gasim id-ul membrului
+    select member_id into v_selected_id
+    from member
+    where upper(first_name) = upper(v_name);
+    select count(*) into v_rental_count
+    from title t, rental r
+    where t.title_id = r.title_id and member_id = v_selected_id;
+    dbms_output.put_line(v_rental_count);
+    
+    exception
+        when no_data_found then dbms_output.put_line('no data found');
+        when too_many_rows then dbms_output.put_line('too many rows');
+end;
+
+-- 4
+
+DECLARE
+  numele member.last_name%type := '&input';
+  rental_id number;
+   rental_count NUMBER(2);
+   total Number(3);
+   procent number(2);
+BEGIN
+  SELECT member_id
+  INTO rental_id
+  FROM  member m
+  WHERE lower(m.last_name)= lower(numele);
+
+  SELECT COUNT(DISTINCT title_id)
+  INTO rental_count
+  FROM rental r, member m
+  WHERE r.member_id = m.member_id
+  and lower(m.last_name)= lower(numele);
+
+  DBMS_OUTPUT.PUT_LINE(rental_count || ' filme imprumutate');
+  
+  Select count(*)
+  into total
+  from title;
+  
+  procent := rental_count/total;
+  If procent >= 0.75
+  then  DBMS_OUTPUT.PUT_LINE('category 1');
+    elsif procent >=0.5 
+      then  DBMS_OUTPUT.PUT_LINE('category 2');
+        elsif procent>=0.25
+            then DBMS_OUTPUT.PUT_LINE('category 3');
+            else  DBMS_OUTPUT.PUT_LINE('category 4');
+  end if;
+  EXCEPTION
+    WHEN NO_DATA_FOUND THEN DBMS_OUTPUT.PUT_LINE('no data found');
+    WHEN TOO_MANY_ROWS THEN DBMS_OUTPUT.PUT_LINE('too many rows');
+ 
+END;
+/
+-- 5
+create table member_aan as select * from member;
+alter table member_aan add discount number default 0;
+select * from member_aan;
+
+DECLARE
+  numele member.last_name%type := '&input';
+  rental_id number;
+   rental_count NUMBER(2);
+   total Number(3);
+   procent number(2);
+BEGIN
+  SELECT member_id
+  INTO rental_id
+  FROM  member m
+  WHERE lower(m.last_name)= lower(numele);
+
+  SELECT COUNT(DISTINCT title_id)
+  INTO rental_count
+  FROM rental r, member m
+  WHERE r.member_id = m.member_id
+  and lower(m.last_name)= lower(numele);
+
+  DBMS_OUTPUT.PUT_LINE(rental_count || ' filme imprumutate');
+  
+  Select count(*)
+  into total
+  from title;
+  
+  procent := rental_count/total;
+  If procent >= 0.75
+  then  DBMS_OUTPUT.PUT_LINE('category 1');
+        update member_aan set discount=10 where member_id = rental_id;
+    elsif procent >=0.5 
+      then  DBMS_OUTPUT.PUT_LINE('category 2');
+      update member_aan set discount=5 where member_id = rental_id;
+        elsif procent>=0.25
+            then DBMS_OUTPUT.PUT_LINE('category 3');
+            update member_aan set discount=3 where member_id = rental_id;
+            else  DBMS_OUTPUT.PUT_LINE('category 4');
+  end if;
+      if SQL%rowcount >0
+          then DBMS_OUTPUT.PUT_LINE( 'Discount adaugat pt membrul ' || Initcap(numele));
+          else DBMS_OUTPUT.PUT_LINE (' Nu s-a facut update');
+      end if;
+  EXCEPTION
+    WHEN NO_DATA_FOUND THEN DBMS_OUTPUT.PUT_LINE('no data found');
+    WHEN TOO_MANY_ROWS THEN DBMS_OUTPUT.PUT_LINE('too many rows');
+ 
+END;
+/
