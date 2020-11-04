@@ -1,0 +1,24 @@
+﻿@model Laborator_3.Models.Book
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New</h2>
+
+<form method="post" action="/Books/Create">
+    @Html.LabelFor(m => m.Title)
+    @*<label>Title</label>*@
+    <br />
+    @Html.TextBoxFor(m => m.Title)
+    @*<input type="text" name="Title" />*@
+    <br /><br />
+    @Html.LabelFor(m => m.Author)
+    @*<label>Author</label>*@
+    <br />
+    @Html.TextBoxFor(m => m.Author)
+    @*<input type="text" name="Author" />*@
+    <br />
+    <br />
+    <button type="submit">Add book</button>
+</form>

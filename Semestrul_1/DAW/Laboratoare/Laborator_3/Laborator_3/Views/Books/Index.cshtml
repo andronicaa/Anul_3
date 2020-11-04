@@ -1,0 +1,19 @@
+﻿@model List<Laborator_3.Models.Book>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<ul>
+    @foreach (var book in Model)
+    {
+        <li>@book.Author - @Html.ActionLink("Detalii", "Cauta", "Books", new { id = book.BookId }, null)</li>
+        @*@book.DateCreation*@
+        <p><a href="/Books/Edit/@book.BookId">Edit</a></p>
+        <p><a href="/Books/Delete/@book.BookId">Delete</a></p>
+
+    }
+</ul>
+
+<p><a href="/Books/New">Add book</a></p>

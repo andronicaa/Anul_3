@@ -1,0 +1,21 @@
+﻿@model Laborator_3.Models.Book
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+<form method="post" action="/Books/Update">
+    @*@Html.LabelFor(m => m.Title)*@
+    <label>Title</label>
+    <br />
+    @*@Html.TextBoxFor(m => m.Title)*@
+    <input type="text" name="Title" value="@Model.Title" />
+    @*@Html.TextBoxFor(m => m.Title, new { value = Model.Author })*@
+    <label>Author</label>
+    <input type="text" name="Author" value="@Model.Author" />
+    <br />
+    <br />
+    <button type="submit">Save</button>
+    <input type="hidden" name="BookId" value="@Model.BookId" />
+</form>
