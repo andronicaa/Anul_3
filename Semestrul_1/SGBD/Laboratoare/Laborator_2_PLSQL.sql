@@ -337,3 +337,37 @@ from emp_test_aan a, table(a.telefon) b;
 
 drop table emp_test_aan;
 drop type tip_telefon_aan;
+
+
+-- Exercitii
+-- 1
+set serveroutput on
+declare
+    type tip_cod is varray(5) of emp_aan.employee_id%type;
+    coduri tip_cod;
+    salariu emp_aan.salary%type;
+begin
+    select employee_id
+    bulk collect into coduri
+    from (  select employee_id, salary
+            from emp_aan
+            where commission_pct is null order by salary)
+    where rownum <= 5;
+    for i in coduri.first..coduri.last loop
+        select salary
+        into salariu
+        from emp_aan
+        where employee_id = coduri(i);
+        dbms_output.put_line('Angajatul cu codul ' || coduri(i) || ' are salariul vechi ' || salariu);
+        update emp_aan
+        set salary = salary * 1.05
+        where employee_id = coduri(i);
+        select salary
+        into salariu
+        from emp_aan
+        where employee_id = coduri(i);
+        dbms_output.put_line('Angajatul cu codul ' || coduri(i) || ' are salariul nou ' || salariu);
+        dbms_output.new_line;
+    end loop;
+    
+end;
