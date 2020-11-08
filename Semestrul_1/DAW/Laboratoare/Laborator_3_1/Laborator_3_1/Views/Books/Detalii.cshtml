@@ -1,0 +1,80 @@
+﻿@model Laborator_3_1.Models.Book
+@{
+    ViewBag.Title = "Details";
+    var emptySummaryMsgVar = "This book has no summary";
+}
+<h2>Details</h2>
+<div class="panel panel-default">
+    <div class="panel-body">
+        @if (Model.BookType != null)
+        {
+            @Html.Label("BookType", "Book type: ")
+            <br />
+            @Html.DisplayFor(b => b.BookType.Name)
+            <br />
+            <br />
+        }
+        @Html.Label("Title", "Title:")
+        <br />
+        @Html.DisplayFor(b => b.Title)
+        <br />
+        <br />
+        @Html.Label("Author", "Author:")
+        <br />
+        @Html.DisplayFor(b => b.Author)
+        <br />
+        <br />
+        @if (Model.Publisher != null)
+        {
+            @Html.Label("Publisher", "Publisher:")
+            <br />
+            @Html.DisplayFor(b => b.Publisher.Name)
+            <br />
+            <br />
+            @Html.Label("Publisher", "Contact Info:")
+            <br />
+            @Html.DisplayFor(b => b.Publisher.ContactInfo.PhoneNumber)
+            <br />
+            <br />
+        }
+        @Html.Label("Summary", "Summary:")
+        <br />
+        <div class="panel-body">
+            @if (Model.Summary.IsEmpty())
+            {
+                <p>@emptySummaryMsgVar</p>
+            }
+            else
+            {
+                @Html.Display("Summary")
+                <br /><br />
+            }
+        </div>
+        @if (Model.Genres.Count > 0)
+        {
+            @Html.Label("Genres", "Genres:")
+            <br />
+            <ul>
+                @foreach (var genre in Model.Genres)
+                {
+                    <li>@genre.Name</li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Books", method: FormMethod.Get, routeValues:
+new { id = Model.BookId }))
+{
+    <button style="margin-right:5px" class="btn btn-primary col-lg-1" type="submit">Update</button>
+}
+<br>
+@using (Html.BeginForm(actionName: "Delete", controllerName: "Books", method: FormMethod.Post, routeValues:
+new { id = Model.BookId }))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Delete)
+    <button class="btn btn-primary col-lg-1" type="submit">Delete</button>
+}
+
+<br />

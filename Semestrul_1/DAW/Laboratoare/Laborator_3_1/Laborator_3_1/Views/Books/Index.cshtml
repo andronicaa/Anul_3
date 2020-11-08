@@ -1,0 +1,25 @@
+﻿@model List<Laborator_3_1.Models.Book>
+
+
+<h2>Carti</h2>
+@foreach (var item in Model)
+{
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            @Html.Label("Title", "Title: ")
+            <br />
+            <p>@item.Title</p>
+            @Html.Label("Author", "Author: ")
+            <br />
+            <p>@item.Author</p>
+
+            @Html.ActionLink("Detalii", "Detalii", new { id = item.BookId})
+
+        </div>
+    </div>
+}
+
+
+@Html.ActionLink("Adauga carte noua", "New")
+
