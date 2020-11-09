@@ -11,11 +11,16 @@ namespace Laborator_3_1.Models
     public class Book
     {
         public int BookId { get; set; }
-        [MinLength(5, ErrorMessage = "Title cannot be less than 5"), 
-         MaxLength(200, ErrorMessage = "Title cannot be more than 200")]
+
+        
         public string Title { get; set; }
+
+        
         public string Author { get; set; }
+
+        
         public string Summary { get; set; }
+
         // one-to-many
         public int PublisherId { get; set; }
         public virtual Publisher Publisher { get; set; }

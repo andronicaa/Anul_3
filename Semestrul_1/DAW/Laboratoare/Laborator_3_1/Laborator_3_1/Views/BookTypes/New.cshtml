@@ -1,0 +1,21 @@
+﻿@model Laborator_3_1.Models.BookType
+@{
+    ViewBag.Title = "Create a book type";
+}
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm(actionName: "Create", controllerName: "BookTypes", method: FormMethod.Post, routeValues:
+new { id = Model.BookTypeId }))
+{
+    @Html.Label("Name", "Name:")
+    <br />
+    @Html.TextBoxFor(bt => bt.Name, null, new
+    {
+        placeholder = "Type in the book type's name",
+        @class =
+   "form-control"
+    })
+    @Html.ValidationMessageFor(bt => bt.Name, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    <button class="btn btn-primary" type="submit">Create</button>
+}
