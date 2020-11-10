@@ -65,9 +65,9 @@ prel2 = map prelucreaza
             if x `mod` 2 == 0
               then x `div` 2
               else x * 2
+prel3 :: [Integer] -> [Integer]
+prel3 = map (\x -> if x `mod` 2 == 0 then x `div` 2 else x * 2)
 
-
--- prel2 xs = map (\x -> if x `mod` 2 == 0 then x/2 else x*2) xs
 
 -- L3.4.1
 contineElem :: Char -> [String] -> [String]
@@ -79,7 +79,7 @@ oddSquare list = map (^2) (filter odd list)
 
 -- L3.4.3
 -- listaPatrate :: [Integer] -> [Integer]
--- listaPatrate xs = map (^2) (filter(\x -> snd x `mod` 2 == 1) (zip xs [0 .. ]))
+-- listaPatrate xs = (filter(\x -> snd x `mod` 2 == 1) (zip xs [0 .. ]))
 
 -- L3.4.4
 stringList :: [String] -> [String]
@@ -95,7 +95,7 @@ myFilter f (x:xs)
     | otherwise = myFilter f xs
 
 
--- MATERIAL SUPLIMENTAT
+-- MATERIAL SUPLIMENTAR
 -- Ciurul lui Eratostene
 numerePrimeCiur :: Int -> [Int]
 numerePrimeCiur n  = ciurAux [2..n]
