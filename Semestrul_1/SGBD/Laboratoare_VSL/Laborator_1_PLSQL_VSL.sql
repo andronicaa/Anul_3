@@ -95,7 +95,7 @@ end;
 -- 3
 
 declare
-    v_cod_job varchar2(10) := &p_cod_job;
+    v_cod_job varchar2(10) := '&p_cod_job';
     v_result number(20);
 begin
     select sum(salary) into v_result
@@ -104,6 +104,32 @@ begin
     dbms_output.put_line('Suma salariilor este ' || v_result);
 end;
 
+-- 4
+select * from employees where employee_id = 105;
+desc employees;
+declare
+    v_cod_ang employees.employee_id%type := &p_cod_ang;
+    v_salariu employees.salary%type;
+    v_commission_pct employees.commission_pct%type;
+begin
+    select salary into v_salariu
+    from employees
+    where employee_id = v_cod_ang;
+    if v_salariu < 1000 then
+        v_commission_pct := 0.10;
+    elsif v_salariu in (1000, 1500) then
+        v_commission_pct := 0.15;
+    elsif v_salariu > 1500 then
+        v_commission_pct := 0.20;
+    else
+        v_commission_pct := 0;
+    end if;
+    dbms_output.put_line('Comisionul nou este ' || v_commission_pct);
+    update emp_aan
+    set commission_pct = v_commission_pct
+    where employee_id = v_cod_ang;
+end;
+select * from emp_aan where employee_id = 105;
 
 -- 5
 create table org_tab (cod_tab integer,
@@ -155,3 +181,54 @@ end;
 select * from org_tab;
 
 -- 7
+
+create table dept_aan as (select * from departments);
+select * from dept_aan;
+desc dept_aan;
+-- aici puteam sa folosesc si o variabile normala declarata in sectiunea declare???
+variable g_dept_maxim number
+begin
+    select max(department_id) into :g_dept_maxim
+    from dept_aan;
+end;
+/
+print g_dept_maxim
+
+-- 8
+desc dept_aan;
+select * from dept_aan;
+declare
+    v_dept_nou departments.department_id%type := :g_dept_maxim + 10;
+    v_nume_dept departments.department_name%type := '&p_nume_dept';
+begin
+    dbms_output.put_line(v_dept_nou);
+    dbms_output.put_line(v_nume_dept);
+    insert into dept_aan
+    values (v_dept_nou, v_nume_dept , null, null);
+end;
+
+select * from dept_aan;
+
+-- 9
+
+declare
+    v_loc_act departments.location_id%type := &p_loc_act;
+    v_nr_dept departments.department_id%type := &p_nr_dept;
+begin
+    update dept_aan
+    set location_id = v_loc_act
+    where department_id = v_nr_dept;
+end;
+
+select * from dept_aan where department_id = 120;
+
+-- 10
+declare
+    v_linii_del number(10);
+begin
+    delete from dept_aan
+    where department_id = (:g_dept_maxim + 10);
+    v_linii_del := sql%rowcount;
+    dbms_output.put_line('S-au sters ' || v_linii_del);
+end;
+
