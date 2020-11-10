@@ -55,3 +55,25 @@ selectie x s =
 -- flip
 -- map functie lista -> aplica functia pe toate elementele din lista
 -- filter
+
+-- suma patratelor elementelor pozitive
+-- 1. Folosind descrieri de liste si functii de agregare standard
+f :: [Int] -> Int
+f list = sum [x * x | x <- list, x > 0]
+
+-- 2. Folosind functii auxiliare
+f1 :: [Int] -> Int
+f1 xs = foldr (+) 0 (map patrat (filter pos xs))
+  where
+    patrat x = x * x
+    pos x = x > 0
+
+
+-- 3. Folosind functii anonime
+f3 :: [Int] -> Int
+f3 xs = foldr (+) 0 (map (\x -> x * x) (filter(\x -> x > 0) xs))
+
+
+-- 4. Folosind sectiuni si operatorul $
+f4 :: [Int] -> Int
+f4 xs = foldr (+) 0 $ map (^2) $ filter (> 0) xs
