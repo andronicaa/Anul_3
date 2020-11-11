@@ -80,9 +80,39 @@ begin
         v_ang.cod_job || ' are salariul ' || v_ang.salariu);
 end;
 /
+-- 3
+select * from emp_aan;
+alter table emp_aan drop column vechime;
+declare
+    v_ang1 emp_aan%rowtype;
+    v_ang2 emp_aan%rowtype;
+begin
+    -- sterg angajatii ce au codurile 100 si 101
+    -- 100
+    delete from emp_aan
+    where employee_id = 100
+    returning employee_id, first_name, last_name, email, phone_number, hire_date,
+              job_id, salary, commission_pct, manager_id, department_id
+    into v_ang1;
+    -- 101
+    delete from emp_aan
+    where employee_id = 101
+    returning employee_id, first_name, last_name, email, phone_number, hire_date,
+              job_id, salary, commission_pct, manager_id, department_id
+    into v_ang2;
+    
+    -- introducem informatiile sterge in tabel
+    insert into emp_aan
+    values v_ang1;
+    
+    insert into emp_aan
+    values v_ang2;
+    
+    
+end;
 
 -- 4
-set serveroutput on
+
 declare
     type tablou_indexat is table of number index by pls_integer;
     t tablou_indexat;

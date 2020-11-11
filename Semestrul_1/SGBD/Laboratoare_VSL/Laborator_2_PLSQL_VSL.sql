@@ -60,9 +60,49 @@ end;
 rollback;
 
 -- 2
+desc emp_aan;
+declare
+    type t_rec is record (cod_ang emp_aan.employee_id%type,
+                          prenume emp_aan.last_name%type,
+                          nume emp_aan.last_name%type not null := 'Andronic',
+                          email emp_aan.email%type not null := 'alexandra@email.com',
+                          nr_telefon emp_aan.phone_number%type,
+                          data_ang emp_aan.hire_date%type not null := sysdate,
+                          cod_job emp_aan.job_id%type not null := 'SA_REP',
+                          salariu emp_aan.salary%type,
+                          comision emp_aan.commission_pct%type,
+                          cod_manager emp_aan.manager_id%type,
+                          cod_dept emp_aan.department_id%type);
+                          
+    v_my_rec t_rec; 
+begin
+    insert into emp_aan
+    values v_my_rec;
+end;
+select * from emp_aan;
 
-
-
+-- 2.b
+declare
+    type t_rec is record (cod_ang emp_aan.employee_id%type,
+                          prenume emp_aan.last_name%type,
+                          nume emp_aan.last_name%type not null := 'Andronic',
+                          email emp_aan.email%type not null := 'alexandra@email.com',
+                          nr_telefon emp_aan.phone_number%type,
+                          data_ang emp_aan.hire_date%type not null := sysdate,
+                          cod_job emp_aan.job_id%type not null := 'SA_REP',
+                          salariu emp_aan.salary%type,
+                          comision emp_aan.commission_pct%type,
+                          cod_manager emp_aan.manager_id%type,
+                          cod_dept emp_aan.department_id%type);
+                          
+    v_my_rec t_rec; 
+begin
+    v_my_rec.email := 'andronic@fmi.ro';
+    update emp_aan
+    set row = v_my_rec
+    where upper(last_name) = upper(v_my_rec.nume);
+end;
+rollback;
 -- 3
 declare
     -- tablou indexat
@@ -120,12 +160,116 @@ begin
 end;
 
 -- 7
-create type proiect as varray(50) of varchar2(15);
+create or replace type proiect as varray(50) of varchar2(15);
 /
-create table test_aan as (cod_ang number(4),
-                          proiecte_alocate proiect);
+create table test_aan (cod_ang number(4),
+                       proiecte_alocate proiect);
+/
 declare
-    
+    v_proiect proiect := proiect('DAW', 'SGBD', 'PD', 'CP');
 begin
+    insert into test_aan
+    values (100, v_proiect);
+end;
+select * from test_aan;
 
+-- 8
+declare
+    type t_cod_ang is varray(100) of emp_aan.employee_id%type;
+    v_cod_ang t_cod_ang := t_cod_ang();
+begin
+    for e in (select * from emp_aan) loop
+        if e.department_id = 50 and e.salary < 5000 then
+            -- adaug in vector
+            v_cod_ang.extend;
+            v_cod_ang(v_cod_ang.count) := e.employee_id;
+        end if;
+    end loop;
+    
+    -- maresc salariul
+    for i in v_cod_ang.first..v_cod_ang.last loop
+        update emp_aan
+        set salary = salary * 1.1
+        where employee_id = v_cod_ang(i);
+    end loop;
+end;
+rollback;
+-- alta metoda
+declare
+    type t_cod_ang is varray(100) of emp_aan.employee_id%type;
+    v_cod_ang t_cod_ang := t_cod_ang();
+begin
+    for e in (select * from emp_aan) loop
+        if e.department_id = 50 and e.salary < 5000 then
+            -- adaug in vector
+            v_cod_ang.extend;
+            v_cod_ang(v_cod_ang.count) := e.employee_id;
+        end if;
+    end loop;
+    
+    forall i in v_cod_ang.first..v_cod_ang.last
+        update emp_aan
+        set salary = salary * 1.1
+        where employee_id = v_cod_ang(i);
+end;
+
+-- 9
+DECLARE
+    TYPE chartab IS
+        TABLE OF CHAR(1);
+    v_characters   chartab := chartab('M', 'a', 'd', 'a', 'm',
+        ',', ' ', 'I', '''', 'm',
+        ' ', 'A', 'd', 'a', 'm');
+    v_index        INTEGER;
+BEGIN
+    v_index := v_characters.first;
+    WHILE v_index <= v_characters.last LOOP
+        dbms_output.put(v_characters(v_index));
+        v_index := v_characters.next(v_index);
+    END LOOP;
+
+    dbms_output.new_line;
+    v_index := v_characters.last;
+    WHILE v_index >= v_characters.first LOOP
+        dbms_output.put(v_characters(v_index));
+        v_index := v_characters.PRIOR(v_index);
+    END LOOP;
+
+    dbms_output.new_line;
+END;
+
+-- 10
+
+-- 11
+declare
+    type alfa is table of varchar2(50);
+    tab1 alfa;
+    tab2 alfa := alfa();
+begin
+    if tab1 is null then
+        dbms_output.put_line('tab1 este null');
+    else
+        dbms_output.put_line('tab1 este not null');
+    end if;
+    if tab2 is null then
+        dbms_output.put_line('tab2 este null');
+    else
+        dbms_output.put_line('tab2 este not null');
+    end if;
+end;
+
+-- 12
+declare
+    type numar is table of integer;
+    alfa numar;
+begin
+    -- declanseaza exceptia collection is null
+    -- alfa(1) := 77;
+    alfa := numar(15, 26, 37);
+    alfa(1) := ascii('X');
+    alfa(2) := 10 * alfa(1); 
+    -- indicele nu se poate converti la intreg
+    --alfa('P') := 77;
+    -- indicele se refera la un element neinitializat
+    --alfa(4) := 33;
 end;
