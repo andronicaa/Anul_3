@@ -273,3 +273,21 @@ begin
     -- indicele se refera la un element neinitializat
     --alfa(4) := 33;
 end;
+
+-- Exercitii
+-- 13
+create or replace type list_ang as varray(10) of number;
+/
+create table job_emp (cod_job number(3),
+                      titlu_job varchar2(25),
+                      info list_ang);
+declare
+    list1 list_ang := list_ang();
+    list2 list_ang := list_ang();
+    list_tip job_emp.info%type;
+    v_id_job job_emp.cod_job%type;
+    
+begin
+    
+    
+end;
