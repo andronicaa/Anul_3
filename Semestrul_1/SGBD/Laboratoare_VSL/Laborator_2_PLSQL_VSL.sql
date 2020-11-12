@@ -276,18 +276,71 @@ end;
 
 -- Exercitii
 -- 13
+select * from job_emp;
 create or replace type list_ang as varray(10) of number;
 /
 create table job_emp (cod_job number(3),
                       titlu_job varchar2(25),
                       info list_ang);
+commit;
 declare
-    list1 list_ang := list_ang();
-    list2 list_ang := list_ang();
+    list1 list_ang := list_ang(100, 101, 102, 103);
+    list2 list_ang := list_ang(200, 203, 204);
     list_tip job_emp.info%type;
-    v_id_job job_emp.cod_job%type;
-    
+    v_id_job job_emp.cod_job%type; 
 begin
+    insert into job_emp
+    values (10, 'Programator', list1);
+    insert into job_emp
+    values (11, 'Vanzator', null);
+    insert into job_emp
+    values(12, 'Agricultor', list_ang(1000, 2000));
+end;
+
+-- 14
+select sysdate + 1 from dual;
+create or replace type date_tab as table of date;
+create table famous_dates (dates date_tab)
+nested table dates store as dates_tab;
+commit;
+/
+declare
+    v_date_tab date_tab := date_tab(sysdate, sysdate, sysdate);
+begin
+    -- afisam valorile initiale ale tabelului
+    dbms_output.put('Valorile initiale din vector sunt : ');
+    for i in v_date_tab.first..v_date_tab.last loop
+        dbms_output.put(v_date_tab(i) || ' ');
+    end loop;
+    dbms_output.new_line;
+    -- stergem al doilea element din tablou
     
+    v_date_tab.delete(2);
+    dbms_output.put('Valorile din vector dupa ce am sters al doilea element sunt : ');
+    for i in v_date_tab.first..v_date_tab.last loop
+        dbms_output.put(v_date_tab(i) || ' ');
+    end loop;
+    -- inserare tablou in tabel
+--    insert into famous_dates
+--    values (v_date_tab);
     
+end;
+
+select * from famous_dates;
+
+-- 15
+select * from dept_aan;
+create or replace type info_aan is object (cod_ang number(4),
+                                           job_id varchar2(10));
+/
+create or replace type dept_info_aan is table of info_aan;
+/
+alter table dept_aan
+add (info dept_info_aan)
+nested table info store as info_tab;
+/
+declare
+    v_info dept_info_aan := ((100, 'SA_REP'), (101, 'SA_MAN'));
+begin
+    dbms_output.put_line('s-a realizat introducerea');
 end;
