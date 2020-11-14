@@ -339,8 +339,17 @@ alter table dept_aan
 add (info dept_info_aan)
 nested table info store as info_tab;
 /
-declare
-    v_info dept_info_aan := ((100, 'SA_REP'), (101, 'SA_MAN'));
-begin
-    dbms_output.put_line('s-a realizat introducerea');
-end;
+desc dept_aan;
+update dept_aan
+set info = dept_info_aan()
+where department_id = 90;
+select * from dept_aan where department_id = 90;
+insert into table (select info from dept_aan where department_id = 90)
+values (100, 'SA_REP');
+select * from dept_aan;
+select department_id, t.*
+from dept_aan d, table (d.info) t;
+rollback;
+
+
+-- 16
