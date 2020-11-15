@@ -5,7 +5,9 @@ data Fruct
     = Mar String Bool
     | Portocala String Int
       deriving(Show)
-
+-- instance Show Fruct where
+--   show (Mar s b) = "Marul " ++ s ++ (if b then " are vierme " else " nu are vierme ")
+--   show (Portocala s i) = "Portocala " ++ s ++ " are " ++ show i ++ " felii"
 
 ionatanFaraVierme = Mar "Ionatan" False
 goldenCuVierme = Mar "Golden Delicious" True
@@ -23,19 +25,30 @@ test_ePortocalaDeSicilia2 = ePortocalaDeSicilia (Mar "Ionatan" True) == True
 
 -- 1b
 nrFeliiSicilia :: [Fruct] -> Int
+-- varianta 1
+-- nrFeliiSicilia [] = 0
+-- nrFeliiSicilia (Mar _ _ : xs) = nrFeliiSicilia xs
+-- nrFeliiSicilia (Portocala soi felii:xs) =
+--   (if elem soi soiuriSicilia then
+--     felii
+--     else
+--     0) + nrFeliiSicilia xs
+
+-- varianta 2
 nrFeliiSicilia [] = 0
-nrFeliiSicilia (Mar _ _ : xs) = nrFeliiSicilia xs
-nrFeliiSicilia (Portocala soi felii:xs) =
-  (if elem soi soiuriSicilia then
-    felii
-    else
-    0) + nrFeliiSicilia xs
+nrFeliiSicilia(x@(Portocala s i):xs) =
+  (if ePortocalaDeSicilia x then i else 0) + nrFeliiSicilia xs
+nrFeliiSicilia (_:xs) = nrFeliiSicilia xs
 
--- ???
-nrFeliiSicilia1 :: [Fruct] -> Int
-nrFeliiSicilia1 l = sum [felii | (Portocala soi felii) <- l]
+-- varianca 3
+nrFeliiSiciliaComp :: [Fruct] -> Int
+nrFeliiSiciliaComp list = sum[i | x@(Portocala s i) <- list, ePortocalaDeSicilia x]
 
-test_nrFeliiSicilia = nrFeliiSicilia1 listaFructe == 52
+-- varianta 4
+nrFeliiSiciliaHof :: [Fruct] -> Int
+nrFeliiSiciliaHof list = foldr (+) 0 $ map(\(Portocala s i) -> i)(filter ePortocalaDeSicilia list)
+
+-- test_nrFeliiSicilia = nrFeliiSicilia1 listaFructe == 52
 
 --1.c
 nrMereViermi :: [Fruct] -> Int
@@ -73,10 +86,10 @@ p1 :: Prop
 p1 = (Var "P" :|: Var "Q") :&: (Var "P" :&: Var "Q")
 
 p2 :: Prop
-p2 = (Var "P" :|: Var "Q") :&: ((Not (Var "P")) :&: (Not (Var "Q")))
+p2 = (Var "P" :|: Var "Q") :&: (Not (Var "P") :&: Not (Var "Q"))
 
 p3 :: Prop
-p3 = (Var "P" :&: (Var "Q" :|: Var "R")) :&: ( ( ((Not (Var "P")) :|: (Not (Var "Q"))) :&: ((Not (Var "P")) :&: (Not (Var "Q"))) ))
+p3 = (Var "P" :&: (Var "Q" :|: Var "R")) :&: (Not (Var "P") :&: Not (Var "Q")) :&: (Not (Var "P") :&: Not (Var "R"))
 
 instance Show Prop where
     show(Var n) = n
@@ -94,19 +107,41 @@ type Env = [(Nume, Bool)]
 impureLookup :: Eq a => a -> [(a,b)] -> b
 impureLookup a = fromJust . lookup a
 
+-- modeleaza echivalenta de la logica
+echiv :: Bool -> Bool -> Bool
+echiv x y = x == y
+
+-- modeleaza implicatia de la logica
+impl :: Bool -> Bool -> Bool
+impl False _ = True
+impl _ x = x
+
 eval :: Prop -> Env -> Bool
-eval = undefined
+eval (Var x) env = impureLookup x env
+eval T _ = True
+eval F _ = False
+eval (Not p) env = not $ eval p env
+eval (p :|: q) env = eval p env || eval q env
+eval (p :&: q) env = eval p env && eval q env
+
 
 test_eval = eval  (Var "P" :|: Var "Q") [("P", True), ("Q", False)] == True
 
 
 variabile :: Prop -> [Nume]
-variabile = undefined
+variabile (Var p) = [p]
+variabile F = []
+variabile T = []
+variabile (Not p) = nub $ variabile p
+variabile (p :&: q) = nub $ variabile p ++ variabile q
+variabile (p :|: q) = nub $ variabile p ++ variabile q
 
 test_variabile = variabile (Not (Var "P") :&: Var "Q") == ["P", "Q"]
 
 envs :: [Nume] -> [Env]
-envs = undefined
+envs [] = [[]]
+envs (x:xs) = [(x, False) : e | e <- envs xs] ++
+              [(x, True) : e | e <- envs xs]
 
 test_envs =
       envs ["P", "Q"]
@@ -126,7 +161,7 @@ test_envs =
       ]
 
 satisfiabila :: Prop -> Bool
-satisfiabila = undefined
+satisfiabila = or $ map(eval p) $ envs $ variabile p
 
 test_satisfiabila1 = satisfiabila (Not (Var "P") :&: Var "Q") == True
 test_satisfiabila2 = satisfiabila (Not (Var "P") :&: Var "P") == False

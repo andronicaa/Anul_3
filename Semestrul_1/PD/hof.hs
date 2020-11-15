@@ -1,0 +1,1 @@
+-- functii de nivel inalt
