@@ -102,3 +102,11 @@ discount x = x - 0.25 * x
 
 discountComp :: [Float] -> [Float]
 discountComp l = [y | x <- l, let y = discount x, y < 200]
+
+-- suma patratelor elementelor pozitive
+
+f :: [Int] -> Int
+-- f xs = sum [x * x | x <- xs, x > 0]
+
+-- folosind functii auxiliare
+f xs = foldr (+) 0 (map (\x -> x * x) (filter (> 0) xs))

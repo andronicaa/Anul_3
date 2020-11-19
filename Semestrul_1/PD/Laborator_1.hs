@@ -3,8 +3,23 @@ maxim x y =
   if (x > y)
     then x
     else y
+
 maxim3 :: Integer -> Integer -> Integer ->Integer
 maxim3 x y z = maxim x (maxim y z)
+
+maxim3' :: Integer -> Integer -> Integer -> Integer
+maxim3' x y z
+    | x >= y && x >= z = x
+    | y >= x && y >= z = y
+    | otherwise = z
+
+maxim3'' :: Integer -> Integer -> Integer -> Integer
+maxim3'' x y z = let u = (maxim x y) in (maxim u z)
+
+maxim4 :: Integer -> Integer -> Integer -> Integer -> Integer
+maxim4 w x y z = let u = (maxim w x)
+                     v = (maxim y z)
+                  in (maxim u v)
 
 -- 1. Functie cu 2 parametri care calculeaza suma patratelor celor 2 numere
 
