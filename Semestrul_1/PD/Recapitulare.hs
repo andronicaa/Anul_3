@@ -1,5 +1,5 @@
 import Data.Char
-
+import Data.List
 -- Laborator 2
 -- Recursie pe liste
 -- functie care elimina numerele impare si le injumatateste pe cele pare
@@ -341,3 +341,203 @@ rmCharsFold ch x = foldr rmChar x ch
 
 test_rmFold :: Bool
 test_rmFold = rmCharsFold ['a'..'l'] "fotbal" == "ot"
+
+
+-- CURS 5
+myList :: [Either Int String]
+myList = [Left 4, Left 1, Right "hello", Left 2, Right " ", Right "world", Left 17]
+
+-- facem suma intregilor din lista
+addInts :: [Either Int String] -> Int
+addInts [] = 0
+addInts (Left n : xs) = n + addInts xs
+addInts (Right s : xs) = addInts xs
+
+addInts' :: [Either Int String] -> Int
+addInts' list = sum [x | Left x <- list]
+
+-- concatenam stringurile din lista
+addStr :: [Either Int String] -> String
+addStr [] = ""
+addStr (Left x : xs) = addStr xs
+addStr (Right s : xs) = s ++ addStr xs
+
+addStr' :: [Either Int String] -> String
+addStr' list = concat [s | Right s <- list]
+
+-- logica propozitionala
+type Name = String
+data Prop = Var Name
+          | F
+          | T
+          | Not Prop
+          | Prop :|: Prop
+          | Prop :&: Prop
+          deriving (Eq, Ord)
+type Names = [Name]
+-- evaluarea variabilelor
+type Env = [(Name, Bool)]
+
+-- afisarea unei propozitii
+showProp :: Prop -> String
+showProp (Var x) = x
+showProp F = "False"
+showProp T = "True"
+showProp (Not p) = par ("~" ++ showProp p)
+showProp (p :|: q) = par (showProp p ++ "|" ++ showProp q)
+showProp (p :&: q) = par (showProp p ++ "&" ++ showProp q)
+
+par :: String -> String
+par s = "(" ++ s ++ ")"
+
+instance Show Prop where
+  show = showProp
+
+names :: Prop -> Names
+names (Var x) = [x]
+names F = []
+names T = []
+names (Not p) = names p
+names (p :|: q) = nub (names p ++ names q)
+names (p :&: q) = nub (names p ++ names q)
+
+prop :: Prop
+prop = (Var "a" :&: Not(Var "b"))
+
+-- EVALUAREA UNEI propozitii
+lookUp :: Eq a => [(a, b)] -> a -> b
+lookUp env x = head [y | (x', y) <- env, x == x']
+
+eval :: Env -> Prop -> Bool
+eval e (Var x) = lookUp e x
+eval e F = False
+eval e T = True
+eval e (Not p) = not (eval e p)
+eval e (p :|: q) = eval e p || eval e q
+eval e (p :&: q) = eval e q && eval e q
+
+p0 :: Prop
+p0 = (Var "a" :&: Not (Var "a"))
+e0 :: Env
+e0 = [("a", True)]
+
+
+-- GENERAREA TUTUROR EVALUARILOR
+envs :: Names -> [Env]
+envs [] = []
+envs (x:xs) = [(x, False) : e | e <- envs xs] ++
+              [(x, True) : e | e <- envs xs]
+
+
+
+-- Expresii
+data Exp = Lit Int
+          | Add Exp Exp
+          | Mul Exp Exp
+
+showExp :: Exp -> String
+showExp (Lit n) = show n
+showExp (Add e1 e2) = par (showExp e1 ++ "+" ++ showExp e2)
+showExp (Mul e1 e2) = par (showExp e1 ++ "*" ++ showExp e2)
+
+exp1 :: Exp
+exp1 = Add (Lit 2) (Mul (Lit 3) (Lit 3))
+instance Show Exp where
+  show = showExp
+
+-- evaluarea expresiilor
+evalExp :: Exp -> Int
+evalExp (Lit n) = n
+evalExp (Add e1 e2) = evalExp e1 + evalExp e2
+evalExp (Mul e1 e2) = evalExp e1 * evalExp e2
+
+
+-- Laborator 5
+-- 1
+rotate :: Int -> [Char] -> [Char]
+rotate n list = drop n list ++ take n list
+
+-- 3
+makeKey :: Int -> [(Char, Char)]
+makeKey nr = zip alfabet (rotate nr alfabet)
+            where
+              alfabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+-- 4
+lookUp1 :: Char -> [(Char, Char)] -> Char
+lookUp1 ch [] = ch
+lookUp1 ch (x:xs) = if fst x == ch then snd x else lookUp1 ch xs
+
+
+-- 5
+encipher :: Int -> Char -> Char
+encipher nr ch = lookUp1 ch (makeKey nr)
+
+-- 6
+normalize :: String -> String
+normalize "" = ""
+normalize (x:xs) = if x `elem` caractere then toUpper(x) : normalize xs else normalize xs
+                  where
+                    caractere = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
+
+-- 7
+encipherStr :: Int -> String -> String
+encipherStr nr list = [encipher nr ch| ch <- normalize list]
+
+
+
+-- decodarea unui mesaj
+-- 8
+reverseKey :: [(Char, Char)] -> [(Char, Char)]
+reverseKey = map(\(a, b) -> (b, a))
+
+-- 9
+decipher :: Int -> Char -> Char
+decipher nr c = lookUp1 c (reverseKey (makeKey nr))
+
+
+-- 10
+decipherStr :: Int -> String -> String
+decipherStr nr_rot l = [decipher nr_rot ch | ch <- normalize l]
+
+
+
+
+
+-- LABORATOR 6
+data Fruct = Mar String Bool
+            | Portocala String Int
+
+ionatanFaraVierme = Mar "Ionatan" False
+goldenCuVierme = Mar "Golden Delicious" True
+portocalaSicilia10 = Portocala "Sanguinello" 10
+listaFructe = [Mar "Ionatan" False,
+              Portocala "Sanguinello" 10,
+              Portocala "Valencia" 22,
+              Mar "Golden Delicious" True,
+              Portocala "Sanguinello" 15,
+              Portocala "Moro" 12,
+              Portocala "Tarocco" 3,
+              Portocala "Moro" 12,
+              Portocala "Valencia" 2,
+              Mar "Golden Delicious" False,
+              Mar "Golden" False,
+              Mar "Golden" True]
+
+-- 1
+-- a
+portocaleSicilia = ["Tarocco", "Moro", "Sanguinello"]
+ePortocalaDeSicilia :: Fruct -> Bool
+ePortocalaDeSicilia (Mar _ _) = False
+ePortocalaDeSicilia (Portocala soi felii) = if soi `elem` portocaleSicilia then True else False
+
+test_ePortocalaDeSicilia1 = ePortocalaDeSicilia (Portocala "Moro" 12) == True
+
+test_ePortocalaDeSicilia2 = ePortocalaDeSicilia (Mar "Ionatan" True) == False
+
+
+-- b
+nrFeliiSicilia :: [Fruct] -> Int
+nrFeliiSicilia (Portocala _ _) = 0
+nrFeliiSicilia
