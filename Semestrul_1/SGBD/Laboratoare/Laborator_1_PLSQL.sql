@@ -118,11 +118,12 @@ begin
     select salary * 12 into v_salariu_anual
     from employees
     where employee_id = v_cod;
-    case when v_salariu_anual >= 200001
+    case 
+        when v_salariu_anual >= 200001
             then v_bonus := 20000;
-         when v_salariu_anual between 100001 and 200000
+        when v_salariu_anual between 100001 and 200000
             then v_bonus := 10000;
-         else v_bonus := 5000;
+        else v_bonus := 5000;
     end case;
 dbms_output.put_line('Bonusul este ' || v_bonus);
 end;
@@ -131,14 +132,17 @@ end;
 -- 9
 create table emp_aan as select * from employees;
 
-define p_cod_sal = 200
-define p_cod_dep = 80
-define p_procent = 20
+define p_cod_sa
+define p_cod_dep
+define p_procen
 declare 
-    v_cod_sal emp_aan.employee_id%type := &p_cod_sal;
-    v_cod_dept emp_aan.department_id%type := &p_cod_dept;
-    v_procent number(8) := &p_procent;
+    v_cod_sal emp_aan.employee_id%type := &p_cod_sa;
+    v_cod_dept emp_aan.department_id%type := &p_cod_dep;
+    v_procent number(8) := &p_procen;
 begin
+    dbms_output.put_line(v_cod_sal);
+    dbms_output.put_line(v_cod_dept);
+    dbms_output.put_line(v_procent);
     update emp_aan
     set department_id = v_cod_dept, salary = salary + (salary * v_procent / 100)
     where employee_id = v_cod_sal;
