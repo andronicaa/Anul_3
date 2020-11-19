@@ -54,7 +54,7 @@ begin
     end loop;
 end;
 
--- 3
+-- 3 - ciclu cursor
 declare
     cursor c is
         select department_name nume, count(employee_id) nr
@@ -63,6 +63,22 @@ declare
         group by department_name;
 begin
     for i in c loop
+        if i.nr = 0 then
+            dbms_output.put_line('In departamentul ' || i.nume|| ' nu lucreaza angajati');
+        elsif i.nr = 1 then
+            dbms_output.put_line('In departamentul ' || i.nume || ' lucreaza un angajat');
+        else
+            dbms_output.put_line('In departamentul ' || i.nume || ' lucreaza ' || i.nr || ' angajati');
+        end if;
+    end loop;
+end;
+
+-- 4 - ciclu cursor cu subcereri
+begin
+    for i in (select department_name nume, count(employee_id) nr
+              from departments d, employees e
+              where d.department_id = e.department_id(+)
+              group by department_name) loop
         if i.nr = 0 then
             dbms_output.put_line('In departamentul ' || i.nume|| ' nu lucreaza angajati');
         elsif i.nr = 1 then
@@ -89,7 +105,7 @@ begin
     open c;
     loop
         fetch c into v_cod, v_nume, v_nr;
-        exit when c%notfound;
+        exit when c%rowcount > 3 or c%notfound;
         dbms_output.put_line('Managerul ' || v_cod || v_nume || ' conduce ' || 
                              v_nr || ' angajati.');
     end loop;
@@ -149,6 +165,7 @@ END;
 /
 
 -- 8
+-- varianta 1
 declare
     v_x number(4) := &p_x;
     v_nr number(4);
@@ -161,6 +178,7 @@ declare
         group by department_name
         having count(employee_id) >= par;
 begin
+    -- cand deschidem cursorul trebuie sa ii dam si parametrul
     open c(v_x);
     loop
         fetch c into v_nume, v_nr;
@@ -170,6 +188,35 @@ begin
     close c;
 end;
 
+-- varianta 2
+declare
+    v_x number(4) := &p_x;
+    cursor c (par number) is 
+        select department_name nume, count(employee_id) nr
+        from departments d, employees e
+        where d.department_id = e.department_id(+)
+        group by department_name
+        having count(employee_id) >= par;
+begin
+    -- deoarece folosesc ciclu cursor nu mai trebuie sa-l deschid
+    for i in c(v_x) loop
+        dbms_output.put_line('In departamentul ' || i.nume|| ' lucreaza ' || i.nr || ' angajati');
+    end loop;
+end;
+
+-- varianta 3
+declare
+    v_x number(4) := &p_x;
+begin
+    for i in (select department_name nume, count(employee_id) nr
+              from departments d, employees e
+              where d.department_id = e.department_id(+)
+              group by department_name
+              having count(employee_id) >= v_x) loop
+        dbms_output.put_line('In departamentul ' || i.nume|| ' lucreaza ' || i.nr || ' angajati');     
+    end loop;   
+    close c;
+end;
 -- 9
 select last_name, hire_date, salary
 from emp_aan
@@ -190,6 +237,7 @@ begin
 end;
 
 -- 10
+-- varianta 1
 begin
     for v_dept in (select department_id, department_name
                    from departments
@@ -268,3 +316,43 @@ begin
     dbms_output.put_line('Au fost procesate ' || v_emp%rowcount || ' linii.');
     close v_emp;
 end;
+
+
+-- 12
+select * from employees where salary > 10000;
+declare
+    type empref is ref cursor;
+    v_emp empref;
+    v_nr integer := &p_n;
+    v_emp_cod employees.employee_id%type;
+    v_salariu employees.salary%type;
+    v_comision employees.commission_pct%type;
+begin
+    open v_emp for
+        'select employee_id, salary, commission_pct ' ||
+        'from employees where salary > :bind_var'
+        using v_nr;
+    loop
+        fetch v_emp into v_emp_cod, v_salariu, v_comision;   
+        exit when v_emp%notfound;
+        if v_comision is null then
+            dbms_output.put_line('Angajatul cu codul ' || v_emp_cod || ' are salariu ' || v_salariu || ' si nu are comision.');
+        else
+            dbms_output.put_line('Angajatul cu codul ' || v_emp_cod || ' are salariu ' || v_salariu || ' si comisionul de ' || v_comision);
+        end if;
+    end loop;
+    close v_emp;
+end;
+
+
+
+-- Exercitii
+-- pentru fiecare job(titlu) => se afiseaza lista angajatilor (nume si salariu)
+select * from employees;
+select * from jobs;
+-- trebuie sa fac un join intre employees si jobs pentru a lua titlul
+-- dupa care trebuie grupa dupa titlu
+select job_title, last_name, salary
+from employees e, jobs j
+where e.job_id = j.job_id;
+
