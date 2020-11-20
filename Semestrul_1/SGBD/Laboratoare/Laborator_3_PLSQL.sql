@@ -356,3 +356,90 @@ select job_title, last_name, salary
 from employees e, jobs j
 where e.job_id = j.job_id;
 
+declare
+    type refcursor is ref cursor;
+    cursor c is 
+        select job_title,
+            cursor (select last_name, salary
+                    from employees e
+                    where e.job_id = j.job_id)
+        from jobs j;
+    v_cursor refcursor;
+    v_job_nume jobs.job_title%type;
+    v_nume_emp employees.last_name%type;
+    v_salariu employees.salary%type;
+begin
+    open c;
+    loop
+        fetch c into v_job_nume, v_cursor;
+        exit when c%notfound;
+        dbms_output.put_line('-----------------');
+        dbms_output.put_line(v_job_nume);
+        dbms_output.put_line('-----------------');
+        loop
+            fetch v_cursor into v_nume_emp, v_salariu;
+            exit when v_cursor%notfound;
+            dbms_output.put_line(v_nume_emp || ' ' || v_salariu);
+        end loop;
+    end loop;
+
+end;
+
+-- 2
+declare
+    type refcursor is ref cursor;
+    cursor c is 
+        select job_title,
+            cursor (select last_name, salary
+                    from employees e
+                    where e.job_id = j.job_id)
+        from jobs j;
+    v_cursor refcursor;
+    v_job_nume jobs.job_title%type;
+    v_nume_emp employees.last_name%type;
+    v_salariu employees.salary%type;
+    v_index number(3) := 1;
+    v_suma number(20) := 0;
+    v_medie_sal number(20) := 0;
+    v_total_sal number(20) := 0;
+    v_all_medie number(20);
+    v_nr_total_ang number(20) := 0;
+begin
+    open c;
+    loop
+        fetch c into v_job_nume, v_cursor;
+        exit when c%notfound;
+        dbms_output.put_line('-----------------');
+        dbms_output.put_line(v_job_nume);
+        dbms_output.put_line('-----------------');
+        loop
+            fetch v_cursor into v_nume_emp, v_salariu;
+            exit when v_cursor%notfound;
+            dbms_output.put(v_index || '. ');
+            dbms_output.put_line(v_nume_emp || ' ' || v_salariu);
+            v_index := v_index + 1;
+            v_suma := v_suma + v_salariu;
+        end loop;
+        dbms_output.put_line('Salariul lunar pentru toti angajatii: ' || v_suma);
+        v_medie_sal := v_suma / v_index;
+        dbms_output.put_line('Salariul mediu este ' || v_medie_sal);
+        -- numarul total de angajati
+        v_nr_total_ang := v_index + v_nr_total_ang;
+        -- valoarea totala lunara a salariilor
+        v_total_sal := v_total_sal + v_suma;
+        v_suma := 0;
+        v_index := 1;
+    end loop;
+    -- valoarea medie a veniturilor
+    v_all_medie := v_total_sal / v_nr_total_ang;
+    dbms_output.put_line('------------------------------');
+    dbms_output.put_line('Informatiile afisate indiferent de job: ');
+    dbms_output.put_line('Numarul total de angajati este ' || v_nr_total_ang);
+    dbms_output.put_line('Valoarea totala lunara a veniturilor este '|| v_total_sal);
+    dbms_output.put_line('Valoarea medie a veniturilor angajatilor este ' || v_all_medie);
+    
+end;
+
+
+
+-- 3
