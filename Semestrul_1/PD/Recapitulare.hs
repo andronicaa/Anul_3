@@ -204,7 +204,7 @@ phone (Person _ _ _ _ phone) = phone
 
 
 
--- Date personale ca inregistrari
+-- Date personale ca inregistrari (record syntax)
 data Persoana = Persoana { prenume :: String,
                            nume :: String,
                            varsta :: Int,
@@ -212,6 +212,7 @@ data Persoana = Persoana { prenume :: String,
                            telefon :: String
 }
 
+-- prin sintaxa de acest tip haskell face automat functii din campurile inregistrarii
 
 gigel = Persoana "Gigel" "Ionescu" 20 175.3 "0740159113"
 
@@ -274,19 +275,6 @@ natToInt (Succ n) = 1 + natToInt n
 cinci = Succ (Succ (Succ (Succ (Succ Zero))))
 patru = Succ (Succ (Succ (Succ Zero)))
 zero = Zero
-
-
--- LISTE
-data List a = Nil
-            | a ::: List a
-            deriving (Show)
-infixr 5 :::
-
-(++++) :: List a -> List a -> List a
-infixr 5 ++++
-Nil ++++ ys = ys
-(x ::: xs) ++++ ys = x ::: (xs ++++ ys)
-
 
 
 -- Laborator 4
@@ -539,5 +527,148 @@ test_ePortocalaDeSicilia2 = ePortocalaDeSicilia (Mar "Ionatan" True) == False
 
 -- b
 nrFeliiSicilia :: [Fruct] -> Int
-nrFeliiSicilia (Portocala _ _) = 0
-nrFeliiSicilia
+nrFeliiSicilia [] = 0
+nrFeliiSicilia (x@(Portocala s f):xs) = (if ePortocalaDeSicilia x then f else 0) + nrFeliiSicilia xs
+nrFeliiSicilia (_:xs) = nrFeliiSicilia xs
+
+
+test_nrFeliiSicilia = nrFeliiSicilia listaFructe == 52
+
+nrFeliiSiciliaComp :: [Fruct] -> Int
+nrFeliiSiciliaComp list = sum[f | x@(Portocala s f ) <- list, ePortocalaDeSicilia x]
+
+nrFeliiSiciliaHof :: [Fruct] -> Int
+nrFeliiSiciliaHof list = foldr (+) 0 (map(\(Portocala s i) -> i)(filter ePortocalaDeSicilia list))
+-- c
+nrMereViermi :: [Fruct] -> Int
+nrMereViermi list = sum[1 | (Mar s v) <- list, v /= False]
+
+
+-- Exercitiul 2
+type NumeA = String
+type Rasa = String
+data Animal = Pisica NumeA | Caine NumeA Rasa
+
+vorbeste :: Animal -> String
+vorbeste (Pisica _) = "Miau"
+vorbeste (Caine _ _) = "Ham"
+
+
+pisica = Pisica "Mona"
+caine = Caine "Bisu" "Bichon"
+
+-- b
+rasa :: Animal -> Maybe String
+rasa (Pisica _) = Nothing
+rasa (Caine n r) = Just r
+
+
+
+-- ALTE EXEMPLE
+-- adaugam derivare automata a functiei show
+-- data Shape = Circle Float Float Float | Rectangle Float Float Float Float
+--             deriving (Show)
+
+-- surface :: Shape -> Float
+-- surface (Circle _ _ r) = pi * r ^ 2
+-- surface (Rectangle x1 y1 x2 y2) = (abs(x2 - x1)) * (abs(y2 - y1))
+
+-- nu are instanta a functiei show
+data Point1 = Point1 Float Float deriving(Show)
+data Shape = Circle Point1 Float | Rectangle Point1 Point1 deriving(Show)
+
+surface :: Shape -> Float
+surface (Circle _ r) = pi * r ^ 2
+surface (Rectangle (Point1 x1 y1) (Point1 x2 y2)) = (abs(x2 - x1)) * (abs(y2 - y1))
+
+nudge :: Shape -> Float -> Float -> Shape
+nudge (Circle (Point1 x y) r) a b = Circle (Point1 (x + a) (y + a)) r
+nudge (Rectangle (Point1 x1 y1) (Point1 x2 y2)) a b = Rectangle (Point1 (x1 + a) (y1 + b)) (Point1 (x2 + a) (y2 + b))
+
+
+
+-- TYPE PARAMETERS
+-- You might not know it, but we used a type that has a type parameter before we used Maybe. That type is the list type. Although there's some syntactic sugar in play, the list type takes a parameter to produce a concrete type. Values can have an [Int] type, a [Char] type, a [[String]] type, but you can't have a value that just has a type of [].
+data Car = Car { company :: String,
+                 model :: String,
+                 year :: Int} deriving (Show)
+
+tellCar :: Car -> String
+tellCar (Car {company = c, model = m, year = y}) = "This " ++ c ++ " " ++ m ++ " was made in " ++ show y
+
+
+
+data Vector a = Vector a a a deriving (Show)
+
+vplus :: (Num t) => Vector t -> Vector t -> Vector t
+(Vector i j k) `vplus` (Vector l m n) = Vector (i+l) (j+m) (k+n)
+
+vectMult :: (Num t) => Vector t -> t -> Vector t
+(Vector i j k) `vectMult` m = Vector (i*m) (j*m) (k*m)
+
+scalarMult :: (Num t) => Vector t -> Vector t -> t
+(Vector i j k) `scalarMult` (Vector l m n) = i*l + j*m + k*n
+
+-- data Bool = False | True deriving(Ord)
+-- deoarece constructorul de date False este specificat primul
+-- si True dupa el => True is GT False
+
+
+-- a value or Nothing is always smaller than a value of Just smt
+-- daca comparam 2 Just => se va compara ce este in interiorul lor
+
+data Day = Luni | Marti | Miercuri | Joi | Vineri | Sambata | Duminica
+          deriving(Eq, Ord, Show, Read, Bounded, Enum)
+
+
+-- data List a = Empty | Cons {listHead :: a, listTail :: List a} deriving(Show, Read, Eq, Ord)
+infixr 5 :-:
+data List a = Empty | a :-: (List a) deriving (Show, Read, Eq, Ord)
+
+-- ne definim o noua concatenare pe 2 liste
+infixr 5 .++
+(.++) :: List a -> List a -> List a
+Empty .++ ys = ys
+(x :-: xs) .++ ys = x :-: (xs .++ ys)
+
+
+
+--  ARBORI
+data Tree a = EmptyTree | Node a (Tree a) (Tree a) deriving (Show, Read, Eq)
+
+singleton :: a -> Tree a
+singleton x = Node x EmptyTree EmptyTree
+
+treeInsert :: (Ord a) => a -> Tree a -> Tree a
+treeInsert x EmptyTree = singleton x
+treeInsert x (Node a left right)
+    | x == a = Node x left right
+    | x < a = Node a (treeInsert x left) right
+    | x > a = Node a left (treeInsert x right)
+
+
+-- verificam daca exista un element intr-un arbore
+treeElem :: (Ord a) => a -> Tree a -> Bool
+treeElem x EmptyTree = False
+treeElem x (Node a left right)
+    | x == a = True
+    | x < a = treeElem x left
+    | x > a = treeElem x right
+
+
+----------------------------------------------------
+-- Because == was defined in terms of /= and vice versa in the class declaration, we only had to overwrite one of them in the instance declaration. That's called the minimal complete definition for the typeclass — the minimum of functions that we have to implement so that our type can behave like the class advertises. To fulfill the minimal complete definition for Eq, we have to overwrite either one of == or /=. If Eq was defined simply like this:
+data TrafficLight = Red | Yellow | Green
+
+instance Eq TrafficLight where
+  Red == Red = True
+  Green == Green = True
+  Yellow == Yellow = True
+  _ == _ = False
+
+
+
+instance Show TrafficLight where
+  show Red = "Red light"
+  show Yellow = "Yellow light"
+  show Green = "Green light"
