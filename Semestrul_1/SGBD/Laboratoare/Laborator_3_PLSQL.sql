@@ -392,7 +392,8 @@ declare
         select job_title,
             cursor (select last_name, salary
                     from employees e
-                    where e.job_id = j.job_id)
+                    where e.job_id = j.job_id
+                    order by salary desc)
         from jobs j;
     v_cursor refcursor;
     v_job_nume jobs.job_title%type;
@@ -442,4 +443,96 @@ end;
 
 
 
--- 3
+-- 3 ?? nu inteleg bine cerinta
+
+
+
+-- 4
+declare
+    type refcursor is ref cursor;
+    cursor c is 
+        select job_title,
+            cursor (select last_name, salary
+                    from employees e
+                    where e.job_id = j.job_id
+                    order by salary desc)
+        from jobs j;
+    v_cursor refcursor;
+    v_job_nume jobs.job_title%type;
+    v_nume_emp employees.last_name%type;
+    v_salariu employees.salary%type;
+    v_index number(3) := 1;
+begin
+    open c;
+    loop
+        fetch c into v_job_nume, v_cursor;
+        exit when c%notfound;
+        dbms_output.put_line('-----------------');
+        dbms_output.put_line(v_job_nume);
+        dbms_output.put_line('-----------------');
+        loop
+            fetch v_cursor into v_nume_emp, v_salariu;
+            exit when v_cursor%rowcount > 5 or v_cursor%notfound;
+            dbms_output.put(v_index || '. ');
+            dbms_output.put_line(v_nume_emp || ' ' || v_salariu);
+            v_index := v_index + 1;
+        end loop;
+        if v_index < 5 then
+            dbms_output.put_line('Acest job are mai putin de 5 angajati');
+        end if;
+        v_index := 1;
+    end loop;
+end;
+
+
+-- 5
+declare
+    type refcursor is ref cursor;
+    cursor c is 
+        select job_title,
+            cursor (select last_name, salary
+                    from employees e
+                    where e.job_id = j.job_id
+                    order by salary desc)
+        from jobs j;
+    v_cursor refcursor;
+    v_job_nume jobs.job_title%type;
+    v_nume_emp employees.last_name%type;
+    v_salariu employees.salary%type;
+    v_salariu_ant employees.salary%type;
+    v_index number(3) := 1;
+    top number(2) := 1;
+begin
+    open c;
+    loop
+        fetch c into v_job_nume, v_cursor;
+        exit when c%notfound;
+        dbms_output.put_line('-----------------');
+        dbms_output.put_line(v_job_nume);
+        dbms_output.put_line('-----------------');
+        fetch v_cursor into v_nume_emp, v_salariu;
+        v_salariu_ant := v_salariu;
+        dbms_output.put(v_index || '. ');
+        dbms_output.put_line(v_nume_emp || ' ' || v_salariu);
+        v_index := v_index + 1;
+        loop
+            fetch v_cursor into v_nume_emp, v_salariu;
+            exit when top >= 5 or v_cursor%notfound;
+            if v_salariu_ant <> v_salariu then 
+                top := top + 1;
+                v_salariu_ant := v_salariu;
+            end if;
+            dbms_output.put(v_index || '. ');
+            dbms_output.put_line(v_nume_emp || ' ' || v_salariu);
+            
+            v_index := v_index + 1;
+        end loop;
+        top := 1;
+        if v_index < 5 then
+            dbms_output.put_line('Acest job are mai putin de 5 angajati');
+        end if;
+        v_index := 1;
+    end loop;
+end;
+
+
