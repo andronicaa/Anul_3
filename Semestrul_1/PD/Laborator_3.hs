@@ -78,8 +78,8 @@ oddSquare :: [Integer] -> [Integer]
 oddSquare list = map (^2) (filter odd list)
 
 -- L3.4.3
--- listaPatrate :: [Integer] -> [Integer]
--- listaPatrate xs = (filter(\x -> snd x `mod` 2 == 1) (zip xs [0 .. ]))
+listaPatrate :: [Integer] -> [Integer]
+listaPatrate xs = map (\x -> (fst x) ^ 2) (filter(\x -> snd x `mod` 2 == 1) (zip xs [0 .. ]))
 
 -- L3.4.4
 stringList :: [String] -> [String]

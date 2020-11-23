@@ -215,7 +215,11 @@ data Persoana = Persoana { prenume :: String,
 -- prin sintaxa de acest tip haskell face automat functii din campurile inregistrarii
 
 gigel = Persoana "Gigel" "Ionescu" 20 175.3 "0740159113"
-
+ninel = Persoana {prenume = "Nini",
+                  nume = "Ninini",
+                  varsta = 30,
+                  inaltime = 2.00,
+                  telefon = "n-are"}
 
 -- proiectiile sunt definite automat
 -- exista sintaxa speciala pentru actualizari
@@ -362,12 +366,15 @@ data Prop = Var Name
           | Prop :|: Prop
           | Prop :&: Prop
           deriving (Eq, Ord)
+
+-- un vector de stringuri
 type Names = [Name]
 -- evaluarea variabilelor
 type Env = [(Name, Bool)]
 
 -- afisarea unei propozitii
 showProp :: Prop -> String
+-- x este deja de tip string => nu trebuie sa mai punem in fata show
 showProp (Var x) = x
 showProp F = "False"
 showProp T = "True"
@@ -424,6 +431,7 @@ data Exp = Lit Int
           | Mul Exp Exp
 
 showExp :: Exp -> String
+-- n este de tip int => trebuie sa punem show
 showExp (Lit n) = show n
 showExp (Add e1 e2) = par (showExp e1 ++ "+" ++ showExp e2)
 showExp (Mul e1 e2) = par (showExp e1 ++ "*" ++ showExp e2)
@@ -631,6 +639,7 @@ infixr 5 .++
 Empty .++ ys = ys
 (x :-: xs) .++ ys = x :-: (xs .++ ys)
 
+list1 = 2 :-:(3 :-: Empty)
 
 
 --  ARBORI

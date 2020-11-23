@@ -8,6 +8,8 @@ infixr 5 +++
 Nil +++ ys = ys
 (x ::: xs) +++ ys = x ::: (xs +++ ys)
 
+list1 = 2 :::(3 ::: Nil)
+list2 = 2 :::(3 ::: Nil)
 -- egalitatea a doua liste
 eqList :: Eq a => List a -> List a -> Bool
 eqList Nil Nil = True
@@ -106,3 +108,36 @@ instance Collection SearchTree where
       where
         prelc k (Just v) = [(k, v)]
         prelc _ _ = []
+
+
+
+-- definirea functiei elem
+elem1 x ys = foldr (||) False (map (== x ) ys)
+
+type PunctX = Integer
+type PunctY = Integer
+data Point = Point PunctX PunctY
+
+instance Show Point where
+  show = showPunct
+showPunct :: Point -> String
+showPunct (Point p1 p2) = "Punctul are coordonatele " ++ show p1 ++ " si " ++ show p2
+point1 = Point 1 2
+
+
+
+-- tipul maybe
+power :: Maybe Int -> Int -> Int
+power Nothing n = 2 ^ n
+power (Just m) n = m ^ n
+
+
+-- folosirea unui rezultat optional
+divide :: Int -> Int -> Maybe Int
+divide n 0 = Nothing
+divide n m = Just(n `div` m)
+
+right :: Int -> Int -> Int
+right n m = case divide n m of
+                  Nothing -> 3
+                  Just r -> r + 3
