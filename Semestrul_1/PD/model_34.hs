@@ -1,11 +1,4 @@
---functie care elimina duplicatele consecutive din sir
--- recursivitate si functii din categoria A
-elimDuplicate :: String -> String
-elimDuplicate "" = ""
-elimDuplicate [x] = [x]
-elimDuplicate (x:y:xs)
-    | x == y = elimDuplicate (x:xs)
-    | otherwise = x : elimDuplicate (y : xs)
+
 
 
 -- pentru doua liste date calculeaza suma produselor de forma
