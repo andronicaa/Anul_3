@@ -281,5 +281,106 @@ where salary >= medie_aan;
 
 -- Exercitii
 -- 1
-select USER
-from dual;
+create table info_and (utilizator varchar2(30),
+                       timp date,
+                       comanda varchar2(10),
+                       nr_linii number,
+                       eroare varchar2(1000));
+commit;
+-- 2
+create or replace function getSalary (v_nume employees.last_name%type default 'Bell')
+    return number is
+        v_salary employees.salary%type;
+    begin
+        select salary into v_salary
+        from employees
+        where last_name = v_nume;
+    
+    
+    -- daca nu s-a aruncat nicio exceptie se ajunge aici
+    -- inseram datele in tabel
+    insert into info_and
+    values (user, sysdate, 'getSalary', 0, null);
+    commit;
+    return v_salary;
+    exception
+        when no_data_found then
+            insert into info_and 
+            values (user, sysdate, 'getSalary', 0, 'Nu exista angajatul cu numele dat');
+            commit;
+            raise_application_error(-20000, 'Nu exista angajati cu numele dat');
+        when too_many_rows then
+            insert into info_and 
+            values (user, sysdate, 'getSalary', 0, 'Exista mai multi angajati cu numele dat');
+            commit;
+            raise_application_error(-20001, 'Exista mai multi angajati cu numele dat');
+        when others then
+            insert into info_and 
+            values (user, sysdate, 'getSalary', 0, 'Alta eroare');
+            commit;
+            raise_application_error(-20002, 'alta eroare');
+    
+    
+end getSalary;
+
+-- apelam functia dintr-un bloc plsq
+-- ma folosesc de parametrul default
+begin
+    dbms_output.put_line('Salariul este ' || getSalary);
+end;
+select * from info_and;
+
+-- 3
+select * from job_history;
+select * from employees where employee_id = 101;
+select *
+from departments d, locations l
+where d.location_id(+) = l.location_id;
+select count(count(*))
+from job_history jh, employees e, departments dp, locations l
+where e.department_id = dp.department_id and dp.location_id = l.location_id and jh.employee_id = e.employee_id
+    and city = 'Roma'
+group by jh.employee_id
+having count(*) >= 2;
+
+select city
+from locations 
+where location_id = 1700 or location_id = 2500;
+create or replace function getEmp (v_city locations.city%type)
+    return number is
+        nr_ang number;
+    begin
+        nr_ang := 0;
+        select count(count(*)) into nr_ang
+        from job_history jh, employees e, departments dp, locations l
+        where e.department_id = dp.department_id and dp.location_id = l.location_id and jh.employee_id = e.employee_id
+            and upper(city) = upper(v_city) 
+        group by jh.employee_id
+        having count(*) >= 2;
+        return nr_ang;
+    exception
+        when no_data_found then
+            dbms_output.put_line('Acel oras nu exista.');
+        
+end getEmp;
+
+-- apelare
+begin
+    
+    dbms_output.put_line('Numarul de angajati din orasul respectiv este ' || getEmp('Roma'));
+end;
+
+-- 4
+create or replace procedure ex4 (cod_manager employees.manager_id%type) is
+    -- fac o colectie in care sa adaug toti angajatii
+    type tablou is table of employees.employee_id%type;
+    t_emp tablou;
+    begin
+        select employee_id bulk collect into t_emp
+        from employees
+        start with employee_id = cod_manager
+        connect by manager_id = prior employee_id;
+end ex4;
+
+
+-- 5
