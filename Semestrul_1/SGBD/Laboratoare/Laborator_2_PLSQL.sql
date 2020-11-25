@@ -250,6 +250,11 @@ begin
     dbms_output.new_line;
     
     -- afisare inversa
+    dbms_output.put_line('Afisare cu for reverse ');
+    for i in reverse t.first..t.last loop
+        dbms_output.put(t(i));
+    end loop;
+    dbms_output.new_line;
     i := t.last;
     while i >= t.first loop
         dbms_output.put(t(i));
