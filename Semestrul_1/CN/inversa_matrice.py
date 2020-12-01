@@ -50,8 +50,7 @@ def gauss_pivotare_totala(U, b):
 
     A = np.copy(U)
     U = U[0:, 0:n]
-
-    
+    # print(U)
     Inv = np.zeros((n, n))
     for i in range(n):
         # trebuie sa rezolv fiecare sistem in parte
@@ -61,18 +60,18 @@ def gauss_pivotare_totala(U, b):
         print(b)
         print("Matricea U este")
         print(U)
-        if rezolvSistem(U, b) != -1:
-            y = rezolvSistem(U, b)
+        print(type(rezolvSistem(U, b)))
+        y = rezolvSistem(U, b)
+        if isinstance(y, int):
+            return "Matricea nu este inversabila"
         else:
-            return "Matricea nu este inversabile"
-        
-        print(y)
-        for j in range(n):
-            x[index[j]] = y[j]
-        print(x)
-        for l in range(n):
-            Inv[l][i] = x[l]
-        
+            for j in range(n):
+                x[index[j]] = y[j]
+            print(x)
+            for l in range(n):
+                Inv[l][i] = x[l]
+
+
     
     return Inv
 
@@ -99,11 +98,12 @@ def rezolvSistem(U, b):
 
 if __name__ == "__main__":
     eps = 10e-20
-    U = np.array([[1., 2.], [4., 9.]])
+    # U = np.array([[1., 2.], [4., 9.]])
     
     
     # U = np.array([[0., 1., 2., 8],[1., 0., 1., 4.], [3., 2., 1., 10.]])
     # U = np.array([[1., 2., 3.], [-1., 0., -1.], [3., 4., 7.]])
+    U = np.array([[0., 9., -7., -3.], [-1., -5., 9., -4.], [-1., -8., 8., 9.], [-7., 6., 1., 3.]])
     n = U.shape[0]
     b = np.identity(n)
     print(gauss_pivotare_totala(U, b))
