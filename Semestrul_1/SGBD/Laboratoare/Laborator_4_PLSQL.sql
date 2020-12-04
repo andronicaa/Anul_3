@@ -346,6 +346,9 @@ having count(*) >= 2;
 select city
 from locations 
 where location_id = 1700 or location_id = 2500;
+
+
+
 create or replace function getEmp (v_city locations.city%type)
     return number is
         nr_ang number;
@@ -384,3 +387,124 @@ end ex4;
 
 
 -- 5
+
+SET SERVEROUTPUT ON
+
+DECLARE
+    CURSOR c IS
+    SELECT
+        department_id,
+        department_name
+    FROM
+        departments;
+
+    PROCEDURE p6 (
+        dep# IN employees.department_id%TYPE
+    ) AS
+
+        v_dep_exist    NUMBER := 0;
+        v_nume         VARCHAR2(52);
+        v_zi           VARCHAR2(12);
+        v_vechime      VARCHAR2(3);
+        v_venit        NUMBER(12) := 0;
+        TYPE tablou_angajati IS
+            TABLE OF employees.employee_id%TYPE;
+        angajati       tablou_angajati;
+        v_zi_afisata   BOOLEAN := false;
+    BEGIN
+        SELECT
+            COUNT(*)
+        INTO v_dep_exist
+        FROM
+            employees
+        WHERE
+            department_id = dep#;
+
+        IF v_dep_exist = 0 THEN
+            dbms_output.put_line('In acest departemnt nu lucreaza angajati!');
+        ELSE
+            SELECT
+                employee_id
+            BULK COLLECT
+            INTO angajati
+            FROM
+                employees e
+            WHERE
+                e.department_id = dep#
+                AND to_char(e.hire_date, 'DAY') = (
+                    SELECT
+                        MAX(to_char(hire_date, 'DAY'))
+                    FROM
+                        employees
+                    WHERE
+                        department_id = dep#
+                    HAVING
+                        COUNT(employee_id) = (
+                            SELECT
+                                MAX(COUNT(employee_id))
+                            FROM
+                                employees
+                            WHERE
+                                department_id = dep#
+                            GROUP BY
+                                to_char(hire_date, 'DAY')
+                        )
+                );
+
+            IF angajati.count = 0 THEN
+                dbms_output.put_line('Nu a fost angajat intr-o zi a saptamanii niciun angajat');
+            ELSE
+                FOR i IN angajati.first..angajati.last LOOP
+                    SELECT
+                        nvl(first_name, '')
+                        || ' '
+                        || last_name,
+                        to_char(hire_date, 'DAY'),
+                        EXTRACT(YEAR FROM sysdate) - EXTRACT(YEAR FROM hire_date),
+                        nvl(salary, 0) + nvl(commission_pct, 0) * nvl(salary, 0)
+                    INTO
+                        v_nume,
+                        v_zi,
+                        v_vechime,
+                        v_venit
+                    FROM
+                        employees
+                    WHERE
+                        employee_id = angajati(i);
+
+                    IF v_zi_afisata = false THEN
+                        dbms_output.put_line('Ziua din saptamana in care au fost angajati cei mai multi salariati este ' || v_zi)
+                        ;
+                        v_zi_afisata := true;
+                    END IF;
+
+                    dbms_output.put_line('Angajatul '
+                                         || v_nume
+                                         || ' are o vechime de '
+                                         || v_vechime
+                                         || ' de ani '
+                                         || ' si un venit de '
+                                         || v_venit);
+
+                END LOOP;
+            END IF;
+
+        END IF;
+
+    END p6;
+
+BEGIN
+    FOR i IN c LOOP
+        dbms_output.put_line('---------------------------------------------------------------------------');
+        dbms_output.put_line(i.department_name);
+        dbms_output.put_line('---------------------------------------------------------------------------');
+        p6(i.department_id);
+        dbms_output.new_line;
+    END LOOP;
+END;
+/
+
+
+
+
+
