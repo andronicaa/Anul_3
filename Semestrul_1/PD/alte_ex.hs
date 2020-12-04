@@ -138,8 +138,8 @@ functSwap (MyP a b) = MyP b a
 
 
 --  AICI TREBUIE SA PUNEM NEAPARAT TIPUL??
-funcFilter ::Pereche Int Char -> Bool
-funcFilter (MyP a b) = (a `mod` 2 == 0) && (b `elem` "aeiouAEIOU")
+funcFilter :: (Eq a, Ord a, Eq b, Ord b) => Pereche a b -> Bool
+funcFilter (MyP x y) = (x `mod` 2 == 0) && (y `elem` "aeiouAEIOU")
 
 instance MyMapping ListaP where
   mymap functSwap (MyL list) = MyL[functSwap el | el <- list]

@@ -3,12 +3,17 @@ import numpy as np
 def gauss_pivotare_partiala(U):
     n = U.shape[0]
     for k in range(0, n-1):
+        # sa adaug si cazul in care sistemul nu este compatibil => adica nu se gaseste un element nenul pe coloana respectiva
+        # se alege primul element nenul de pe fiecare coloana
+        # se interschimba
         p = np.argmax(abs(U[k:,k])) + k
         aux = np.array(U[k])
         U[k] = np.array(U[p])
         U[p] = np.array(aux)
         for l in range(k+1, n):
             U[l] = U[l] - (U[l][k] / U[k][k]) * U[k]
+        
+    # daca ultimul element de pe ultima linie si ultima coloana este zero => sistemul este incompatibil
     
     b = np.array([[0.], [0.]])
     for i in range(n):
