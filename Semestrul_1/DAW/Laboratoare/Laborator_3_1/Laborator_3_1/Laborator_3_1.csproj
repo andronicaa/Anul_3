@@ -139,6 +139,7 @@
     <Compile Include="Models\BookType.cs" />
     <Compile Include="Models\ContactInfo.cs" />
     <Compile Include="Models\Genre.cs" />
+    <Compile Include="Models\MyValidation\PrimeNumberValidation.cs" />
     <Compile Include="Models\Publisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

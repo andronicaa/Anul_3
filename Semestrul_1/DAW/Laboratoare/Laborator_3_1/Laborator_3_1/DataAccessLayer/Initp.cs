@@ -11,8 +11,8 @@ namespace Laborator_3_1.DataAccessLayer
     {
         protected override void Seed(MyDbCtx ctx)
         {
-            BookType tipOne = new BookType { BookTypeId = 60, Name = "HardCover" };
-            BookType tipTwo = new BookType { BookTypeId = 61, Name = "Paperback" };
+            BookType tipOne = new BookType { BookTypeId = 6, Name = "HardCover" };
+            BookType tipTwo = new BookType { BookTypeId = 7, Name = "Paperback" };
 
             // trebuie sa adaug cele doua tipuri in baza de date
             ctx.BookTypes.Add(tipOne);

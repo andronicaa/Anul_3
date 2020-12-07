@@ -23,6 +23,10 @@
         <br />
         @Html.DisplayFor(b => b.Author)
         <br />
+        @Html.Label("NoOfPages", "Number of pages: ")
+        <br />
+        @Html.DisplayFor(b => b.NoOfPages)
+        <br />
         <br />
         @if (Model.Publisher != null)
         {
@@ -67,7 +71,7 @@
 @using (Html.BeginForm(actionName: "Edit", controllerName: "Books", method: FormMethod.Get, routeValues:
 new { id = Model.BookId }))
 {
-    <button style="margin-right:5px" class="btn btn-primary col-lg-1" type="submit">Update</button>
+    <button style="margin-right:5px" class="btn btn-primary col-lg-1" type="submit">Edit</button>
 }
 <br>
 @using (Html.BeginForm(actionName: "Delete", controllerName: "Books", method: FormMethod.Post, routeValues:

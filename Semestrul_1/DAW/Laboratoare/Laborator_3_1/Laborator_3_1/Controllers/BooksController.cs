@@ -9,15 +9,16 @@ using System.Web.Mvc;
 
 namespace Laborator_3_1.Controllers
 {
-    // pentru a se accesa in mod concret baza de date din controller
-    // vom introduce un obiect privat din clasa context
+    
     [RoutePrefix("books")]
     public class BooksController : Controller
-    {
+    {   // pentru a se accesa in mod concret baza de date din controller
+        // vom introduce un obiect privat din clasa context
         private MyDbCtx ctx = new MyDbCtx();
         // GET: Books
         public ActionResult Index()
         {
+            // salveaza toate cartile din baza de date intr-o lista
             List<Book> books = ctx.Books.ToList();
             return View(books);
 
@@ -29,11 +30,14 @@ namespace Laborator_3_1.Controllers
             Book book = ctx.Books.Find(id);
             return View(book);
         }
+
+
         [Route("detalii/{id?}")]
         public ActionResult Detalii(int? id)
         {
             if (id.HasValue)
             {
+                // cautam cartea cu id-ul dat in baza de date
                 Book book = ctx.Books.Find(id);
                 if (book != null)
                 {
@@ -53,6 +57,9 @@ namespace Laborator_3_1.Controllers
             book.Genres = new List<Genre>();
             return View(book);
         }
+
+        // se adauga acest atribut pentru ca metoda sa fie accesata
+        // doar prin metoda post, nu direct din browser
 
         [HttpPost]
         public ActionResult Create(Book b)
@@ -129,11 +136,12 @@ namespace Laborator_3_1.Controllers
                         book.Title = bookRequest.Title;
                         book.Author = bookRequest.Author;
                         book.Summary = bookRequest.Summary;
+                        book.NoOfPages = bookRequest.NoOfPages;
                         ctx.SaveChanges();
                     }
                     return RedirectToAction($"Detalii/{bookRequest.BookId}", "Books");
                 }
-                return View(bookRequest);
+                return View("Edit", bookRequest);
             }
             catch (Exception e)
             {

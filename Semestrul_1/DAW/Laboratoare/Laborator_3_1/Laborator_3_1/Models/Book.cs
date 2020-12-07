@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Laborator_3_1.Models.MyValidation;
 
 namespace Laborator_3_1.Models
 {
@@ -20,12 +21,20 @@ namespace Laborator_3_1.Models
 
         
         public string Summary { get; set; }
+        
+
+
+        [PrimeNumberValidation]
+        public int NoOfPages { get; set; }
 
         // one-to-many
+        // o editura publica mai multe carti(lista de Books in clasa Publisher)
         public int PublisherId { get; set; }
+
         public virtual Publisher Publisher { get; set; }
         
         // many-to-many
+
         public virtual ICollection<Genre> Genres { get; set; }
 
         // one-to-many - o carte are un singur tip

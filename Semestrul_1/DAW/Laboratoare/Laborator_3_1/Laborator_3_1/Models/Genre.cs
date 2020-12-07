@@ -11,7 +11,7 @@ namespace Laborator_3_1.Models
         public int GenreId { get; set; }
         
         public string Name { get; set; }
-        // many-to-many
+        // many-to-many -> se va face un tabel asociativ intre cele 2 clase
         public virtual ICollection<Book> books { get; set; }
     }
 }
