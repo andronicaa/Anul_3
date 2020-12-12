@@ -155,7 +155,7 @@ where grade_level = 7;
 
 
 -- 4
-create table info_dept_aan (cod_dept number,
+create table info_dept_aan (cod_dept number pri,
                             nume_dept varchar2(20),
                             plati number);
                             
@@ -192,6 +192,99 @@ begin
 end;
 
 select * from info_dept_aan where cod_dept = 90;
+drop table info_dept_aan;
+
+-- 5
+drop table info_dept_aan;
+drop table info_emp_aan;
+create table info_dept_aan
+(id number(3) primary key,
+nume_dept varchar(50),
+plati number);
+
+
+create table info_emp_aan
+(id number(3) primary key,
+nume varchar(50),
+prenume varchar(50),
+salariu number(6),
+id_dept number(3) references info_dept_aan);
+
+desc info_emp_aan;
+desc info_dept_aan;
+insert into info_emp_aan
+select employee_id, last_name, first_name, salary, department_id
+from  employees;
+
+CREATE OR REPLACE VIEW v_info_mng AS
+  SELECT e.id, e.nume, e.prenume, e.salariu, e.id_dept, 
+         d.nume_dept, d.plati 
+  FROM   info_emp_mng e, info_dept_mng d
+  WHERE  e.id_dept = d.id;
+
+SELECT *
+FROM   user_updatable_columns
+WHERE  table_name = UPPER('v_info_mng');
+
+CREATE OR REPLACE TRIGGER trig5_mng
+    INSTEAD OF INSERT OR DELETE OR UPDATE ON v_info_mng
+    FOR EACH ROW
+BEGIN
+IF INSERTING THEN 
+    -- inserarea in vizualizare determina inserarea 
+    -- in info_emp_mng si reactualizarea in info_dept_mng
+    -- se presupune ca departamentul exista
+   INSERT INTO info_emp_mng 
+   VALUES (:NEW.id, :NEW.nume, :NEW.prenume, :NEW.salariu,
+           :NEW.id_dept);
+     
+   UPDATE info_dept_mng
+   SET    plati = plati + :NEW.salariu
+   WHERE  id = :NEW.id_dept;
+
+ELSIF DELETING THEN
+   -- stergerea unui salariat din vizualizare determina
+   -- stergerea din info_emp_mng si reactualizarea in
+   -- info_dept_mng
+   DELETE FROM info_emp_mng
+   WHERE  id = :OLD.id;
+     
+   UPDATE info_dept_mng
+   SET    plati = plati - :OLD.salariu
+   WHERE  id = :OLD.id_dept;
+
+ELSIF UPDATING ('salariu') THEN
+   /* modificarea unui salariu din vizualizare determina 
+      modificarea salariului in info_emp_mng si reactualizarea
+      in info_dept_mng    */
+    	
+   UPDATE  info_emp_mng
+   SET     salariu = :NEW.salariu
+   WHERE   id = :OLD.id;
+    	
+   UPDATE info_dept_mng
+   SET    plati = plati - :OLD.salariu + :NEW.salariu
+   WHERE  id = :OLD.id_dept;
+
+ELSIF UPDATING ('id_dept') THEN
+    /* modificarea unui cod de departament din vizualizare
+       determina modificarea codului in info_emp_mng 
+       si reactualizarea in info_dept_mng  */  
+    UPDATE info_emp_mng
+    SET    id_dept = :NEW.id_dept
+    WHERE  id = :OLD.id;
+    
+    UPDATE info_dept_mng
+    SET    plati = plati - :OLD.salariu
+    WHERE  id = :OLD.id_dept;
+    	
+    UPDATE info_dept_mng
+    SET    plati = plati + :NEW.salariu
+    WHERE  id = :NEW.id_dept;
+  END IF;
+END;
+/
+
 
 
 -- EXERCITII
@@ -210,15 +303,17 @@ END;
 select * from info_dept_aan;
 alter table info_dept_aan
 add (numar number);
-select * from employees;
-select department_id, count(*)
-from employees
-where department_id =100
-group by department_id;
 
+begin
+    for i in (select id
+              from info_dept_aan) loop
+        update info_dept_aan
+        set numar = (select count(*)
+                     from employees
+                     where department_id = i.id
+                     group by department_id)
+        where id = i.id;
+    end loop;
+end;
 
-update info_dept_aan
-set numar = (select count(*)
-             from emp_aan e, dept_aan d
-             where d.department_id = e.department_id
-             group by d.department_id);
+select * from info_dept_aan;
