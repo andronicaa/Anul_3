@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 
 namespace Agenda.Models
 {
-    public class Task
+    public class DailyTask
     {
         public int TaskId { get; set; }
         public string  Sarcina{ get; set; }
         public string Prioritate { get; set; }
-        public DateTime Deadline { get; set; }
-        public DateTime TimeStamp { get; set; }
+        public string Deadline { get; set; }
     }
 }
