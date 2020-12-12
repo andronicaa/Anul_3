@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Agenda.DataAccessLayer
 {
-    interface IDailyTaskRepo
+    public interface IDailyTaskRepo
     {
         // lista cu toate task-urile
         IEnumerable<DailyTask> GetAllTasks();

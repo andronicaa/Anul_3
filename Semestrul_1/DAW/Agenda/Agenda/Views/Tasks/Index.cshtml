@@ -1,0 +1,15 @@
+﻿@model List<Agenda.Models.DailyTask>
+
+<h2>Task-urile pentru astazi sunt</h2>
+
+@foreach (var item in Model)
+{
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>@item.DailyTaskId</p>
+            <p>@item.Sarcina</p>
+            <p>@item.Prioritate</p>
+        </div>
+    </div>
+}
+

@@ -7,7 +7,7 @@ namespace Agenda.Models
 {
     public class DailyTask
     {
-        public int TaskId { get; set; }
+        public int DailyTaskId { get; set; }
         public string  Sarcina{ get; set; }
         public string Prioritate { get; set; }
         public string Deadline { get; set; }

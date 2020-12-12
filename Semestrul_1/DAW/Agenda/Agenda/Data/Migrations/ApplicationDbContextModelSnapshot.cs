@@ -19,6 +19,27 @@ namespace Agenda.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
 
+            modelBuilder.Entity("Agenda.Models.DailyTask", b =>
+                {
+                    b.Property<int>("DailyTaskId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Deadline")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Prioritate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sarcina")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DailyTaskId");
+
+                    b.ToTable("DailyTasks");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")

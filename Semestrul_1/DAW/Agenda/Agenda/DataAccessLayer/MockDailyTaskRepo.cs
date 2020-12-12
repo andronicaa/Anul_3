@@ -12,9 +12,9 @@ namespace Agenda.DataAccessLayer
         {
             var tasks = new List<DailyTask>
             {
-                new DailyTask{TaskId = 0, Sarcina = "Tema la matematica", Prioritate = "Medie", Deadline = "13-12-2020"},
-                new DailyTask{TaskId = 1, Sarcina = "Tema la romana", Prioritate = "Medie", Deadline = "13-12-2020"},
-                new DailyTask{TaskId = 2, Sarcina = "Tema la engleza", Prioritate = "Medie", Deadline = "13-12-2020"}
+                new DailyTask{DailyTaskId = 0, Sarcina = "Tema la matematica", Prioritate = "Medie", Deadline = "13-12-2020"},
+                new DailyTask{DailyTaskId = 1, Sarcina = "Tema la romana", Prioritate = "Medie", Deadline = "13-12-2020"},
+                new DailyTask{DailyTaskId = 2, Sarcina = "Tema la engleza", Prioritate = "Medie", Deadline = "13-12-2020"}
             };
             return tasks;
         }
