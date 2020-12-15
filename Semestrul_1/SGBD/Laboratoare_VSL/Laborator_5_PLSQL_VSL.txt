@@ -1,0 +1,98 @@
+-- 3
+create table emp_job_aan (cod_job varchar2(20),
+                          sal number);
+insert into emp_job_aan
+values ('SA_MAN', 50000);
+insert into emp_job_aan
+values ('AD_PRES', 20000);
+rollback;
+select * from emp_job_aan;
+create or replace trigger sal_trig
+    before insert or update of sal on emp_job_aan
+    for each row
+begin
+    if :new.cod_job not in ('AD_PRES', 'AD_VP') and :new.sal > 15000 then
+        raise_application_error(-20002, 'Angajatul nu poate avea acest salariu');
+    end if;
+end;
+
+drop trigger sal_trig;
+drop trigger check_sal_aan;
+drop trigger sal_trig;
+drop trigger trig3_aan;
+drop trigger trig4_aan;
+
+-- 5
+select * from emp_aan
+where job_id = 'SA_REP';
+
+create or replace trigger trig5
+    before insert or update of salary on emp_aan
+    for each row 
+    when (new.job_id = 'SA_REP')
+begin
+    if inserting then
+        :new.commission_pct := 0;
+    elsif :old.commission_pct is null then
+        :new.commission_pct := 0;
+    else
+        :new.commission_pct := :old.commission_pct * (:new.salary / :old.salary);
+    end if;
+end;
+
+
+-- 7
+create table copie_emp_aan as select * from emp_aan;
+create or replace trigger check_sal_aan
+    before insert or update of salary, job_id on emp_aan
+    for each row
+    when (new.job_id <> 'AD_PRES')
+declare
+    v_min employees.salary%type;
+    v_max employees.salary%type;
+begin
+    -- determinam valorile pentru v_min, v_max
+    select min(salary), max(salary) into v_min, v_max
+    from copie_emp_aan
+    where job_id = :new.job_id;
+    if :new.salary < v_min or :new.salary > v_max then
+        raise_application_error(-20505, 'Valorile se afla in afara domeniului');
+    end if;
+end;
+
+select * from emp_aan;
+update emp_aan
+set salary = 3500
+where last_name = 'Stiles';
+
+select job_id 
+from emp_aan
+where last_name = 'Stiles';
+
+-- 8
+select * from dept_aan;
+alter table dept_aan
+add (total_sal number);
+
+update dept_aan
+set total_sal = (select sum(salary)
+                 from emp_aan
+                 where emp_aan.department_id = dept_aan.department_id);
+
+-- trigger care permite actualizarea automata a acestui camp
+
+-- 11
+-- daca este eliminat un departament => va sterge toti angajatii care lucreaza in departamentul resp
+create or replace trigger dep_cascada_aan
+before delete or update of department_id on dept_aan
+for each row
+begin
+    if deleting then
+        delete from dept_aan
+        where department_id = :old.department_id;
+    end if;
+end;
+select * from emp_aan where department_id = 10;
+update dept_aan
+set department_id = 12
+where department_id = 10;
