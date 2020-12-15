@@ -1,0 +1,25 @@
+﻿@model Agenda.Models.DailyTask
+
+<h1>NewTask</h1>
+
+@using (Html.BeginForm(actionName: "CreateTask", controllerName: "Tasks", method: FormMethod.Post))
+{
+    @Html.Label("TitluTask", "Titlu task: ")
+    <br />
+    @Html.TextBoxFor(b => b.TitluTask, null, new { placeholder = "Descriere activitate", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.TitluTask, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    @Html.Label("Prioritate", "Prioritate:")
+    <br />
+    @Html.TextBoxFor(b => b.Prioritate, null, new { placeholder = "Prioritatea activitatii", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Prioritate, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    @Html.Label("Deadline", "Deadline:")
+    <br />
+    @Html.TextBoxFor(b => b.Deadline, null, new { placeholder = "Termen limita", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Deadline, "", new { @class = "text-danger" })
+    <br />
+    <button class="btn btn-primary" type="submit">Adauga Task</button>
+}

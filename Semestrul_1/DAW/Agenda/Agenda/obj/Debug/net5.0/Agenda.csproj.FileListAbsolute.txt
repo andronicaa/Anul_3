@@ -157,3 +157,5 @@ C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Agenda\Agenda\bin\Debug\net5.0\
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Agenda\Agenda\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Agenda\Agenda\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Agenda\Agenda\obj\Debug\net5.0\Razor\Views\Tasks\Index.cshtml.g.cs
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Agenda\Agenda\obj\Debug\net5.0\Razor\Views\Tasks\NewTask.cshtml.g.cs
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Agenda\Agenda\obj\Debug\net5.0\Razor\Views\Tasks\Edit.cshtml.g.cs

@@ -32,7 +32,7 @@ namespace Agenda.Data.Migrations
                     b.Property<string>("Prioritate")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Sarcina")
+                    b.Property<string>("TitluTask")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DailyTaskId");
