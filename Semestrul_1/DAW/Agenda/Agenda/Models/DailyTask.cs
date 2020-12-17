@@ -10,7 +10,14 @@ namespace Agenda.Models
 
         public int DailyTaskId { get; set; }
         public string  TitluTask{ get; set; }
-        public string Prioritate { get; set; }
+        public Priority Prioritate { get; set; }
         public string Deadline { get; set; }
+    }
+    public enum Priority
+    {
+        Mica, 
+        Medie,
+        Mare
+
     }
 }

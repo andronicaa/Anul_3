@@ -59,8 +59,8 @@ namespace Agenda.Data.Migrations
                     b.Property<string>("Deadline")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Prioritate")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Prioritate")
+                        .HasColumnType("int");
 
                     b.Property<string>("TitluTask")
                         .HasColumnType("nvarchar(max)");
@@ -95,7 +95,7 @@ namespace Agenda.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("ShoppingListType")
+                    b.Property<string>("Titlu")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ShoppingListId");
