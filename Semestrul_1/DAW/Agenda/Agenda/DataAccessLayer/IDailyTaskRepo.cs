@@ -16,6 +16,7 @@ namespace Agenda.DataAccessLayer
         void CreateDailyTask(DailyTask tsk);
         void UpdateDailyTask(DailyTask tsk);
         void DeleteDailyTask(DailyTask tsk);
+
          
     }
 }

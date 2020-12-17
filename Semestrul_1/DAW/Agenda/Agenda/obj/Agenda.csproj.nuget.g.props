@@ -20,6 +20,8 @@
     <Import Project="$(NuGetPackageRoot)microsoft.aspnetcore.identity.ui\5.0.1\buildTransitive\Microsoft.AspNetCore.Identity.UI.props" Condition="Exists('$(NuGetPackageRoot)microsoft.aspnetcore.identity.ui\5.0.1\buildTransitive\Microsoft.AspNetCore.Identity.UI.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgT4Scaffolding Condition=" '$(PkgT4Scaffolding)' == '' ">C:\Users\Personal\.nuget\packages\t4scaffolding\0.8.0</PkgT4Scaffolding>
+    <PkgMvcScaffolding Condition=" '$(PkgMvcScaffolding)' == '' ">C:\Users\Personal\.nuget\packages\mvcscaffolding\0.8.0</PkgMvcScaffolding>
     <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">C:\Users\Personal\.nuget\packages\microsoft.codeanalysis.analyzers\3.0.0</PkgMicrosoft_CodeAnalysis_Analyzers>
     <PkgMicrosoft_EntityFrameworkCore_Tools Condition=" '$(PkgMicrosoft_EntityFrameworkCore_Tools)' == '' ">C:\Users\Personal\.nuget\packages\microsoft.entityframeworkcore.tools\5.0.1</PkgMicrosoft_EntityFrameworkCore_Tools>
   </PropertyGroup>

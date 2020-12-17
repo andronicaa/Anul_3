@@ -1,5 +1,6 @@
 ﻿using Agenda.DataAccessLayer;
 using Agenda.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Agenda.Controllers
 {
-    
+    [AllowAnonymous]
     public class TasksController : Controller
     {
         private readonly IDailyTaskRepo _repository;
@@ -23,15 +24,7 @@ namespace Agenda.Controllers
             var taskItems = _repository.GetAllTasks();
             return View(taskItems);
         }
-
        
-        /*public ActionResult FindTaskById(int id)
-        {
-            var taskItem = _repository.GetTaskById(id);
-            
-                return View(taskItem);
-         
-        }*/
 
         public ActionResult NewTask()
         {

@@ -1,0 +1,40 @@
+﻿@model List<Agenda.Models.Person>
+
+
+<h2>Persoanele sunt</h2>
+<table class="table table-hover">
+    <thead>
+    <th scope="col">Nume</th>
+    <th scope="col">Prenume</th>
+    <th schope="col">Update</th>
+    <th scope="col">Delete Person</th>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Nume</td>
+            <td>@item.Prenume</td>
+
+            <td>
+                @using (Html.BeginForm(actionName: "EditPerson", controllerName: "PersonContactViewModels", method: FormMethod.Get, routeValues: new { id = item.PersonId }))
+                {
+                    <button class="btn btn-primary" type="submit"><i class="fas fa-edit"></i> &nbsp; Update profile</button>
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm(actionName: "DeletePerson", controllerName: "PersonContactViewModels", method: FormMethod.Post, routeValues: new { id = item.PersonId }))
+                {
+
+                    <button class="btn btn-success" type="submit"><i class="fas fa-check"></i>&nbsp;Delete profile</button>
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+<br />
+<br />
+@using (Html.BeginForm(actionName: "NewPerson", controllerName: "PersonContactViewModels", method: FormMethod.Get))
+{
+    <button class="btn btn-primary" type="submit"><i class="fas fa-plus"></i> &nbsp;Adauga profil</button>
+}

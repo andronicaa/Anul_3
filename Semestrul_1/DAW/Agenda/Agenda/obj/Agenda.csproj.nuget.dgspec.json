@@ -56,6 +56,10 @@
               "target": "Package",
               "version": "[5.0.1, )"
             },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[5.0.1, )"
+            },
             "Microsoft.EntityFrameworkCore.Tools": {
               "target": "Package",
               "version": "[5.0.1, )"
@@ -63,6 +67,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[5.0.1, )"
+            },
+            "MvcScaffolding": {
+              "target": "Package",
+              "version": "[0.8.0, )"
             }
           },
           "imports": [

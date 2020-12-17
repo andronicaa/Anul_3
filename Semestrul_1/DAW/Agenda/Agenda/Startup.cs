@@ -38,6 +38,8 @@ namespace Agenda
             services.AddControllersWithViews();
             // services.AddScoped<IDailyTaskRepo, MockDailyTaskRepo>();
             services.AddScoped<IDailyTaskRepo, SqlDailyTaskRepo>();
+            services.AddScoped<IPersonRepo, SqlPersonRepo>();
+            services.AddScoped<IContactInfoRepo, SqlContactInfoRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

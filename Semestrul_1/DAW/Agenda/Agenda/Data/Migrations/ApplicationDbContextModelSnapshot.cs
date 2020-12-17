@@ -19,6 +19,36 @@ namespace Agenda.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
 
+            modelBuilder.Entity("Agenda.Models.ContactInfo", b =>
+                {
+                    b.Property<int>("ContactInfoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Adresa")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CodPostal")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NrTelefon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PersonRef")
+                        .HasColumnType("int");
+
+                    b.HasKey("ContactInfoId");
+
+                    b.HasIndex("PersonRef")
+                        .IsUnique();
+
+                    b.ToTable("ContactInfos");
+                });
+
             modelBuilder.Entity("Agenda.Models.DailyTask", b =>
                 {
                     b.Property<int>("DailyTaskId")
@@ -38,6 +68,39 @@ namespace Agenda.Data.Migrations
                     b.HasKey("DailyTaskId");
 
                     b.ToTable("DailyTasks");
+                });
+
+            modelBuilder.Entity("Agenda.Models.Person", b =>
+                {
+                    b.Property<int>("PersonId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Nume")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Prenume")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PersonId");
+
+                    b.ToTable("Persons");
+                });
+
+            modelBuilder.Entity("Agenda.Models.ShoppingList", b =>
+                {
+                    b.Property<int>("ShoppingListId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("ShoppingListType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ShoppingListId");
+
+                    b.ToTable("ShoppingList");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -240,6 +303,17 @@ namespace Agenda.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Agenda.Models.ContactInfo", b =>
+                {
+                    b.HasOne("Agenda.Models.Person", "Person")
+                        .WithOne("ContactInfo")
+                        .HasForeignKey("Agenda.Models.ContactInfo", "PersonRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Person");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -288,6 +362,12 @@ namespace Agenda.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Agenda.Models.Person", b =>
+                {
+                    b.Navigation("ContactInfo")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

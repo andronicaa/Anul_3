@@ -7,6 +7,8 @@ namespace Agenda.Models
 {
     public class ShoppingList
     {
+        public int ShoppingListId { get; set; }
+        public string ShoppingListType { get; set; }
 
     }
 }
