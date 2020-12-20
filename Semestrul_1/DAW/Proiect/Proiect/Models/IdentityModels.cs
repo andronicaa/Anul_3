@@ -26,6 +26,7 @@ namespace Proiect.Models
         {
         }
 
+       
         public DbSet<Person> Persons { get; set; }
         public DbSet<ContactInfo> ContactInfos { get; set; }
         public DbSet<DailyTask> DailyTasks { get; set; }
