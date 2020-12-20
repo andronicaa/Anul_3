@@ -1,0 +1,22 @@
+﻿@model Agenda.Models.DailyTask
+
+
+<h1>DetaliiTask</h1>
+<p>@Model.TitluTask</p>
+<p>Prioritate: @Model.Prioritate</p>
+<p>Deadline: @Model.Deadline</p>
+<p>Detalii: @Model.Detalii</p>
+<span>
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Tasks", method: FormMethod.Get, routeValues: new { id = Model.DailyTaskId }))
+{
+    <button class="btn btn-danger" type="submit"><i class="fas fa-edit"></i> &nbsp; Update task</button>
+}
+
+<br />
+<br />
+
+@using (Html.BeginForm(actionName: "DeleteTask", controllerName: "Tasks", method: FormMethod.Post, routeValues: new { id = Model.DailyTaskId }))
+{
+    <button class="btn btn-success" type="submit"><i class="fas fa-check"></i> &nbsp; Delete task</button>
+}
+</span>

@@ -1438,6 +1438,19 @@
           "lib/netstandard2.0/System.Configuration.ConfigurationManager.dll": {}
         }
       },
+      "System.Console/4.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.2",
+          "System.IO": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Text.Encoding": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard1.3/System.Console.dll": {}
+        }
+      },
       "System.Diagnostics.Debug/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -4891,6 +4904,44 @@
         "version.txt"
       ]
     },
+    "System.Console/4.3.1": {
+      "sha512": "6iKDG36vugpW230eBGMLL6GQIx+Buf5txz6DFC1c4MOH8qcOo2mFzId6GsJUTptR4AusnDsdUeCYuzDiftD39w==",
+      "type": "package",
+      "path": "system.console/4.3.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net46/System.Console.dll",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net46/System.Console.dll",
+        "ref/netstandard1.3/System.Console.dll",
+        "ref/netstandard1.3/System.Console.xml",
+        "ref/netstandard1.3/de/System.Console.xml",
+        "ref/netstandard1.3/es/System.Console.xml",
+        "ref/netstandard1.3/fr/System.Console.xml",
+        "ref/netstandard1.3/it/System.Console.xml",
+        "ref/netstandard1.3/ja/System.Console.xml",
+        "ref/netstandard1.3/ko/System.Console.xml",
+        "ref/netstandard1.3/ru/System.Console.xml",
+        "ref/netstandard1.3/zh-hans/System.Console.xml",
+        "ref/netstandard1.3/zh-hant/System.Console.xml",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "system.console.4.3.1.nupkg.sha512",
+        "system.console.nuspec"
+      ]
+    },
     "System.Diagnostics.Debug/4.3.0": {
       "sha512": "ZUhUOdqmaG5Jk3Xdb8xi5kIyQYAA4PnTNlHx1mu9ZY3qv4ELIdKbnL/akbGaKi2RnNUWaZsAs31rvzFdewTj2g==",
       "type": "package",
@@ -7922,7 +7973,8 @@
       "Microsoft.EntityFrameworkCore.Sqlite >= 5.0.1",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.1",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 5.0.1",
-      "MvcScaffolding >= 0.8.0"
+      "MvcScaffolding >= 0.8.0",
+      "System.Console >= 4.3.1"
     ]
   },
   "packageFolders": {
@@ -7995,6 +8047,10 @@
           "MvcScaffolding": {
             "target": "Package",
             "version": "[0.8.0, )"
+          },
+          "System.Console": {
+            "target": "Package",
+            "version": "[4.3.1, )"
           }
         },
         "imports": [

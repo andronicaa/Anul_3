@@ -8,6 +8,7 @@ namespace Agenda.ViewModels
 {
     public class PersonContactViewModel
     {
+
         public Person Person { get; set; }
         public ContactInfo ContactInfo { get; set; }
     }

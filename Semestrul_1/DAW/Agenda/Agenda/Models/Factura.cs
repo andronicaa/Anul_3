@@ -12,5 +12,7 @@ namespace Agenda.Models
         public string DataEmitere { get; set; }
         public string DataScadenta { get; set; }
         public string Status { get; set; }
+
+
     }
 }

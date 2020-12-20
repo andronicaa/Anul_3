@@ -224,3 +224,6 @@ C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Agenda\Agenda\obj\Debug\net5.0\
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Agenda\Agenda\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\ResetPasswordConfirmation.cshtml.g.cs
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Agenda\Agenda\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\_StatusMessage.cshtml.g.cs
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Agenda\Agenda\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Error.cshtml.g.cs
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Agenda\Agenda\obj\Debug\net5.0\Razor\Views\Tasks\DetaliiTask.cshtml.g.cs
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Agenda\Agenda\obj\Debug\net5.0\Razor\Views\Tasks\_DetaliiPartial.cshtml.g.cs
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Agenda\Agenda\obj\Debug\net5.0\Razor\Views\ShoppingLists\Detalii.cshtml.g.cs

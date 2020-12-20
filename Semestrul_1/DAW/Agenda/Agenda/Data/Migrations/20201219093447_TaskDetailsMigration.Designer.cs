@@ -4,14 +4,16 @@ using Agenda.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Agenda.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201219093447_TaskDetailsMigration")]
+    partial class TaskDetailsMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,27 +103,6 @@ namespace Agenda.Data.Migrations
                     b.ToTable("Persons");
                 });
 
-            modelBuilder.Entity("Agenda.Models.Product", b =>
-                {
-                    b.Property<int>("ProductId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Cantitate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Denumire")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Descriere")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ProductId");
-
-                    b.ToTable("Products");
-                });
-
             modelBuilder.Entity("Agenda.Models.ShoppingList", b =>
                 {
                     b.Property<int>("ShoppingListId")
@@ -130,13 +111,11 @@ namespace Agenda.Data.Migrations
                         .UseIdentityColumn();
 
                     b.Property<string>("Titlu")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ShoppingListId");
 
-                    b.ToTable("ShoppingLists");
+                    b.ToTable("ShoppingList");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -339,21 +318,6 @@ namespace Agenda.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ProductShoppingList", b =>
-                {
-                    b.Property<int>("ProductsProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ShoppingListsShoppingListId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductsProductId", "ShoppingListsShoppingListId");
-
-                    b.HasIndex("ShoppingListsShoppingListId");
-
-                    b.ToTable("ProductShoppingList");
-                });
-
             modelBuilder.Entity("Agenda.Models.ContactInfo", b =>
                 {
                     b.HasOne("Agenda.Models.Person", "Person")
@@ -412,21 +376,6 @@ namespace Agenda.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ProductShoppingList", b =>
-                {
-                    b.HasOne("Agenda.Models.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Agenda.Models.ShoppingList", null)
-                        .WithMany()
-                        .HasForeignKey("ShoppingListsShoppingListId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

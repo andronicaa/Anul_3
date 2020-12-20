@@ -25,7 +25,20 @@ namespace Agenda.Controllers
             return View(taskItems);
         }
        
-
+        public ActionResult DetaliiTask(int? id)
+        {
+            if (id.HasValue)
+            {
+                // il cautam in baza de date
+                DailyTask task = _repository.GetTaskById((int)id);
+                if (task != null)
+                {
+                    return View(task);
+                }
+                return NotFound();
+            }
+            return NotFound();
+        }
         public ActionResult NewTask()
         {
             DailyTask tsk = new DailyTask();
@@ -43,10 +56,10 @@ namespace Agenda.Controllers
                     _repository.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                return View(tsk);
+                return View("NewTask", tsk);
             } catch(Exception e)
             {
-                return View(tsk);
+                return View("NewTask", tsk);
             }
         }
 
@@ -78,14 +91,15 @@ namespace Agenda.Controllers
                     tsk.TitluTask = taskReq.TitluTask;
                     tsk.Prioritate = taskReq.Prioritate;
                     tsk.Deadline = taskReq.Deadline;
+                    tsk.Detalii = taskReq.Detalii;
                     _repository.UpdateDailyTask(tsk);
                     _repository.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                return View(taskReq);
+                return View("Edit", taskReq);
             } catch (Exception e)
             {
-                return View(taskReq);
+                return View("Edit", taskReq);
             }
            
         }

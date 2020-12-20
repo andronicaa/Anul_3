@@ -40,7 +40,10 @@ namespace Agenda
             services.AddScoped<IDailyTaskRepo, SqlDailyTaskRepo>();
             services.AddScoped<IPersonRepo, SqlPersonRepo>();
             services.AddScoped<IContactInfoRepo, SqlContactInfoRepo>();
+            services.AddScoped<IShoppingListRepo, SqlShoppingListRepo>();
+            services.AddScoped<IProductRepo, SqlProductRepo>();
 
+            // pentru autentificare
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

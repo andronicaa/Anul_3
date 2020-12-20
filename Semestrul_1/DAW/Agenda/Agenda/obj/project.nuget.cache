@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Ol4wb1ozCyXeJeM7jgTqtdF2ChUj7jVtnepPJ/lPa7fd12UrHT2OS9h5e/BbmXEu3OYtFHxzHR+mcFhW0SmRJA==",
+  "dgSpecHash": "4wy4paJ9WeaVzR3HrUWSzm1AJ5wGvFaTNFzRUnkyz5Uz1NaWgDf4xCn6bfe9aDVSS7w5b4ZGFXEUNI7+Rc2B0g==",
   "success": true,
   "projectFilePath": "C:\\Users\\Personal\\Desktop\\Anul_3\\Semestrul_1\\DAW\\Agenda\\Agenda\\Agenda.csproj",
   "expectedPackageFiles": [
@@ -91,6 +91,7 @@
     "C:\\Users\\Personal\\.nuget\\packages\\system.composition.runtime\\1.0.31\\system.composition.runtime.1.0.31.nupkg.sha512",
     "C:\\Users\\Personal\\.nuget\\packages\\system.composition.typedparts\\1.0.31\\system.composition.typedparts.1.0.31.nupkg.sha512",
     "C:\\Users\\Personal\\.nuget\\packages\\system.configuration.configurationmanager\\4.7.0\\system.configuration.configurationmanager.4.7.0.nupkg.sha512",
+    "C:\\Users\\Personal\\.nuget\\packages\\system.console\\4.3.1\\system.console.4.3.1.nupkg.sha512",
     "C:\\Users\\Personal\\.nuget\\packages\\system.diagnostics.debug\\4.3.0\\system.diagnostics.debug.4.3.0.nupkg.sha512",
     "C:\\Users\\Personal\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.0\\system.diagnostics.diagnosticsource.5.0.0.nupkg.sha512",
     "C:\\Users\\Personal\\.nuget\\packages\\system.diagnostics.tools\\4.3.0\\system.diagnostics.tools.4.3.0.nupkg.sha512",

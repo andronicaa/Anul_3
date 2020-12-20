@@ -1,41 +1,31 @@
 ﻿@model List<Agenda.Models.DailyTask>
 
 <h2>Task-urile pentru astazi sunt</h2>
-<table class="table table-hover">
-    <thead>
-        <th scope="col">Titlu</th>
-        <th scope="col">Prioritate</th>
-        <th scope="col">Deadline</th>
-        <th schope="col">Update</th>
-        <th scope="col">Done</th>
-    </thead>
-@foreach (var item in Model)
-{
-<tr>
-    <td>@item.TitluTask</td>
-    <td>@item.Prioritate</td>
-    <td>@item.Deadline</td>
-    <td>
-        @using (Html.BeginForm(actionName: "Edit", controllerName: "Tasks", method: FormMethod.Get, routeValues: new { id = item.DailyTaskId }))
-        {
-            <button class="btn btn-primary" type="submit"><i class="fas fa-edit"></i> &nbsp; Update task</button>
-        }
-    </td>
-    <td>
-        @using (Html.BeginForm(actionName: "DeleteTask", controllerName: "Tasks", method: FormMethod.Post, routeValues: new { id = item.DailyTaskId }))
-        {
-            
-        <button class="btn btn-success" type="submit"><i class="fas fa-check"></i>&nbsp;Done</button>
-        }
-    </td>
-</tr>
-}
-</table>
-
-<br />
-<br />
 @using(Html.BeginForm(actionName: "NewTask", controllerName: "Tasks", method: FormMethod.Post))
 {
 <button class="btn btn-primary" type="submit"><i class="fas fa-plus"></i> &nbsp;Adauga task nou</button>
 }
 
+<br />
+<br />
+<div class="d-flex flex-row flex-wrap justify-content-between align-content-between">
+    @foreach(var item in Model)
+    {
+    <div class="card" style="width: 18rem">
+        <div class="card-header font-weight-bold">
+            @item.TitluTask
+        </div>
+        <div class="card-body">
+
+            <p class="font-weight-bold">Prioritate: @item.Prioritate</p>
+            <p class="card-text">Deadline: @item.Deadline</p>
+            @using (Html.BeginForm(actionName: "DetaliiTask", controllerName: "Tasks", method: FormMethod.Get, routeValues: new { id = item.DailyTaskId }))
+            {
+                <button class="btn btn-primary" type="submit">Detalii</button>
+            }
+            
+        </div>
+    </div>
+    }
+
+</div>

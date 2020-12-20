@@ -10,5 +10,6 @@ namespace Agenda.DataAccessLayer
     {
         bool SaveChanges();
         void CreateContacInfo(ContactInfo ct);
+        
     }
 }

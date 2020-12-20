@@ -10,11 +10,16 @@ namespace Agenda.Models
     {
         
         public int PersonId { get; set; }
+        [Required(ErrorMessage ="Camp obligatoriu")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Numele trebuie sa contina doar litere")]
         public string Nume { get; set; }
+        [Required(ErrorMessage = "Camp obligatoriu")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Prenumele trebuie sa contina doar litere")]
         public string Prenume { get; set; }
 
         // one-to-one
-        [Required]
+        
         public virtual ContactInfo ContactInfo { get; set; }
+        
     }
 }

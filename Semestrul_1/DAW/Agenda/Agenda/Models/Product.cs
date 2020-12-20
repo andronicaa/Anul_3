@@ -11,5 +11,8 @@ namespace Agenda.Models
         public string Denumire { get; set; }
         public string Cantitate { get; set; }
         public string Descriere { get; set; }
+
+        // many-to-many relation
+        public ICollection<ShoppingList> ShoppingLists { get; set; }
     }
 }

@@ -3,9 +3,11 @@ using Agenda.Models;
 using Agenda.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Agenda.Controllers
@@ -49,28 +51,57 @@ namespace Agenda.Controllers
         [HttpPost]
         public ActionResult CreateNewPerson(PersonContactViewModel pcv)
         {
-            Person prs = new Person();
-            // mapez datele
-            prs.Nume = pcv.Person.Nume;
-            prs.Prenume = pcv.Person.Prenume;
-            // le adaug in baza de date
-            _personRepo.CreatePerson(prs);
-            // salvez modificarile
-            _personRepo.SaveChanges();
 
-            // obiect de tipul contact
-            ContactInfo cti = new ContactInfo();
-            // mapez datele
-            cti.PersonRef = prs.PersonId;
-            cti.Adresa = pcv.ContactInfo.Adresa;
-            cti.NrTelefon = pcv.ContactInfo.NrTelefon;
-            cti.Email = pcv.ContactInfo.Email;
-            cti.CodPostal = pcv.ContactInfo.CodPostal;
+            if (!ModelState.IsValid)
+            {
+                var modelErrors = new List<string>();
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var modelError in modelState.Errors)
+                    {
+                        modelErrors.Add(modelError.ErrorMessage);
+                    }
+                }
 
-            _contactRepo.CreateContacInfo(cti);
+                foreach(var item in modelErrors)
+                {
+                    System.Console.WriteLine(item);
+                }
+                
+            }
+            try
+            {
+                Person prs = new Person();
+                // mapez datele
+                prs.Nume = pcv.Person.Nume;
+                prs.Prenume = pcv.Person.Prenume;
+                // le adaug in baza de date
+                _personRepo.CreatePerson(prs);
+                // salvez modificarile
+                _personRepo.SaveChanges();
 
-            _contactRepo.SaveChanges();
-            return RedirectToAction("Index", "PersonContactViewModels");
+                // obiect de tipul contact
+                ContactInfo cti = new ContactInfo();
+                // mapez datele
+                cti.PersonRef = prs.PersonId;
+                cti.Adresa = pcv.ContactInfo.Adresa;
+                cti.NrTelefon = pcv.ContactInfo.NrTelefon;
+                cti.Email = pcv.ContactInfo.Email;
+                cti.CodPostal = pcv.ContactInfo.CodPostal;
+                cti.Person = _personRepo.GetPersonById(cti.PersonRef);
+
+                _contactRepo.CreateContacInfo(cti);
+
+                _contactRepo.SaveChanges();
+                return RedirectToAction("Index", "personcontactviewmodels");
+            } catch(Exception e)
+            {
+                return View("NewPerson", pcv);
+            }
+            
+
+                
+            
 
         }
 
@@ -147,8 +178,27 @@ namespace Agenda.Controllers
             _personRepo.SaveChanges();
             return RedirectToAction("Index");
         }
-        
-        
+        private bool CheckIsValidPerson(Person prs)
+        {
+            if (ModelState.IsValid)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool CheckIsValidContact(ContactInfo cti)
+        {
+            if (ModelState.IsValid)
+            {
+                return true;
+            }
+            return false;
+        }
+
+     
+
+
     }
 }
 

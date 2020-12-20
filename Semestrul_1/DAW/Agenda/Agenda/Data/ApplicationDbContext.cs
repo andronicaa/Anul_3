@@ -19,16 +19,20 @@ namespace Agenda.Data
         public DbSet<Person> Persons { get; set; }
         public DbSet<ContactInfo> ContactInfos { get; set; }
 
+        public DbSet<ShoppingList> ShoppingLists { get; set; }
+        public DbSet<Product> Products { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
             builder.Entity<Person>()
                 .HasOne(b => b.ContactInfo)
                 .WithOne(i => i.Person)
-                .HasForeignKey<ContactInfo>(b => b.PersonRef);
+                .HasForeignKey<ContactInfo>(i => i.PersonRef);
+
         }
 
-        public DbSet<Agenda.Models.ShoppingList> ShoppingList { get; set; }
+        
 
         
     }
