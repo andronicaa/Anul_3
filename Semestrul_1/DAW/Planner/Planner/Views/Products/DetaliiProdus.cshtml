@@ -1,0 +1,17 @@
+﻿@model Planner.Models.Product
+
+<p>@Model.Denumire</p>
+<p>@Model.Cantitate</p>
+<p>@Model.Descriere</p>
+@using (Html.BeginForm(actionName: "EditProdus", controllerName: "Products", method: FormMethod.Get, routeValues: new { id = Model.ProductId }))
+{
+
+    <button class="btn btn-primary" type="submit">Update Produs</button>
+}
+
+@using (Html.BeginForm(actionName: "DeleteProdus", controllerName: "Products", method: FormMethod.Post, routeValues: new { id = Model.ProductId }))
+{
+
+    <button class="btn btn-primary" type="submit">Delete Produs</button>
+}
+

@@ -1,0 +1,44 @@
+﻿@model Planner.Models.ViewModels.PersonContactInfoViewModel
+
+<h1>NewTask</h1>
+
+@using (Html.BeginForm(actionName: "CreateNewPerson", controllerName: "PersonContactInfoViewModels", method: FormMethod.Post))
+{
+    @Html.Label("Nume", "Nume: ")
+    <br />
+    @Html.TextBoxFor(b => b.Person.Nume, null, new { placeholder = "Nume...", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Person.Nume, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    @Html.Label("Prenume", "Prenume:")
+    <br />
+    @Html.TextBoxFor(b => b.Person.Prenume, null, new { placeholder = "Prenume", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Person.Prenume, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    @Html.Label("Adresa", "Adresa:")
+    <br />
+    @Html.TextBoxFor(b => b.ContactInfo.Adresa, null, new { placeholder = "Adresa", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.ContactInfo.Adresa, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    @Html.Label("NrTelefon", "NrTelefon:")
+    <br />
+    @Html.TextBoxFor(b => b.ContactInfo.NrTelefon, null, new { placeholder = "Adresa", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.ContactInfo.NrTelefon, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    @Html.Label("Email", "Email:")
+    <br />
+    @Html.TextBoxFor(b => b.ContactInfo.Email, null, new { placeholder = "Email", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.ContactInfo.Email, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    @Html.Label("CodPostal", "CodPostal:")
+    <br />
+    @Html.TextBoxFor(b => b.ContactInfo.CodPostal, null, new { placeholder = "CodPostal", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.ContactInfo.CodPostal, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    <button class="btn btn-primary" type="submit">Adauga profil</button>
+}

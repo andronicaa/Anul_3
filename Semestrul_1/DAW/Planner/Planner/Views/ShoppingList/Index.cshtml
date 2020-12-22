@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<p>Afiseaza toate produsele din listele de cumparaturi</p>
+@using (Html.BeginForm(actionName: "Index", controllerName: "Products", method: FormMethod.Get))
+{
+    
+    <button class="btn btn-primary" type="submit">Afiseaza produse</button>
+}
+<div class="d-flex flex-row flex-wrap">
+    @foreach (var item in ViewBag.Lists)
+    {
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">
+                <p>@item.Titlu</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                @foreach (var prd in item.Products)
+                {
+                    <li class="list-group-item">@prd.Denumire, @prd.Cantitate</li>
+
+                }
+            </ul>
+            @using (Html.BeginForm(actionName: "AddProduct", controllerName: "Products", method: FormMethod.Post, routeValues: new { id = item.ShoppingListId }))
+            {
+                <button class="btn btn-primary" type="submit">Add product</button>
+            }
+            @using (Html.BeginForm(actionName: "DeleteList", controllerName: "ShoppingList", method: FormMethod.Post, routeValues: new { id = item.ShoppingListId }))
+            {
+                <button class="btn btn-primary" type="submit">Delete lista</button>
+            }
+        </div>
+
+    }
+</div>
+
+

@@ -1,0 +1,14 @@
+﻿@model Planner.Models.ShoppingList
+
+<h1>NewTask</h1>
+
+@using (Html.BeginForm(actionName: "CreateList", controllerName: "ShoppingList", method: FormMethod.Post))
+{
+    @Html.Label("Titlu", "Titlu lista cumparaturi: ")
+    <br />
+    @Html.TextBoxFor(b => b.Titlu, null, new { placeholder = "Descriere activitate", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Titlu, "", new { @class = "text-danger" })
+
+    <button class="btn btn-primary" type="submit">Adauga lista</button>
+}
+

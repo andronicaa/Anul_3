@@ -1,0 +1,30 @@
+﻿@model List<Planner.Models.Product>
+
+<h3>Produse</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Denumire</th>
+            <th scope="col">Cantitate</th>
+            <th scope="col">Detalii</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Denumire</td>
+                <td>@product.Cantitate</td>
+                <td>
+                    @using (Html.BeginForm(actionName: "DetaliiProdus", controllerName: "Products", method: FormMethod.Get, routeValues: new { id = product.ProductId }))
+                    {
+
+                        <button class="btn btn-primary" type="submit">Detalii</button>
+                    }
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+

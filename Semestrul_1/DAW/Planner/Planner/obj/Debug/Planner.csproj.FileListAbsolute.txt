@@ -77,6 +77,8 @@ C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\System.Web.
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\System.Web.WebPages.dll
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\System.Web.WebPages.Razor.dll
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\WebGrease.dll
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\EntityFramework.xml
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\EntityFramework.SqlServer.xml
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\System.Web.Helpers.xml
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\System.Web.Mvc.xml
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\System.Web.Optimization.xml
@@ -86,8 +88,6 @@ C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\System.Web.
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\System.Web.WebPages.Razor.xml
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\Newtonsoft.Json.xml
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\Antlr3.Runtime.pdb
-C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\EntityFramework.xml
-C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\EntityFramework.SqlServer.xml
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\Microsoft.AspNet.Identity.Core.xml
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\Microsoft.AspNet.Identity.Owin.xml
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\Microsoft.AspNet.Identity.EntityFramework.xml
@@ -101,10 +101,16 @@ C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\Microsoft.O
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.csprojAssemblyReference.cache
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.DailyTaskMigration.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.PersonContactMigration.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.PersonContactGoodMigration.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.ShoppingListProductMigration.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.ShoppingProductMigration_2.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.AddPersonToBase.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.PersonUser.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.csproj.GenerateResource.cache
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.csproj.CoreCompileInputs.cache
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.csproj.CopyComplete
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.dll
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.pdb
-C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.DailyTaskMigration.resources
-C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.csproj.GenerateResource.cache
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.csprojAssemblyReference.cache

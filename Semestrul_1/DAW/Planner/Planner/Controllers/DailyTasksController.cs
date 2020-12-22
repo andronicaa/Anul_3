@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace Planner.Controllers
 {
+    [AllowAnonymous]
     public class DailyTasksController : Controller
     {
         private ApplicationDbContext _ctx = new ApplicationDbContext();
@@ -88,14 +89,15 @@ namespace Planner.Controllers
                     _ctx.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                return View("Edit", taskReq);
+                return View("Edit/" + id, taskReq);
             }
             catch (Exception e)
             {
-                return View("Edit", taskReq);
+                return View("Edit/" + id, taskReq);
             }
 
         }
+        
 
         [HttpPost]
         public ActionResult DeleteTask(int id)

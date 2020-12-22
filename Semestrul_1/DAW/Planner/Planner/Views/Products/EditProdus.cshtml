@@ -1,0 +1,27 @@
+﻿@model Planner.Models.Product
+
+
+<h2>Editeaza acest produs</h2>
+@using (Html.BeginForm(actionName: "UpdateProdus", controllerName: "Products", method: FormMethod.Post, routeValues: new { id = Model.ProductId }))
+{
+    @Html.Label("Cantitate", "Cantitate: ")
+    <br />
+    @Html.EditorFor(b => b.Cantitate, null, new { placeholder = "Cantitate", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Cantitate, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    @Html.Label("Denumire", "Denumire: ")
+    <br />
+    @Html.EditorFor(b => b.Denumire, null, new { placeholder = "Denumire", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Denumire, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    @Html.Label("Descriere", "Descriere: ")
+    <br />
+    @Html.EditorFor(b => b.Descriere, null, new { placeholder = "Descriere", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Descriere, "", new { @class = "text-danger" })
+
+    <button class="btn btn-primary" type="submit">Update lista</button>
+}
+
+

@@ -1,0 +1,15 @@
+﻿@model Planner.Models.ShoppingList
+
+
+<h2>Details</h2>
+<h2>@Model.Titlu</h2>
+
+
+@if (Model.Products.Count > 0)
+{
+   foreach(var item in Model.Products)
+   {
+       <p>@item.Cantitate</p>
+       <p>@item.Denumire</p>
+   }
+}

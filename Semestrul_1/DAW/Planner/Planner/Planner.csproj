@@ -45,6 +45,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -112,12 +118,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -171,6 +171,10 @@
     <Compile Include="Controllers\DailyTasksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PersonContactInfoViewModelsController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ShoppingListController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -178,25 +182,172 @@
     <Compile Include="Migrations\202012201249466_DailyTaskMigration.Designer.cs">
       <DependentUpon>202012201249466_DailyTaskMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012202102589_PersonContactMigration.cs" />
+    <Compile Include="Migrations\202012202102589_PersonContactMigration.Designer.cs">
+      <DependentUpon>202012202102589_PersonContactMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012202106580_PersonContactGoodMigration.cs" />
+    <Compile Include="Migrations\202012202106580_PersonContactGoodMigration.Designer.cs">
+      <DependentUpon>202012202106580_PersonContactGoodMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012202228523_ShoppingListProductMigration.cs" />
+    <Compile Include="Migrations\202012202228523_ShoppingListProductMigration.Designer.cs">
+      <DependentUpon>202012202228523_ShoppingListProductMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012212005070_ShoppingProductMigration_2.cs" />
+    <Compile Include="Migrations\202012212005070_ShoppingProductMigration_2.Designer.cs">
+      <DependentUpon>202012212005070_ShoppingProductMigration_2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012212204187_AddPersonToBase.cs" />
+    <Compile Include="Migrations\202012212204187_AddPersonToBase.Designer.cs">
+      <DependentUpon>202012212204187_AddPersonToBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012212212551_PersonUser.cs" />
+    <Compile Include="Migrations\202012212212551_PersonUser.Designer.cs">
+      <DependentUpon>202012212212551_PersonUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ContactInfo.cs" />
     <Compile Include="Models\DailyTask.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ShoppingList.cs" />
+    <Compile Include="Models\ShoppingListProductJoin.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\ViewModels\PersonContactInfoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\attribution.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\background-image.jpg" />
+    <Content Include="Content\Images\paico-oficial-wFbvRRFTRoc-unsplash.jpg" />
+    <Content Include="Content\LICENSE.txt" />
+    <Content Include="Content\Style\home.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="lib\twitter-bootstrap\css\bootstrap-grid.css" />
+    <Content Include="lib\twitter-bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="lib\twitter-bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="lib\twitter-bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="lib\twitter-bootstrap\css\bootstrap.css" />
+    <Content Include="lib\twitter-bootstrap\css\bootstrap.min.css" />
+    <Content Include="lib\twitter-bootstrap\js\bootstrap.bundle.js" />
+    <Content Include="lib\twitter-bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="lib\twitter-bootstrap\js\bootstrap.js" />
+    <Content Include="lib\twitter-bootstrap\js\bootstrap.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="libman.json" />
+    <Content Include="lib\twitter-bootstrap\css\bootstrap-grid.css.map" />
+    <Content Include="lib\twitter-bootstrap\css\bootstrap-grid.min.css.map" />
+    <Content Include="lib\twitter-bootstrap\css\bootstrap-reboot.css.map" />
+    <Content Include="lib\twitter-bootstrap\css\bootstrap-reboot.min.css.map" />
+    <Content Include="lib\twitter-bootstrap\css\bootstrap.css.map" />
+    <Content Include="lib\twitter-bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="lib\twitter-bootstrap\js\bootstrap.bundle.js.map" />
+    <Content Include="lib\twitter-bootstrap\js\bootstrap.bundle.min.js.map" />
+    <Content Include="lib\twitter-bootstrap\js\bootstrap.js.map" />
+    <Content Include="lib\twitter-bootstrap\js\bootstrap.min.js.map" />
+    <Content Include="lib\twitter-bootstrap\scss\_alert.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_badge.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_breadcrumb.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_button-group.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_buttons.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_card.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_carousel.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_close.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_code.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_custom-forms.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_dropdown.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_forms.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_functions.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_grid.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_images.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_input-group.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_jumbotron.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_list-group.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_media.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_mixins.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_modal.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_nav.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_navbar.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_pagination.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_popover.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_print.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_progress.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_reboot.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_root.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_spinners.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\bootstrap-grid.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\bootstrap-reboot.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\bootstrap.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_tables.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_toasts.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_tooltip.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_transitions.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_type.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_utilities.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\_variables.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_alert.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_background-variant.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_badge.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_border-radius.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_box-shadow.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_breakpoints.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_buttons.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_caret.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_clearfix.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_deprecate.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_float.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_forms.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_gradients.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_grid-framework.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_grid.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_hover.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_image.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_list-group.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_lists.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_nav-divider.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_pagination.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_reset-text.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_resize.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_screen-reader.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_size.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_table-row.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_text-emphasis.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_text-hide.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_text-truncate.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_transition.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\mixins\_visibility.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\utilities\_align.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\utilities\_background.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\utilities\_borders.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\utilities\_clearfix.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\utilities\_display.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\utilities\_embed.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\utilities\_flex.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\utilities\_float.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\utilities\_interactions.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\utilities\_overflow.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\utilities\_position.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\utilities\_screenreaders.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\utilities\_shadows.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\utilities\_sizing.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\utilities\_spacing.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\utilities\_stretched-link.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\utilities\_text.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\utilities\_visibility.scss" />
+    <Content Include="lib\twitter-bootstrap\scss\vendor\_rfs.scss" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -246,6 +397,20 @@
     <Content Include="Views\DailyTasks\DetaliiTask.cshtml" />
     <Content Include="Views\DailyTasks\NewTask.cshtml" />
     <Content Include="Views\DailyTasks\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\PersonContactInfoViewModels\Index.cshtml" />
+    <Content Include="Views\PersonContactInfoViewModels\Details.cshtml" />
+    <Content Include="Views\PersonContactInfoViewModels\NewPerson.cshtml" />
+    <Content Include="Views\PersonContactInfoViewModels\EditPerson.cshtml" />
+    <Content Include="Views\ShoppingList\Details.cshtml" />
+    <Content Include="Views\ShoppingList\Index.cshtml" />
+    <Content Include="Views\ShoppingList\NewList.cshtml" />
+    <Content Include="Views\ShoppingList\EditList.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Products\DetaliiProdus.cshtml" />
+    <Content Include="Views\Products\EditProdus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -266,6 +431,24 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202012201249466_DailyTaskMigration.resx">
       <DependentUpon>202012201249466_DailyTaskMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012202102589_PersonContactMigration.resx">
+      <DependentUpon>202012202102589_PersonContactMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012202106580_PersonContactGoodMigration.resx">
+      <DependentUpon>202012202106580_PersonContactGoodMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012202228523_ShoppingListProductMigration.resx">
+      <DependentUpon>202012202228523_ShoppingListProductMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012212005070_ShoppingProductMigration_2.resx">
+      <DependentUpon>202012212005070_ShoppingProductMigration_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012212204187_AddPersonToBase.resx">
+      <DependentUpon>202012212204187_AddPersonToBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012212212551_PersonUser.resx">
+      <DependentUpon>202012212212551_PersonUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

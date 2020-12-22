@@ -1,0 +1,14 @@
+﻿@model Planner.Models.ShoppingList
+
+
+<h2>Editeaza lista de cumparaturi</h2>
+@using (Html.BeginForm(actionName: "UpdateList", controllerName: "ShoppingList", method: FormMethod.Post, routeValues: new { id = Model.ShoppingListId }))
+{
+    @Html.Label("Titlu", "Titlu lista cumparaturi: ")
+    <br />
+    @Html.EditorFor(b => b.Titlu, null, new { placeholder = "Descriere activitate", @class = "formcontrol" })
+    @Html.ValidationMessageFor(b => b.Titlu, "", new { @class = "text-danger" })
+
+    <button class="btn btn-primary" type="submit">Update lista</button>
+}
+

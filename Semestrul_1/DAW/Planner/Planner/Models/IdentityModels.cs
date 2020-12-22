@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -9,6 +10,7 @@ namespace Planner.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -16,6 +18,9 @@ namespace Planner.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public virtual Person Person { get; set; }
+
+        
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -25,7 +30,12 @@ namespace Planner.Models
         {
         }
 
+        
         public DbSet<DailyTask> DailyTasks { get; set; }
+        public DbSet<Person> Persons { get; set; }
+        public DbSet<ContactInfo> ContactInfos { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ShoppingList> ShoppingLists { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
