@@ -18,7 +18,7 @@ namespace Planner.Models
             // Add custom user claims here
             return userIdentity;
         }
-        public virtual Person Person { get; set; }
+        
 
         
     }
@@ -36,6 +36,8 @@ namespace Planner.Models
         public DbSet<ContactInfo> ContactInfos { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ShoppingList> ShoppingLists { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

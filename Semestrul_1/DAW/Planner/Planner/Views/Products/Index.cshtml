@@ -1,6 +1,13 @@
 ﻿@model List<Planner.Models.Product>
 
 <h3>Produse</h3>
+<br />
+@using (Html.BeginForm(actionName: "NewProduct", controllerName: "Products", method: FormMethod.Get))
+{
+
+    <button class="btn btn-primary" type="submit">Adauga produst</button>
+}
+<br />
 <table class="table table-hover">
     <thead>
         <tr>

@@ -3,29 +3,32 @@
 <h2>Task-urile pentru astazi sunt</h2>
 @using (Html.BeginForm(actionName: "NewTask", controllerName: "DailyTasks", method: FormMethod.Post))
 {
-    <button class="btn btn-primary" type="submit"><i class="fas fa-plus"></i> &nbsp;Adauga task nou</button>
+    <button class="btn btn-primary" type="submit"><i class="fa fa-plus"></i> &nbsp;Adauga task nou</button>
 }
 
 <br />
 <br />
-<div class="d-flex flex-row flex-wrap justify-content-between align-content-between">
+
     @foreach (var item in Model)
     {
-        <div class="card" style="width: 18rem">
-            <div class="card-header font-weight-bold">
-                @item.TitluTask
-            </div>
-            <div class="card-body">
+        <div class="col-xs-4">
+            <div class="panel panel-info" style="width: 18rem">
+                <div class="panel-heading">
+                    @item.TitluTask
+                </div>
+                <div class="panel-body">
 
-                <p class="font-weight-bold">Prioritate: @item.Prioritate</p>
-                <p class="card-text">Deadline: @item.Deadline</p>
-                @using (Html.BeginForm(actionName: "DetaliiTask", controllerName: "DailyTasks", method: FormMethod.Get, routeValues: new { id = item.DailyTaskId }))
-                {
-                    <button class="btn btn-primary" type="submit">Detalii</button>
-                }
-
+                    <p><strong> Prioritate: </strong>@item.Prioritate</p>
+                    <p><strong>Deadline: </strong>@item.Deadline</p>
+                </div>
+                <div class="panel-footer">
+                    @using (Html.BeginForm(actionName: "DetaliiTask", controllerName: "DailyTasks", method: FormMethod.Get, routeValues: new { id = item.DailyTaskId }))
+                    {
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-info" aria-hidden="true"></i> &nbsp; Detalii</button>
+                    }
+                </div>
             </div>
         </div>
+        
     }
 
-</div>

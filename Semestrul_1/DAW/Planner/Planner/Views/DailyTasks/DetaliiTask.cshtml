@@ -9,7 +9,7 @@
 <span>
     @using (Html.BeginForm(actionName: "Edit", controllerName: "DailyTasks", method: FormMethod.Get, routeValues: new { id = Model.DailyTaskId }))
     {
-        <button class="btn btn-danger" type="submit"><i class="fas fa-edit"></i> &nbsp; Update task</button>
+        <button class="btn btn-danger" type="submit"><i class="fa fa-edit"></i> &nbsp; Update task</button>
     }
 
     <br />
@@ -17,7 +17,7 @@
 
     @using (Html.BeginForm(actionName: "DeleteTask", controllerName: "DailyTasks", method: FormMethod.Post, routeValues: new { id = Model.DailyTaskId }))
     {
-        <button class="btn btn-success" type="submit"><i class="fas fa-check"></i> &nbsp; Delete task</button>
+        <button class="btn btn-success" type="submit"><i class="fa fa-check"></i> &nbsp; Done</button>
     }
 </span>
 

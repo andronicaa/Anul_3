@@ -6,7 +6,7 @@
 {
     @Html.Label("Titlu", "Titlu lista cumparaturi: ")
     <br />
-    @Html.EditorFor(b => b.Titlu, null, new { placeholder = "Descriere activitate", @class = "formcontrol" })
+    @Html.EditorFor(b => b.Titlu, null, new { placeholder = "Descriere activitate", @class = "form-control" })
     @Html.ValidationMessageFor(b => b.Titlu, "", new { @class = "text-danger" })
 
     <button class="btn btn-primary" type="submit">Update lista</button>

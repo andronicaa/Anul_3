@@ -114,3 +114,10 @@ C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Plann
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.dll
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.pdb
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.csprojAssemblyReference.cache
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.NewRoles.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.RemoveOneToOneRel.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.AddedUserNameToPerson.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.DataAnnotation.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.OneToManyAppPersonMigration.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.OneToManyAppPersonChanged.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.InvoiceModel.resources

@@ -1,0 +1,24 @@
+﻿@model Planner.Models.Invoice
+
+<br />
+<br />
+
+<div class="panel panel-info">
+    <div class="panel-heading">@Model.TipFactura</div>
+    <div class="panel-body">
+        <ul>
+            <li><strong>Data emitere: </strong> @Model.DataEmitere</li>
+            <li><strong>Data scadenta: </strong> @Model.DataScadenta</li>
+            <li><strong>Total plata: </strong> @Model.TotalPlata</li>
+            <li><strong>Data status: </strong> @Model.Status</li>
+        </ul>
+    </div>
+    <div class="panel-footer">
+        @using (Html.BeginForm(actionName: "DeleteInvoice", controllerName: "Invoices", method: FormMethod.Post, routeValues: new { id = Model.InvoiceId }))
+        {
+            <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i> &nbsp;Sterge factura</button>
+        }
+    </div>
+</div>
+
+

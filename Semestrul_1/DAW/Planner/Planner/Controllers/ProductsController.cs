@@ -71,16 +71,31 @@ namespace Planner.Controllers
             return RedirectToAction("Index", "Products");
         }
 
-
-        /*public ActionResult AddProduct(int id)
+        public ActionResult NewProduct()
         {
-            // id-ul primit ca parametru este id-ul unei liste de cumparatui
-            // pot adauga in acea lista un produs existent in baza de date
-            // mai intai listez toate produsele existente
-            // caut produsele
-            IEnumerable<Product> products = ctx.Products.ToList();
+            Product prd = new Product();
+            return View(prd);
+        }
 
-            return View(products);
-        }*/
+        [HttpPost]
+        public ActionResult CreateProduct(Product prd)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    ctx.Products.Add(prd);
+                    ctx.SaveChanges();
+
+                    return RedirectToAction("Index", "Products");
+                }
+                return View("NewProduct", prd);
+            } catch(Exception e)
+            {
+                return View("NewPerson", prd);
+                    
+            }
+        }
+       
     }
 }

@@ -1,0 +1,9 @@
+﻿@model List<Planner.Models.Appointment>
+
+@foreach (var apt in Model)
+{
+    <p>@apt.AppointmentType</p>
+    <p>@apt.Adresa</p>
+    <p>@apt.Data</p>
+}
+

@@ -6,19 +6,19 @@
 {
     @Html.Label("Cantitate", "Cantitate: ")
     <br />
-    @Html.EditorFor(b => b.Cantitate, null, new { placeholder = "Cantitate", @class = "formcontrol" })
+    @Html.EditorFor(b => b.Cantitate, null, new { placeholder = "Cantitate", @class = "form-control" })
     @Html.ValidationMessageFor(b => b.Cantitate, "", new { @class = "text-danger" })
     <br />
     <br />
     @Html.Label("Denumire", "Denumire: ")
     <br />
-    @Html.EditorFor(b => b.Denumire, null, new { placeholder = "Denumire", @class = "formcontrol" })
+    @Html.EditorFor(b => b.Denumire, null, new { placeholder = "Denumire", @class = "form-control" })
     @Html.ValidationMessageFor(b => b.Denumire, "", new { @class = "text-danger" })
     <br />
     <br />
     @Html.Label("Descriere", "Descriere: ")
     <br />
-    @Html.EditorFor(b => b.Descriere, null, new { placeholder = "Descriere", @class = "formcontrol" })
+    @Html.EditorFor(b => b.Descriere, null, new { placeholder = "Descriere", @class = "form-control" })
     @Html.ValidationMessageFor(b => b.Descriere, "", new { @class = "text-danger" })
 
     <button class="btn btn-primary" type="submit">Update lista</button>

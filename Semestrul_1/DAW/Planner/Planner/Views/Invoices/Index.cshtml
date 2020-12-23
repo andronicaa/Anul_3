@@ -1,0 +1,48 @@
+﻿@model List<Planner.Models.Invoice>
+
+
+
+<h2>Facturi</h2>
+
+@using (Html.BeginForm(actionName: "NewInvoice", controllerName: "Invoices", method: FormMethod.Get))
+{
+    <button class="btn btn-primary" type="submit"><i class="fa fa-plus"></i> &nbsp;Adauga factura</button>
+}
+<br />
+<br />
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Factura</th>
+                <th scope="col">Data scadenta</th>
+                <th scope="col">Update</th>
+                <th scope="col">Detalii</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @foreach (var item in Model)
+                {
+                    <td>@item.TipFactura</td>
+                    <td>@item.DataScadenta</td>
+                    <td>
+                        @using (Html.BeginForm(actionName: "EditInvoice", controllerName: "Invoices", method: FormMethod.Get, routeValues: new { id = item.InvoiceId }))
+                        {
+                            <button class="btn btn-warning" type="submit"><i class="fa fa-pencil"></i> &nbsp; Update</button>
+                        }
+                    </td>
+                    <td>
+                        @using (Html.BeginForm(actionName: "Details", controllerName: "Invoices", method: FormMethod.Get, routeValues: new { id = item.InvoiceId }))
+                        {
+                            <button class="btn btn-info" type="submit"><i class="fa fa-info"></i> &nbsp; Detalii</button>
+                        }
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+

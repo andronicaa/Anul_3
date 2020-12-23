@@ -1,44 +1,41 @@
-﻿@model List<Planner.Models.Person>
+﻿@model Planner.Models.Person
 
 
-<h2>Persoanele sunt</h2>
-<br />
-<br />
-@using (Html.BeginForm(actionName: "NewPerson", controllerName: "PersonContactInfoViewModels", method: FormMethod.Get))
+
+@if (Model.UserId == null)
 {
-    <button class="btn btn-primary" type="submit"><i class="fas fa-plus"></i> &nbsp;Adauga profil</button>
+    
+    using (Html.BeginForm(actionName: "NewPerson", controllerName: "PersonContactInfoViewModels", method: FormMethod.Get))
+    {
+        <button class="btn btn-primary" type="submit"><i class="fas fa-plus"></i> &nbsp;Adauga profil</button>
+    }
 }
 <br />
 <br />
-<table class="table table-hover">
-    <thead>
-    <th scope="col">Nume</th>
-    <th scope="col">Prenume</th>
-    <th schope="col">Update</th>
-    <th scope="col">Delete Person</th>
-    </thead>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.Nume</td>
-            <td>@item.Prenume</td>
-            <td>
-                @using (Html.BeginForm(actionName: "EditPerson", controllerName: "PersonContactInfoViewModels", method: FormMethod.Get, routeValues: new { id = item.PersonId }))
-                {
-                    <button class="btn btn-primary" type="submit"><i class="fas fa-edit"></i> &nbsp; Update profile</button>
-                }
-            </td>
-            <td>
-                @using (Html.BeginForm(actionName: "DeletePerson", controllerName: "PersonContactInfoViewModels", method: FormMethod.Post, routeValues: new { id = item.PersonId }))
-                {
+<div class="panel panel-default">
+    <div class="panel-heading">Profilul user-ului @Model.UserName</div>
+    <div class="panel-body">
+        <p><i class="fa fa-user" aria-hidden="true"></i> &nbsp; <strong>Nume: </strong> @Model.Nume</p>
+        <p><i class="fa fa-user" aria-hidden="true"></i> &nbsp;  <strong>Prenume: </strong> @Model.Prenume</p>
+        <p><i class="fa fa-envelope" aria-hidden="true"></i> &nbsp;  <strong>Email: </strong> @Model.ContactInfo.Email</p>
+        <p><i class="fa fa-phone" aria-hidden="true"></i> &nbsp;  <strong>Nr Telefon: </strong> @Model.ContactInfo.NrTelefon</p>
+        <p><i class="fa fa-address-card" aria-hidden="true"></i> &nbsp;  <strong>Adresa: </strong> @Model.ContactInfo.Adresa</p>
+        <p><i class="fa fa-user" aria-hidden="true"></i> &nbsp;  <strong>Cod Postal: </strong> @Model.ContactInfo.CodPostal</p>
+    </div>
+    <div class="panel-footer">
+        @using (Html.BeginForm(actionName: "EditPerson", controllerName: "PersonContactInfoViewModels", method: FormMethod.Get, routeValues: new { id = Model.PersonId }))
+        {
+            <button class="btn btn-primary" type="submit"><i class="fa fa-edit"></i> &nbsp; Update profile</button>
+        }
+        <br />
+        @using (Html.BeginForm(actionName: "DeletePerson", controllerName: "PersonContactInfoViewModels", method: FormMethod.Post, routeValues: new { id = Model.PersonId }))
+        {
 
-                    <button class="btn btn-success" type="submit"><i class="fas fa-check"></i>&nbsp;Delete profile</button>
-                }
-            </td>
+            <button class="btn btn-success" type="submit"><i class="fa fa-trash-o"></i> &nbsp;Delete profile</button>
+        }
+    </div>
+</div>
 
-        </tr>
-    }
-</table>
 
 
 

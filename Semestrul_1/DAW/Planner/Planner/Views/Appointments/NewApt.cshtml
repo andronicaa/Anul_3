@@ -1,0 +1,36 @@
+﻿@model Planner.Models.Appointment
+
+
+<h2>Add new appointment</h2>
+
+
+@using (Html.BeginForm(actionName: "CreateApt", controllerName: "Appointments", method: FormMethod.Post))
+{
+    @Html.Label("AppointmentType", "Appointment Type: ")
+    <br />
+    @Html.TextBoxFor(b => b.AppointmentType, null, new { placeholder = "Tip intalnire", @class = "form-control" })
+    @Html.ValidationMessageFor(b => b.AppointmentType, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    @Html.Label("Data", "Data:")
+    <br />
+    @Html.TextBoxFor(b => b.Data, null, new { placeholder = "Data", @class = "form-control" })
+    @Html.ValidationMessageFor(b => b.Data, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    @Html.Label("Adresa", "Adresa:")
+    <br />
+    @Html.TextBoxFor(b => b.Adresa, null, new { placeholder = "Adresa", @class = "form-control" })
+    @Html.ValidationMessageFor(b => b.Adresa, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    @Html.Label("Persoane", "Persoane:")
+    <br />
+    @Html.TextBoxFor(b => b.Persoane, null, new { placeholder = "Persoane", @class = "form-control" })
+    @Html.ValidationMessageFor(b => b.Persoane, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    <button class="btn btn-primary" type="submit">Adauga intalnire</button>
+}
+
+

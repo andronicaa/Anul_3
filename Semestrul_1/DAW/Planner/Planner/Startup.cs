@@ -46,18 +46,7 @@ namespace Planner
                 var newRole = new IdentityRole();
                 newRole.Name = "Child";
                 roleManager.Create(newRole);
-
-                var newUser = new ApplicationUser();
-                newUser.UserName = "child@child.com";
-                newUser.Email = "child@child.com";
-
-                var result = userManager.Create(newUser, "Child");
-                if (result.Succeeded)
-                {
-                    userManager.AddToRole(newUser.Id, "Child");
-                }
             }
-
             
         }
     }

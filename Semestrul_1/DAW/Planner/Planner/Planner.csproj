@@ -168,7 +168,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\DailyTasksController.cs" />
+    <Compile Include="Controllers\InvoicesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PersonContactInfoViewModelsController.cs" />
@@ -206,10 +208,40 @@
     <Compile Include="Migrations\202012212212551_PersonUser.Designer.cs">
       <DependentUpon>202012212212551_PersonUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012231128398_NewRoles.cs" />
+    <Compile Include="Migrations\202012231128398_NewRoles.Designer.cs">
+      <DependentUpon>202012231128398_NewRoles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012231138447_RemoveOneToOneRel.cs" />
+    <Compile Include="Migrations\202012231138447_RemoveOneToOneRel.Designer.cs">
+      <DependentUpon>202012231138447_RemoveOneToOneRel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012231200239_AddedUserNameToPerson.cs" />
+    <Compile Include="Migrations\202012231200239_AddedUserNameToPerson.Designer.cs">
+      <DependentUpon>202012231200239_AddedUserNameToPerson.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012231312562_DataAnnotation.cs" />
+    <Compile Include="Migrations\202012231312562_DataAnnotation.Designer.cs">
+      <DependentUpon>202012231312562_DataAnnotation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012231337420_OneToManyAppPersonMigration.cs" />
+    <Compile Include="Migrations\202012231337420_OneToManyAppPersonMigration.Designer.cs">
+      <DependentUpon>202012231337420_OneToManyAppPersonMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012231445298_OneToManyAppPersonChanged.cs" />
+    <Compile Include="Migrations\202012231445298_OneToManyAppPersonChanged.Designer.cs">
+      <DependentUpon>202012231445298_OneToManyAppPersonChanged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012232120415_InvoiceModel.cs" />
+    <Compile Include="Migrations\202012232120415_InvoiceModel.Designer.cs">
+      <DependentUpon>202012232120415_InvoiceModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\ContactInfo.cs" />
     <Compile Include="Models\DailyTask.cs" />
+    <Compile Include="Models\Invoice.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Person.cs" />
@@ -421,6 +453,14 @@
     <Content Include="Views\Products\DetaliiProdus.cshtml" />
     <Content Include="Views\Products\EditProdus.cshtml" />
     <Content Include="Views\ShoppingList\AddProductInList.cshtml" />
+    <Content Include="Views\Appointments\Index.cshtml" />
+    <Content Include="Views\Appointments\NewApt.cshtml" />
+    <Content Include="Views\Appointments\EditApt.cshtml" />
+    <Content Include="Views\Invoices\Index.cshtml" />
+    <Content Include="Views\Invoices\NewInvoice.cshtml" />
+    <Content Include="Views\Invoices\EditInvoice.cshtml" />
+    <Content Include="Views\Invoices\Details.cshtml" />
+    <Content Include="Views\Products\NewProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -459,6 +499,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012212212551_PersonUser.resx">
       <DependentUpon>202012212212551_PersonUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012231128398_NewRoles.resx">
+      <DependentUpon>202012231128398_NewRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012231138447_RemoveOneToOneRel.resx">
+      <DependentUpon>202012231138447_RemoveOneToOneRel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012231200239_AddedUserNameToPerson.resx">
+      <DependentUpon>202012231200239_AddedUserNameToPerson.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012231312562_DataAnnotation.resx">
+      <DependentUpon>202012231312562_DataAnnotation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012231337420_OneToManyAppPersonMigration.resx">
+      <DependentUpon>202012231337420_OneToManyAppPersonMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012231445298_OneToManyAppPersonChanged.resx">
+      <DependentUpon>202012231445298_OneToManyAppPersonChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012232120415_InvoiceModel.resx">
+      <DependentUpon>202012232120415_InvoiceModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
