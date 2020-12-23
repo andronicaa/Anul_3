@@ -1,0 +1,17 @@
+﻿@model Planner.Models.ShoppingList
+
+@using
+<h3>Lista de cumparaturi: @Model.Titlu</h3>
+<ul>
+    @foreach (var prd in Model.Products)
+    {
+
+        <li>@prd.Denumire, @prd.Cantitate, @prd.Descriere</li>
+    }
+
+</ul>
+
+@
+
+
+

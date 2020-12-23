@@ -105,6 +105,34 @@ namespace Planner.Controllers
             ctx.SaveChanges();
             return RedirectToAction("Index", "ShoppingList");
         }
+
+
+        /*public ActionResult AddProductInList(int id)
+        {
+            // id => id-ul listei curente
+            // caut lista in baza de date
+            ShoppingList list = ctx.ShoppingLists.Find(id);
+            return View(list);
+        }*/
+
+        [NonAction]
+        public IEnumerable<SelectListItem> GetAllProducts()
+        {
+            // generez o lista goala
+            var selectList = new List<SelectListItem>();
+            foreach (var prd in ctx.Products.ToList())
+            {
+                // adaugam in lista de produse(dropdown)
+                selectList.Add(new SelectListItem
+                {
+                    Value = prd.ProductId.ToString(),
+                    Text = prd.Denumire
+                });
+            }
+
+            return selectList;
+                 
+        }
         
 
     }

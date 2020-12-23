@@ -227,11 +227,15 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\background-image.jpg" />
     <Content Include="Content\Images\paico-oficial-wFbvRRFTRoc-unsplash.jpg" />
     <Content Include="Content\LICENSE.txt" />
     <Content Include="Content\Style\home.css" />
+    <Content Include="Content\Style\IndexLista.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -348,6 +352,11 @@
     <Content Include="lib\twitter-bootstrap\scss\utilities\_text.scss" />
     <Content Include="lib\twitter-bootstrap\scss\utilities\_visibility.scss" />
     <Content Include="lib\twitter-bootstrap\scss\vendor\_rfs.scss" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -411,6 +420,7 @@
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\DetaliiProdus.cshtml" />
     <Content Include="Views\Products\EditProdus.cshtml" />
+    <Content Include="Views\ShoppingList\AddProductInList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

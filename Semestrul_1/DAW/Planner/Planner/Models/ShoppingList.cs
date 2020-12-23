@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Planner.Models
 {
@@ -18,5 +20,8 @@ namespace Planner.Models
 
         // many-to-many relation
         public ICollection<Product> Products { get; set; }
+
+        [NotMapped]
+        public IEnumerable<SelectListItem> ProductsList { get; set; }
     }
 }

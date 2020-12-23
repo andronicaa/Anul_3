@@ -1,0 +1,27 @@
+﻿body {
+}
+
+.mainContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.card {
+    border: 1px solid gray;
+    border-radius: 10px;
+
+
+}
+
+.cardBody {
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card-header {
+   text-align: center;
+}

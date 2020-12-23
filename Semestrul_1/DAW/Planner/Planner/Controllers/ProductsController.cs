@@ -70,9 +70,17 @@ namespace Planner.Controllers
             ctx.SaveChanges();
             return RedirectToAction("Index", "Products");
         }
+
+
         /*public ActionResult AddProduct(int id)
         {
-            // id-ul primit ca parametru este id-ul unei 
+            // id-ul primit ca parametru este id-ul unei liste de cumparatui
+            // pot adauga in acea lista un produs existent in baza de date
+            // mai intai listez toate produsele existente
+            // caut produsele
+            IEnumerable<Product> products = ctx.Products.ToList();
+
+            return View(products);
         }*/
     }
 }
