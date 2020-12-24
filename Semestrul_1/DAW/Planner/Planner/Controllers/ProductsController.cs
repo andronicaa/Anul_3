@@ -26,7 +26,7 @@ namespace Planner.Controllers
         public ActionResult EditProdus(int id)
         {
             // dupa ce afisez lista cu toate produsele din toate listele de cumparaturi, 
-            //pot actualiza un singur produs ca acesta sa se actualizeze in toate listele din care face parte
+            // pot actualiza un singur produs ca acesta sa se actualizeze in toate listele din care face parte
             // caut produsul in baza de date
             Product prd = ctx.Products.Find(id);
             return View(prd);
@@ -44,6 +44,7 @@ namespace Planner.Controllers
                     produs.Cantitate = prd.Cantitate;
                     produs.Denumire = prd.Denumire;
                     produs.Descriere = prd.Descriere;
+                    produs.Necesitate = prd.Necesitate;
                     ctx.SaveChanges();
                     return RedirectToAction("Index", "Products");
                 }
@@ -71,6 +72,7 @@ namespace Planner.Controllers
             return RedirectToAction("Index", "Products");
         }
 
+        [Route("products/newproduct")]
         public ActionResult NewProduct()
         {
             Product prd = new Product();
@@ -96,6 +98,10 @@ namespace Planner.Controllers
                     
             }
         }
+
+
+        
+
        
     }
 }

@@ -3,6 +3,7 @@
 <p>@Model.Denumire</p>
 <p>@Model.Cantitate</p>
 <p>@Model.Descriere</p>
+<p>@Model.Necesitate</p>
 @using (Html.BeginForm(actionName: "EditProdus", controllerName: "Products", method: FormMethod.Get, routeValues: new { id = Model.ProductId }))
 {
 

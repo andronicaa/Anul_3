@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Planner.Models.MyValidation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,10 +15,15 @@ namespace Planner.Models
         public string TipFactura { get; set; }
 
         [Required]
-        public string DataEmitere { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        public DateTime DataEmitere { get; set; }
 
         [Required]
-        public string DataScadenta { get; set; }
+        [DateValidation]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        public DateTime DataScadenta { get; set; }
 
         [Required]
         public double TotalPlata { get; set; }

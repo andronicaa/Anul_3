@@ -13,11 +13,17 @@ namespace Planner.Models
         [StringLength(15, ErrorMessage = "Titlul trebuie sa fie de lungime cuprinsa intre 4 si 15.", MinimumLength = 4)]
         public string TitluTask { get; set; }
         [Required(ErrorMessage = "Camp obligatoriu")]
-        public string Prioritate { get; set; }
+        public Priority Prioritate { get; set; }
         [Required(ErrorMessage = "Camp obligatoriu")]
         public string Deadline { get; set; }
 
         [Required]
         public string Detalii { get; set; }
+    }
+    public enum Priority
+    {
+        Mica, 
+        Medie, 
+        Mare
     }
 }

@@ -1,12 +1,19 @@
 ﻿@model List<Planner.Models.Invoice>
 
 
-
 <h2>Facturi</h2>
 
 @using (Html.BeginForm(actionName: "NewInvoice", controllerName: "Invoices", method: FormMethod.Get))
 {
     <button class="btn btn-primary" type="submit"><i class="fa fa-plus"></i> &nbsp;Adauga factura</button>
+}
+<br />
+<br />
+
+<p>Facturile din luna curenta</p>
+@using (Html.BeginForm(actionName: "TotalFacturiLunaCurenta", controllerName: "Invoices", method: FormMethod.Get))
+{
+    <button class="btn btn-primary" type="submit"><i class="fa fa-plus"></i> &nbsp;Listeaza facturi</button>
 }
 <br />
 <br />
@@ -22,9 +29,9 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                @foreach (var item in Model)
-                {
+            
+            @foreach (var item in Model)
+                {<tr>
                     <td>@item.TipFactura</td>
                     <td>@item.DataScadenta</td>
                     <td>
@@ -39,8 +46,9 @@
                             <button class="btn btn-info" type="submit"><i class="fa fa-info"></i> &nbsp; Detalii</button>
                         }
                     </td>
-                }
-            </tr>
+                </tr>
+}
+
         </tbody>
     </table>
 </div>

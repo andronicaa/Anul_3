@@ -1,24 +1,27 @@
 ﻿@model Planner.Models.DailyTask
 
+<br />
+<br />
 
-<h1>DetaliiTask</h1>
-<p>@Model.TitluTask</p>
-<p>Prioritate: @Model.Prioritate</p>
-<p>Deadline: @Model.Deadline</p>
-<p>Detalii: @Model.Detalii</p>
-<span>
-    @using (Html.BeginForm(actionName: "Edit", controllerName: "DailyTasks", method: FormMethod.Get, routeValues: new { id = Model.DailyTaskId }))
-    {
-        <button class="btn btn-danger" type="submit"><i class="fa fa-edit"></i> &nbsp; Update task</button>
-    }
+<div class="panel panel-warning">
+    <div class="panel-heading">@Model.TitluTask</div>
+    <div class="panel-body">
+        <p><strong> Prioritate: </strong>@Model.Prioritate</p>
+        <p><strong> Deadline: </strong>@Model.Deadline</p>
+        <p><strong> Prioritate: </strong>@Model.Detalii</p>
+    </div>
+    <div class="panel-footer">
+        <div style="display: inline-block">
+            @using (Html.BeginForm(actionName: "Edit", controllerName: "DailyTasks", method: FormMethod.Get, routeValues: new { id = Model.DailyTaskId }))
+            {
+                <button class="btn btn-danger"type="submit"><i class="fa fa-edit"></i> &nbsp; Update</button>
+            }
 
-    <br />
-    <br />
-
-    @using (Html.BeginForm(actionName: "DeleteTask", controllerName: "DailyTasks", method: FormMethod.Post, routeValues: new { id = Model.DailyTaskId }))
-    {
-        <button class="btn btn-success" type="submit"><i class="fa fa-check"></i> &nbsp; Done</button>
-    }
-</span>
-
-© 2020 GitHub, Inc.
+            <br />
+            @using (Html.BeginForm(actionName: "DeleteTask", controllerName: "DailyTasks", method: FormMethod.Post, routeValues: new { id = Model.DailyTaskId }))
+            {
+                <button class="btn btn-success" type="submit"><i class="fa fa-check"></i> &nbsp; Delete</button>
+            }
+        </div>
+    </div>
+</div>

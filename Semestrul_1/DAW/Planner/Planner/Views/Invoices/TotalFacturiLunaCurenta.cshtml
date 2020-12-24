@@ -1,0 +1,10 @@
+﻿@model Planner.Models.ViewModels.InvoiceViewModel
+
+<p>@Model.TotalSuma</p>
+
+
+@foreach (var item in Model.Invoices)
+{
+    <p>@item.TipFactura</p>
+    <p>@item.TotalPlata</p>
+}

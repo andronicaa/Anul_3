@@ -18,10 +18,19 @@ namespace Planner.Models
         public string Cantitate { get; set; }
 
         [Required]
-        [StringLength(30, ErrorMessage = "Titlul trebuie sa fie de lungime cuprinsa intre 5 si 30.", MinimumLength = 5)]
+        [StringLength(30, ErrorMessage = "Descrierea trebuie sa fie de lungime cuprinsa intre 5 si 30.", MinimumLength = 5)]
         public string Descriere { get; set; }
+
+        // acest cand nu este obligatoriu
+        public Necesitate Necesitate { get; set; }
+
 
         // many-to-many relation
         public ICollection<ShoppingList> ShoppingLists { get; set; }
+    }
+    public enum Necesitate
+    {
+        Mica, 
+        Urgent
     }
 }

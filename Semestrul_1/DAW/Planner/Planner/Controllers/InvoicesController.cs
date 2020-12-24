@@ -1,4 +1,5 @@
 ﻿using Planner.Models;
+using Planner.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,6 +92,29 @@ namespace Planner.Controllers
             ctx.SaveChanges();
 
             return RedirectToAction("Index", "Invoices");
+        }
+
+        public ActionResult TotalFacturiLunaCurenta()
+        {
+            // aflu care este luna curenta
+            DateTime dataCurenta = DateTime.Now;
+            int lunaCurenta = dataCurenta.Month;
+            double totalPlata = 0;
+
+            InvoiceViewModel inv = new InvoiceViewModel();
+            // caut toate facturile din baza de date care au data scadenta in aceasta luna
+            IEnumerable<Invoice> invoices = ctx.Invoices.Where(p => p.DataScadenta.Month == lunaCurenta).ToList();
+            inv.Invoices = invoices;
+
+            foreach (var item in invoices)
+            {
+                totalPlata = totalPlata + item.TotalPlata;
+            }
+            inv.TotalSuma = totalPlata;
+            // le trimit catre un view
+            return View(inv);
+
+
         }
     }
 }

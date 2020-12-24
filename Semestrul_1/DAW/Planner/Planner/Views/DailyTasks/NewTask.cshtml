@@ -12,7 +12,7 @@
     <br />
     @Html.Label("Prioritate", "Prioritate:")
     <br />
-    @Html.TextBoxFor(b => b.Prioritate, null, new { placeholder = "Prioritate", @class = "form-control" })
+    @Html.EnumDropDownListFor(b => b.Prioritate, htmlAttributes: new { @class = "form-control" })
     @Html.ValidationMessageFor(b => b.Prioritate, "", new { @class = "text-danger" })
     <br />
     <br />
