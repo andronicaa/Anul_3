@@ -128,4 +128,27 @@ begin
     pachet4_aan.verif_comp(102, 'AD_VP');
 end;
 
-select * from employees
+-- EXERCITII
+create or replace package ex1 is
+    procedure adaug_angajat(nume varchar2(20), prenume varchar2(20), 
+                            telefon varchar2(11), email varchar2(20))                        
+end ex1;
+create or replace package body ex1 is
+    procedure adaug_angajat(nume varchar2(20), prenume varchar2(20),    
+                            telefon varchar2(11), email varchar2(20)) is
+        -- declaratii locale
+        -- vom determina codul angajatului
+        v_cod_ang_max employees.employee_id%type;
+        v_cod_ang employees.employee_id%type;
+        v_salariu employees.salary%type;
+        v_data_angajare date := sysdate;
+    begin
+        --determin codul angajatului
+        select max(employee_id) into v_cod_ang_max
+        from employees;
+        v_cod_ang := v_cod_ang_max + 1;
+        -- data angajarii este sysdate
+        --determin salariul
+        
+    end adaug_angajat;
+end ex1;
