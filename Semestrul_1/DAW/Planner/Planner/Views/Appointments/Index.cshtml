@@ -1,9 +1,54 @@
 ﻿@model List<Planner.Models.Appointment>
 
-@foreach (var apt in Model)
+<br />
+<br />
+
+@using (Html.BeginForm(actionName: "OrderAppointments", controllerName: "Appointments", method: FormMethod.Get))
 {
-    <p>@apt.AppointmentType</p>
-    <p>@apt.Adresa</p>
-    <p>@apt.Data</p>
+    <button class="btn btn-warning" type="submit"><i class="fa fa-list"></i> &nbsp; Lista ordonata a intalnirilor</button>
 }
+<br />
+<br />
+@using (Html.BeginForm(actionName: "NewApt", controllerName: "Appointments", method: FormMethod.Get))
+{
+    <button class="btn btn-warning" type="submit"><i class="fa fa-plus"></i> &nbsp; Adauga intalnire</button>
+}
+<br />
+<br />
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Appointment</th>
+                <th scope="col">Data</th>
+                <th scope="col">Update</th>
+                <th scope="col">Detalii</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.AppointmentType</td>
+                    <td>@item.Data</td>
+                    <td>
+                        @using (Html.BeginForm(actionName: "EditApt", controllerName: "Appointments", method: FormMethod.Get, routeValues: new { id = item.AppointmentId }))
+                        {
+                            <button class="btn btn-warning" type="submit"><i class="fa fa-pencil"></i> &nbsp; Update</button>
+                        }
+                    </td>
+                    <td>
+                        @using (Html.BeginForm(actionName: "AppointmentDetails", controllerName: "Appointments", method: FormMethod.Get, routeValues: new { id = item.AppointmentId }))
+                        {
+                            <button class="btn btn-info" type="submit"><i class="fa fa-info"></i> &nbsp; Detalii</button>
+                        }
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
 

@@ -1,44 +1,69 @@
 ﻿@model Planner.Models.ViewModels.PersonContactInfoViewModel
 
-<h1>NewTask</h1>
+<br />
+<br />
+
 
 @using (Html.BeginForm(actionName: "CreateNewPerson", controllerName: "PersonContactInfoViewModels", method: FormMethod.Post))
 {
-    @Html.Label("Nume", "Nume: ")
-    <br />
-    @Html.TextBoxFor(b => b.Person.Nume, null, new { placeholder = "Nume...", @class = "form-control" })
-    @Html.ValidationMessageFor(b => b.Person.Nume, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("Prenume", "Prenume:")
-    <br />
-    @Html.TextBoxFor(b => b.Person.Prenume, null, new { placeholder = "Prenume", @class = "form-control" })
-    @Html.ValidationMessageFor(b => b.Person.Prenume, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("Adresa", "Adresa:")
-    <br />
-    @Html.TextBoxFor(b => b.ContactInfo.Adresa, null, new { placeholder = "Adresa", @class = "form-control" })
-    @Html.ValidationMessageFor(b => b.ContactInfo.Adresa, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("NrTelefon", "NrTelefon:")
-    <br />
-    @Html.TextBoxFor(b => b.ContactInfo.NrTelefon, null, new { placeholder = "Adresa", @class = "form-control" })
-    @Html.ValidationMessageFor(b => b.ContactInfo.NrTelefon, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("Email", "Email:")
-    <br />
-    @Html.TextBoxFor(b => b.ContactInfo.Email, null, new { placeholder = "Email", @class = "form-control" })
-    @Html.ValidationMessageFor(b => b.ContactInfo.Email, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("CodPostal", "CodPostal:")
-    <br />
-    @Html.TextBoxFor(b => b.ContactInfo.CodPostal, null, new { placeholder = "CodPostal", @class = "form-control" })
-    @Html.ValidationMessageFor(b => b.ContactInfo.CodPostal, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    <button class="btn btn-primary" type="submit">Adauga profil</button>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3><i class="fa fa-user" aria-hidden="true"></i> &nbsp; Adauga profil</h3>
+    </div>
+    <div class="panel-body">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-5">
+
+            @Html.Label("Nume", "Nume: ")
+            <br />
+            @Html.TextBoxFor(b => b.Person.Nume, null, new { placeholder = "Nume...", @class = "form-control" })
+            @Html.ValidationMessageFor(b => b.Person.Nume, "", new { @class = "text-danger" })
+            <br />
+            <br />
+            @Html.Label("Prenume", "Prenume:")
+            <br />
+            @Html.TextBoxFor(b => b.Person.Prenume, null, new { placeholder = "Prenume", @class = "form-control" })
+            @Html.ValidationMessageFor(b => b.Person.Prenume, "", new { @class = "text-danger" })
+            <br />
+            <br />
+            @Html.Label("Adresa", "Adresa:")
+            <br />
+            @Html.TextBoxFor(b => b.ContactInfo.Adresa, null, new { placeholder = "Adresa", @class = "form-control" })
+            @Html.ValidationMessageFor(b => b.ContactInfo.Adresa, "", new { @class = "text-danger" })
+            <br />
+            <br />
+        </div>
+        <div class="col-lg-1"></div>
+        <div class="col-lg-5">
+
+            @Html.Label("NrTelefon", "NrTelefon:")
+            <br />
+            @Html.TextBoxFor(b => b.ContactInfo.NrTelefon, null, new { placeholder = "Adresa", @class = "form-control" })
+            @Html.ValidationMessageFor(b => b.ContactInfo.NrTelefon, "", new { @class = "text-danger" })
+            <br />
+            <br />
+            @Html.Label("Email", "Email:")
+            <br />
+            @Html.TextBoxFor(b => b.ContactInfo.Email, null, new { placeholder = "Email", @class = "form-control" })
+            @Html.ValidationMessageFor(b => b.ContactInfo.Email, "", new { @class = "text-danger" })
+            <br />
+            <br />
+            @Html.Label("CodPostal", "CodPostal:")
+            <br />
+            @Html.TextBoxFor(b => b.ContactInfo.CodPostal, null, new { placeholder = "CodPostal", @class = "form-control" })
+            @Html.ValidationMessageFor(b => b.ContactInfo.CodPostal, "", new { @class = "text-danger" })
+            <br />
+            <br />
+
+
+        </div>
+    </div>
+    <div class="panel-footer">
+        <button class="btn btn-primary" type="submit"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp; Adauga profil</button>
+    </div>
+    
+</div>
+    
+    
+    
 }

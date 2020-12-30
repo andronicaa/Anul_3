@@ -1,20 +1,27 @@
 ﻿@model Planner.Models.DailyTask
 
+
 <br />
 <br />
+@using (Html.BeginForm(actionName: "Index", controllerName: "DailyTasks", method: FormMethod.Get))
+{
+    <button class="btn btn-info" type="submit"><i class="fa fa-home"></i> &nbsp; Home</button>
+}
+<br />
+
 
 <div class="panel panel-warning">
     <div class="panel-heading">@Model.TitluTask</div>
     <div class="panel-body">
         <p><strong> Prioritate: </strong>@Model.Prioritate</p>
         <p><strong> Deadline: </strong>@Model.Deadline</p>
-        <p><strong> Prioritate: </strong>@Model.Detalii</p>
+        <p><strong> Detalii: </strong>@Model.Detalii</p>
     </div>
     <div class="panel-footer">
         <div style="display: inline-block">
             @using (Html.BeginForm(actionName: "Edit", controllerName: "DailyTasks", method: FormMethod.Get, routeValues: new { id = Model.DailyTaskId }))
             {
-                <button class="btn btn-danger"type="submit"><i class="fa fa-edit"></i> &nbsp; Update</button>
+                <button class="btn btn-danger" type="submit"><i class="fa fa-edit"></i> &nbsp; Update</button>
             }
 
             <br />
@@ -25,3 +32,4 @@
         </div>
     </div>
 </div>
+

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace Planner.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
@@ -23,6 +24,7 @@ namespace Planner.Controllers
             return View(prd);
         }
 
+        [Authorize(Roles = "Admin,Child")]
         public ActionResult EditProdus(int id)
         {
             // dupa ce afisez lista cu toate produsele din toate listele de cumparaturi, 
@@ -56,6 +58,8 @@ namespace Planner.Controllers
 
         }
 
+        // doar adminul poate sa sterga o produs din baza de date
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult DeleteProdus(int id)
         {
@@ -72,6 +76,8 @@ namespace Planner.Controllers
             return RedirectToAction("Index", "Products");
         }
 
+        
+        [Authorize(Roles = "Admin, Child")]
         [Route("products/newproduct")]
         public ActionResult NewProduct()
         {

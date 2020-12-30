@@ -5,3 +5,7 @@
     background-size: auto;
 
 }
+
+.bodyCardImg {
+    max-height: 100%;
+}

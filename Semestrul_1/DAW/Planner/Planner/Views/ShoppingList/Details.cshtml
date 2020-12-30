@@ -7,9 +7,14 @@
 
 @if (Model.Products.Count > 0)
 {
-   foreach(var item in Model.Products)
-   {
-       <p>@item.Cantitate</p>
-       <p>@item.Denumire</p>
-   }
+    foreach (var item in Model.Products)
+    {
+        <p>@item.Cantitate</p>
+        <p>@item.Denumire</p>
+    }
+}
+<br />
+@using (Html.BeginForm(actionName: "DeleteList", controllerName: "ShoppingList", method: FormMethod.Post, routeValues: new { id = Model.ShoppingListId }))
+{
+    <button class="btn btn-danger" type="submit"><i class="fa fa-check" aria-hidden="true"></i> &nbsp; Delete lista</button>
 }

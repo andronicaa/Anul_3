@@ -127,3 +127,6 @@ C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Plann
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.DropDownListDailyTask.resources
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.AddMultipleCustomValidation.resources
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.NecesitateAddedToProduct.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.UserAdminDefault.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.DateValidationDailyTask.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.AppointmentDetailsMigration.resources

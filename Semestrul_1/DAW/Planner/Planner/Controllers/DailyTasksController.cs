@@ -28,7 +28,7 @@ namespace Planner.Controllers
                 {
                     return View(task);
                 }
-                return HttpNotFound("Nu exista cartea cu id-ul dat");
+                return HttpNotFound("Nu exista task-ul cu id-ul dat");
             }
             return HttpNotFound();
         }
@@ -66,7 +66,7 @@ namespace Planner.Controllers
                 DailyTask tsk = _ctx.DailyTasks.FirstOrDefault(predicate => predicate.DailyTaskId == id);
                 if (tsk == null)
                 {
-                    return HttpNotFound("Nu exista cartea cu id-ul dat");
+                    return HttpNotFound("Nu exista task-ul cu id-ul dat");
                 }
                 return View(tsk);
             }

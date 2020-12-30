@@ -5,5 +5,50 @@
 
 
 <body>
+    <br />
+    <br />
+    <br />
+    <div class="col-lg-4">
+        <div class="panel">
+            <div class="panel-body">
+                <img src="~/Content/Images/appointment.jpg" class="img-responsive"/>
+            </div>
+            <div class="panel-footer">
+                <li>@Html.ActionLink("Intalniri", "Index", "Appointments")</li>
+            </div>
+        </div>
+    </div>
 
+    <div class="col-lg-4">
+        <div class="panel">
+            <div class="panel-body"></div>
+            <div class="panel-footer">
+                <li>@Html.ActionLink("Facturi", "Index", "Invoices")</li>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="panel">
+            <div class="panel-body">
+                <img src="~/Content/Images/todo.jpg" class="img-responsive"/>
+            </div>
+            <br />
+            <div class="panel-footer">
+                <li>@Html.ActionLink("Lista task-uri", "Index", "DailyTasks")</li>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="panel">
+            <div class="panel-body">
+                <img src="~/Content/Images/shopping_list.jpg" class="img-responsive" />
+            </div>
+            <div class="panel-footer">
+                <li>@Html.ActionLink("Lista cumparaturi", "Index", "ShoppingList")</li>
+            </div>
+        </div>
+    </div>
 </body>

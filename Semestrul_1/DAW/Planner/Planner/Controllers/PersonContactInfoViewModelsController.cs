@@ -14,9 +14,13 @@ namespace Planner.Controllers
     {
        
         private ApplicationDbContext ctx = new ApplicationDbContext();
-        // afisam toate persoanele din baza de date
+
+
+        [Authorize(Roles = "Admin")]
+        // doar adminul poate vedea toate persoanele din baza de date
         public ActionResult Index()
         {
+            // gasesc user-ul curent
             var userId = User.Identity.GetUserId();
             Person prs = ctx.Persons.Include("ContactInfo").Where(p => p.UserId == userId).FirstOrDefault();
             // daca nu este niciun profil adaugat => utilizatorul trebuie redirectionat catre o pagina de adauga a unui profil nou
@@ -24,6 +28,8 @@ namespace Planner.Controllers
             {
                 return RedirectToAction("NewPerson", "personcontactinfoviewmodels");
             }
+
+            // daca exista persoana in baza de date doar i se va afisa profilul
             return View(prs);
             
         }
@@ -40,7 +46,7 @@ namespace Planner.Controllers
         [HttpGet]
         public ActionResult NewPerson()
         {
-            // sa pot adauga o persoana doar daca nu s-a facut inca un profil pentru user-ul curent
+            // se poate adauga o persoana doar daca nu s-a facut inca un profil pentru user-ul curent
             // caut in baza de date o persoana cu id-ul user-ului curent
             var userId = User.Identity.GetUserId();
             Person prs = ctx.Persons.Where(p => p.UserId == userId).FirstOrDefault();
@@ -81,6 +87,7 @@ namespace Planner.Controllers
                 }
 
             }
+
             try
             {
                 Person prs = new Person();

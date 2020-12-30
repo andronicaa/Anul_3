@@ -1,5 +1,4 @@
-﻿<link rel="stylesheet" href="~/Content/Style/IndexLista.css"/>
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 <h3>Liste cumparaturi</h3>
@@ -9,17 +8,28 @@
 <p>Produsele din listele de cumparaturi</p>
 @using (Html.BeginForm(actionName: "Index", controllerName: "Products", method: FormMethod.Get))
 {
-    
+
     <button class="btn btn-info" type="submit"><i class="fa fa-list" aria-hidden="true"></i> &nbsp; Afiseaza produse</button>
 }
-<div class="mainContainer">
-    @foreach (var item in ViewBag.Lists)
-    {
-        <div class="card" style="width: 18rem;">
-            <div class="cardBody">
-                <div class="card-header">
-                    <p><strong>@item.Titlu</strong></p>
-                </div>
+<br />
+<br />
+
+@using (Html.BeginForm(actionName: "NewList", controllerName: "ShoppingList", method: FormMethod.Get))
+{
+
+    <button class="btn btn-info" type="submit"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp; Adauga lista cumparaturi</button>
+}
+<br />
+<br />
+
+@foreach (var item in ViewBag.Lists)
+{
+    <div class="col-lg-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <p><strong>@item.Titlu</strong></p>
+            </div>
+            <div class="panel-body">
                 <ul class="list-group list-group-flush">
                     @foreach (var prd in item.Products)
                     {
@@ -27,20 +37,22 @@
 
                     }
                 </ul>
-                @using (Html.BeginForm(actionName: "AddProduct", controllerName: "Products", method: FormMethod.Post, routeValues: new { id = item.ShoppingListId }))
+                @using (Html.BeginForm(actionName: "AddProductInList", controllerName: "ShoppingList", method: FormMethod.Post, routeValues: new { id = item.ShoppingListId }))
                 {
-            <button class="btn btn-secondary" type="submit"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp; Add product</button>
+                    <button class="btn btn-secondary" type="submit"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp; Add product</button>
                 }
                 <br />
-                @using (Html.BeginForm(actionName: "DeleteList", controllerName: "ShoppingList", method: FormMethod.Post, routeValues: new { id = item.ShoppingListId }))
+                @using (Html.BeginForm(actionName: "Details", controllerName: "ShoppingList", method: FormMethod.Post, routeValues: new { id = item.ShoppingListId }))
                 {
-                    <button class="btn btn-success" type="submit"><i class="fa fa-check" aria-hidden="true"></i> &nbsp; Delete lista</button>
+                    <button class="btn btn-info" type="submit"><i class="fa fa-info" aria-hidden="true"></i> &nbsp; Detalii lista</button>
                 }
             </div>
-            
+                
         </div>
 
-    }
-</div>
+    </div>
+
+}
+
 
 

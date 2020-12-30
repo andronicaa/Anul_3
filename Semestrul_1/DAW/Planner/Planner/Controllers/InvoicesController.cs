@@ -8,15 +8,22 @@ using System.Web.Mvc;
 
 namespace Planner.Controllers
 {
+    [Authorize]
     public class InvoicesController : Controller
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
+
+
+        // afisam toate facturile din baza de date
+        [Route("invoices/index")]
         public ActionResult Index()
         {
             IEnumerable<Invoice> inv = ctx.Invoices.ToList();
             return View(inv);
         }
 
+
+        // detaliile despre o factura cu un id dat
         [Route("invoices/details/{id}")]
         public ActionResult Details(int id)
         {
@@ -25,13 +32,18 @@ namespace Planner.Controllers
             return View(invDet);
         }
 
+
+        // se adauga o noua factura in baza de date
         [Route("invoices/newinvoice")]
+        [Authorize(Roles = "Admin")]
         public ActionResult NewInvoice()
         {
             Invoice inv = new Invoice();
             return View(inv);
         }
 
+
+        // o factura poate fi adaugata in baza de date doar de catre Admin
         [HttpPost]
         public ActionResult CreateInvoice(Invoice inv)
         {
@@ -50,13 +62,26 @@ namespace Planner.Controllers
             }
         }
 
+
+        // Daca user-ul curent este Admin => acesta poate modifica toate campurile facturii
+        // Daca user-ul curent este Child => poate modifica doar campul de Status
+        [Authorize(Roles = "Admin,Child")]
         public ActionResult EditInvoice(int id)
         {
-            // caut in baza de date
+            // caut in baza de date factura corespunzatoate id-ului
             Invoice inv = ctx.Invoices.Find(id);
-            return View(inv);
+            Invoice childInv = ctx.Invoices.Find(id);
+            if (User.IsInRole("Admin"))
+            {
+                return View(inv);
+            }
+            
+                return View(childInv);
+            
         }
 
+
+        
         [HttpPost]
         public ActionResult UpdateInvoice(int id, Invoice invReq)
         {
@@ -64,13 +89,15 @@ namespace Planner.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Invoice inv = ctx.Invoices.Find(id);
-                    inv.TipFactura = invReq.TipFactura;
-                    inv.DataEmitere = invReq.DataEmitere;
-                    inv.DataScadenta = invReq.DataScadenta;
-                    inv.TotalPlata = invReq.TotalPlata;
-                    inv.Status = invReq.Status;
-
+                   
+                        
+                        Invoice inv = ctx.Invoices.Find(id);
+                        inv.TipFactura = invReq.TipFactura;
+                        inv.DataEmitere = invReq.DataEmitere;
+                        inv.DataScadenta = invReq.DataScadenta;
+                        inv.TotalPlata = invReq.TotalPlata;
+                        inv.Status = invReq.Status;
+               
                     ctx.SaveChanges();
                     return RedirectToAction("Index", "Invoices");
                 }
@@ -82,7 +109,9 @@ namespace Planner.Controllers
         }
 
 
+        // o factura poate fi eliminata doar de catre Admin
         [HttpPost]
+        [Authorize(Roles ="Admin")]
         public ActionResult DeleteInvoice(int id)
         {
             // caut factura in baza de date
@@ -94,6 +123,9 @@ namespace Planner.Controllers
             return RedirectToAction("Index", "Invoices");
         }
 
+
+        // facturile ce trebuie platite in luna curenta pot fi vazute de ambele tipuri de utilizatori
+        [Authorize(Roles = "Admin,Child")]
         public ActionResult TotalFacturiLunaCurenta()
         {
             // aflu care este luna curenta

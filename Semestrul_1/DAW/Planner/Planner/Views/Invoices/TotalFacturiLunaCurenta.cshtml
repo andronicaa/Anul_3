@@ -1,10 +1,58 @@
 ﻿@model Planner.Models.ViewModels.InvoiceViewModel
 
-<p>@Model.TotalSuma</p>
+<br />
+<br />
 
 
-@foreach (var item in Model.Invoices)
-{
-    <p>@item.TipFactura</p>
-    <p>@item.TotalPlata</p>
-}
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3>Facturi scadente in luna curenta: @DateTime.Now.Month</h3>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Factura</th>
+                        <th scope="col">Data scadenta</th>
+                        <th scope="col">Total factura</th>
+                        <th scope="col">Update</th>
+                        <th scope="col">Detalii</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model.Invoices)
+                    {
+                        <tr>
+                            <td>@item.TipFactura</td>
+                            <td>@item.DataScadenta</td>
+                            <td>@item.TotalPlata</td>
+                            <td>
+                                @using (Html.BeginForm(actionName: "EditInvoice", controllerName: "Invoices", method: FormMethod.Get, routeValues: new { id = item.InvoiceId }))
+                                {
+                                    <button class="btn btn-warning" type="submit"><i class="fa fa-pencil"></i> &nbsp; Update</button>
+                                }
+                            </td>
+                            <td>
+                                @using (Html.BeginForm(actionName: "Details", controllerName: "Invoices", method: FormMethod.Get, routeValues: new { id = item.InvoiceId }))
+                                {
+                                    <button class="btn btn-info" type="submit"><i class="fa fa-info"></i> &nbsp; Detalii</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <p><strong>Total plata facturi: </strong>@Model.TotalSuma</p>
+    </div>
+</div>
+
+<br />
+<br />
+
+

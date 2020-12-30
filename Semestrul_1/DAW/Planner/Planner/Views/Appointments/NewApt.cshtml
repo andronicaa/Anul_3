@@ -30,6 +30,12 @@
     @Html.ValidationMessageFor(b => b.Persoane, "", new { @class = "text-danger" })
     <br />
     <br />
+    @Html.Label("Detalii", "Detalii:")
+    <br />
+    @Html.TextBoxFor(b => b.Detalii, null, new { placeholder = "Persoane", @class = "form-control" })
+    @Html.ValidationMessageFor(b => b.Detalii, "", new { @class = "text-danger" })
+    <br />
+    <br />
     <button class="btn btn-primary" type="submit">Adauga intalnire</button>
 }
 

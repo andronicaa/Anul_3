@@ -24,13 +24,15 @@ namespace Planner.Models
         public string Adresa { get; set; }
 
         [Required]
-
         public string Persoane { get; set; }
 
 
+        [Required]
+        public string Detalii { get; set; }
+
         // o persoana poate avea mai multe intalniri, dar o intalnire apartine doar unei persoane
-        
-        
+
+
         public virtual Person Person { get; set; }
     }
 }

@@ -7,19 +7,19 @@
 {
     @Html.Label("Denumire", "Denumire: ")
     <br />
-    @Html.TextBoxFor(b => b.Denumire, null, new { placeholder = "Tip factura", @class = "form-control" })
+    @Html.TextBoxFor(b => b.Denumire, null, new { placeholder = "Denumire", @class = "form-control" })
     @Html.ValidationMessageFor(b => b.Denumire, "", new { @class = "text-danger" })
     <br />
     <br />
     @Html.Label("Cantitate", "Cantitate:")
     <br />
-    @Html.TextBoxFor(b => b.Cantitate, null, new { placeholder = "Data emitere", @class = "form-control" })
+    @Html.TextBoxFor(b => b.Cantitate, null, new { placeholder = "Cantitate", @class = "form-control" })
     @Html.ValidationMessageFor(b => b.Cantitate, "", new { @class = "text-danger" })
     <br />
     <br />
     @Html.Label("Descriere", "Descriere:")
     <br />
-    @Html.TextBoxFor(b => b.Descriere, null, new { placeholder = "Data Scadenta", @class = "form-control" })
+    @Html.TextBoxFor(b => b.Descriere, null, new { placeholder = "Descriere", @class = "form-control" })
     @Html.ValidationMessageFor(b => b.Descriere, "", new { @class = "text-danger" })
     <br />
     <br />

@@ -1,4 +1,5 @@
 ﻿using Planner.Models;
+using Planner.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Planner.Controllers
 {
+    [Authorize]
     public class ShoppingListController : Controller
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
@@ -35,7 +37,9 @@ namespace Planner.Controllers
             return HttpNotFound("Nu s-a dat parametrul id");
         }
 
+        // doar adminul poate sa faca o noua lista de cumparaturi
         [Route("ShoppingList/newlist")]
+        [Authorize(Roles = "Admin")]
         public ActionResult NewList()
         {
             ShoppingList list = new ShoppingList();
@@ -63,6 +67,9 @@ namespace Planner.Controllers
             
         }
 
+
+        // doar adminul poate sa editeze lista de cumparaturi(consta doar in modificarea numelui)
+        [Authorize(Roles = "Admin")]
         [Route("ShoppingList/editlist/{id}")]
         public ActionResult EditList(int id)
         {
@@ -91,8 +98,10 @@ namespace Planner.Controllers
             }
         }
 
+
+        // doar adminul poate sa stearga o lista de cumparaturi din baza de date
+        [Authorize(Roles = "Admin")]
         [HttpPost]
-        
         public ActionResult DeleteList(int id)
         {
             // daca se sterge o lista => nu trebuie sa se stearga si toate produsele ce se afla in ea
@@ -107,14 +116,30 @@ namespace Planner.Controllers
         }
 
 
-        /*public ActionResult AddProductInList(int id)
+        public ActionResult AddProductInList(int id)
         {
             // id => id-ul listei curente
             // caut lista in baza de date
             ShoppingList list = ctx.ShoppingLists.Find(id);
-            return View(list);
+
+            ShoppingListViewModel slVm = new ShoppingListViewModel();
+            slVm.ShoppingListId = list.ShoppingListId;
+            slVm.ShoppingProducts = GetAllProducts();
+            slVm.Titlu = list.Titlu;
+            return View(slVm);
+        }
+
+        [HttpPost]
+        /*public ActionResult AddProduct(int id, ShoppingListViewModel list)
+        {
+            // caut in baza de date lista de cumparaturi corespunzatoare
+            ShoppingList lst = ctx.ShoppingLists.Find(id);
+            lst.Products = (ICollection<Product>)list.ShoppingProducts;
+            return RedirectToAction("Index", "ShoppingList");
         }*/
 
+
+        // metoda prin care iau toate produsele din baza de date sub forma de lista dropdown
         [NonAction]
         public IEnumerable<SelectListItem> GetAllProducts()
         {

@@ -1,18 +1,33 @@
 ﻿@model Planner.Models.Product
+<br />
+<br />
 
-<p>@Model.Denumire</p>
-<p>@Model.Cantitate</p>
-<p>@Model.Descriere</p>
-<p>@Model.Necesitate</p>
-@using (Html.BeginForm(actionName: "EditProdus", controllerName: "Products", method: FormMethod.Get, routeValues: new { id = Model.ProductId }))
-{
+<div class="col-lg-6">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <p><strong>@Model.Denumire</strong></p>
+        </div>
+        <div class="panel-body">
+            <p><strong>Cantitate: </strong> @Model.Cantitate</p>
+            <p><strong>Descriere: </strong>@Model.Descriere</p>
+            <p><strong>Necesitate: </strong>@Model.Necesitate</p>
+        </div>
+        <div class="panel-footer">
+            @using (Html.BeginForm(actionName: "EditProdus", controllerName: "Products", method: FormMethod.Get, routeValues: new { id = Model.ProductId }))
+            {
 
-    <button class="btn btn-primary" type="submit">Update Produs</button>
-}
+                <button class="btn btn-info" type="submit"><i class="fa fa-pencil"></i> &nbsp; Update Produs</button>
+            }
+            <br />
+            @using (Html.BeginForm(actionName: "DeleteProdus", controllerName: "Products", method: FormMethod.Post, routeValues: new { id = Model.ProductId }))
+            {
 
-@using (Html.BeginForm(actionName: "DeleteProdus", controllerName: "Products", method: FormMethod.Post, routeValues: new { id = Model.ProductId }))
-{
+                <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i> &nbsp; Delete Produs</button>
+            }
+        </div>
+    </div>
+</div>
 
-    <button class="btn btn-primary" type="submit">Delete Produs</button>
-}
+
+
 

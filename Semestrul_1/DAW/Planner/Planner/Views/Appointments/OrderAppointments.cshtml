@@ -1,0 +1,37 @@
+﻿@model  Planner.Models.ViewModels.AppointmentViewModel
+
+
+<h3>Lista ordonata dupa data a intalnirilor</h3>
+@using (Html.BeginForm(actionName: "Index", controllerName: "Appointments", method: FormMethod.Get))
+{
+    <button class="btn btn-info" type="submit"><i class="fa fa-home"></i> &nbsp; Pagina principata</button>
+}
+<br />
+<br />
+
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead >
+            <tr>
+                <th scope="col">Appointment</th>
+                <th scope="col">Data</th>
+                <th scope="col">Adresa</th>
+                <th scope="col">Persoane</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.AppointmentsList)
+            {
+                <tr>
+                    <td>@item.AppointmentType</td>
+                    <td>@item.Data</td>
+                    <td>@item.Adresa</td>
+                    <td>@item.Persoane</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

@@ -1,17 +1,20 @@
-﻿@model Planner.Models.ShoppingList
+﻿@model Planner.Models.ViewModels.ShoppingListViewModel
 
-@using
-<h3>Lista de cumparaturi: @Model.Titlu</h3>
-<ul>
-    @foreach (var prd in Model.Products)
-    {
+<br />
+<br />
 
-        <li>@prd.Denumire, @prd.Cantitate, @prd.Descriere</li>
-    }
+@using (Html.BeginForm(actionName: "AddProduct", controllerName: "ShoppingList", method: FormMethod.Post, routeValues: new { id = Model.ShoppingListId }))
+{
+    @Html.HiddenFor(b => b.ShoppingListId)
+    @Html.HiddenFor(b => b.Titlu)
+    @Html.Label("Produs", "Produs:")
+    <br />
+    @Html.DropDownListFor(b => b.ShoppingListId, new SelectList(Model.ShoppingProducts, "Value", "Text"), "Adauga produs", new { @class = "form-control" })
 
-</ul>
-
-@
-
+    @Html.ValidationMessageFor(b => b.ShoppingListId, "", new { @class = "text-danger" })
+    <br />
+    <br />
+    <button class="btn btn-info" type="submit"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp; Adauga lista</button>
+}
 
 
