@@ -6,6 +6,8 @@ import math
 def f(x, y):
     return 0.5 * x ** 2 - 8.0 * x * y - 7.0 * x + 82.0 * y ** 2 + 2 * y
 
+
+
 # functie care verifica daca o metrice este simetrica si pozitiv definita
 def verif_sim_poz_def(A):
     # verific daca matricea este simetrica

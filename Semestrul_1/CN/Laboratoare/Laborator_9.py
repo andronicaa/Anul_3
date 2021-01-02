@@ -15,41 +15,16 @@ def f(x):
 
 def calc_polinom(X, x, Y):
     suma = 0
-    
     for i in range(len(X)):
         produs = 1
         for j in range(len(X)):
             if i != j:
                 produs = produs * ((x - X[i]) / (X[j] - X[i]))
-        suma = suma + produs * f(x)
+        suma = suma + produs * Y[i]
     
     return suma
 
-# graficul pentru metoda directa
 
-# graficul pentru metoda lagrange de determinare a polinomului
-def plot_function(f, a, b, X, Y):
-    # plot-uim graficul
-    # subdiviziuni
-    v_func = np.linspace(a, b, 50)
-    f2 = np.vectorize(f)
-    plt.plot(v_func, f2(v_func), linestyle='-', linewidth=3)
-
-
-    x_grafic_poli = np.zeros(50)
-    for i in range(50):
-        x_grafic_poli[i] = calc_polinom(X, v_func[i], Y)
-
-    plt.plot(v_func, f2(v_func) - x_grafic_poli, linestyle='--', linewidth=3)
-
-    plt.legend(['f(x)', 'polinom(x)'])  # Adauga legenda
-    plt.axvline(0, c='black')  # Adauga axa OY
-    plt.axhline(0, c='black')  # Adauga axa OX
-    plt.xlabel('x')  # Label pentru axa OX
-    plt.ylabel('y')  # Label pentru axa OY
-    # Titlul figurii
-    plt.title('Lagrange')
-    plt.show()  # Arata graficul    
 
 # graficul pentru determinarea graficului erorii de trunchiere
 def plot_function(f, a, b, X, Y):
@@ -57,12 +32,9 @@ def plot_function(f, a, b, X, Y):
     # subdiviziuni
     v_func = np.linspace(a, b, 50)
     f2 = np.vectorize(f)
+    plt.plot(v_func, f2(v_func), linestyle='-', linewidth=3)
 
-    x_grafic_poli = np.zeros(50)
-    for i in range(50):
-        x_grafic_poli[i] = calc_polinom(X, v_func[i], Y)
-
-    plt.plot(v_func, f2(v_func) - x_grafic_poli, linestyle='--', linewidth=3)
+    # plt.plot(v_func, calc_polinom(X, v_func, Y), linestyle='--', linewidth=3)
 
     plt.legend(['f(x)', 'polinom(x)'])  # Adauga legenda
     plt.axvline(0, c='black')  # Adauga axa OY
@@ -70,7 +42,7 @@ def plot_function(f, a, b, X, Y):
     plt.xlabel('x')  # Label pentru axa OX
     plt.ylabel('y')  # Label pentru axa OY
     # Titlul figurii
-    plt.title('Eroarea de trunchiere')
+    plt.title('Metoda lagrange')
 
     plt.show()  # Arata graficul  
 
@@ -133,6 +105,7 @@ def metoda_lagrange(f, a, b):
     for i in range(len(X)):
         Y[i] = f(X[i])
     print(f"{Y.shape[0]}")
+    print(np.shape(Y))
     # calculez L
     plot_function(f, a, b, X, Y)
                 
