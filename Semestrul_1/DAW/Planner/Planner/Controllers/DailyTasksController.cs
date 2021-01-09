@@ -1,4 +1,5 @@
-﻿using Planner.Models;
+﻿using Microsoft.AspNet.Identity;
+using Planner.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,16 @@ namespace Planner.Controllers
         private ApplicationDbContext _ctx = new ApplicationDbContext();
         public ActionResult Index()
         {
+            // verific daca este cineva conectat in acest moment
+            var userId = User.Identity.GetUserId();
+            if (userId != null)
+            {
+                // trebuie sa caut in baza de date doar task-urile corespunzatoare user-ului curent
+                IEnumerable<DailyTask> taskListAuth = _ctx.DailyTasks.Where(p => p.UserId == userId).ToList();
+                return View(taskListAuth);
+            }
             // afisam toate task-urile din baza de date
-            IEnumerable<DailyTask> taskList = _ctx.DailyTasks.ToList();
+            IEnumerable<DailyTask> taskList = _ctx.DailyTasks.Where(p => p.UserId == null).ToList();
             return View(taskList);
         }
 
@@ -36,6 +45,13 @@ namespace Planner.Controllers
         public ActionResult NewTask()
         {
             DailyTask tsk = new DailyTask();
+            var userId = User.Identity.GetUserId();
+            tsk.Deadline = DateTime.Now;
+            if (userId != null)
+            {
+                tsk.UserId = userId;
+            }
+            
             return View(tsk);
         }
 
@@ -46,6 +62,11 @@ namespace Planner.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    var userId = User.Identity.GetUserId();
+                    if (userId != null)
+                    {
+                        tsk.UserId = userId;
+                    }
                     _ctx.DailyTasks.Add(tsk);
                     _ctx.SaveChanges();
                     return RedirectToAction("Index");
@@ -81,6 +102,11 @@ namespace Planner.Controllers
                 if (ModelState.IsValid)
                 {
                     DailyTask tsk = _ctx.DailyTasks.FirstOrDefault(predicate => predicate.DailyTaskId == id);
+                    var userId = User.Identity.GetUserId();
+                    if (userId != null)
+                    {
+                        tsk.UserId = userId;
+                    }
                     tsk.TitluTask = taskReq.TitluTask;
                     tsk.Prioritate = taskReq.Prioritate;
                     tsk.Deadline = taskReq.Deadline;

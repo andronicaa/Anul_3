@@ -130,13 +130,13 @@ namespace Planner.Controllers
         }
 
         [HttpPost]
-        /*public ActionResult AddProduct(int id, ShoppingListViewModel list)
+        public ActionResult AddProduct(int id, ShoppingListViewModel list)
         {
             // caut in baza de date lista de cumparaturi corespunzatoare
             ShoppingList lst = ctx.ShoppingLists.Find(id);
             lst.Products = (ICollection<Product>)list.ShoppingProducts;
             return RedirectToAction("Index", "ShoppingList");
-        }*/
+        }
 
 
         // metoda prin care iau toate produsele din baza de date sub forma de lista dropdown

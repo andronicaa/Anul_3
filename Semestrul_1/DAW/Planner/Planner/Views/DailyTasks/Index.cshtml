@@ -1,6 +1,6 @@
 ﻿@model List<Planner.Models.DailyTask>
 
-<h2>Task-urile pentru astazi sunt</h2>
+<h2>To do</h2>
 @using (Html.BeginForm(actionName: "NewTask", controllerName: "DailyTasks", method: FormMethod.Post))
 {
     <button class="btn btn-primary" type="submit"><i class="fa fa-plus"></i> &nbsp;Adauga task nou</button>

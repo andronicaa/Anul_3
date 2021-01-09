@@ -28,6 +28,8 @@ namespace Planner.Models
 
         [Required]
         public string Detalii { get; set; }
+        
+        public string UserId { get; set; }
     }
     public enum Priority
     {

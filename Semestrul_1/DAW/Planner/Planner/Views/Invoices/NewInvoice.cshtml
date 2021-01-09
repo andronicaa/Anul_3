@@ -11,13 +11,13 @@
     <br />
     @Html.Label("DataEmitere", "Data Emitere:")
     <br />
-    @Html.TextBoxFor(b => b.DataEmitere, null, new { placeholder = "Data emitere", @class = "form-control" })
+    @Html.EditorFor(b => b.DataEmitere, new { htmlAttributes = new { @class = "form-control" } })
     @Html.ValidationMessageFor(b => b.DataEmitere, "", new { @class = "text-danger" })
     <br />
     <br />
     @Html.Label("DataScadenta", "Data Scadenta:")
     <br />
-    @Html.TextBoxFor(b => b.DataScadenta, null, new { placeholder = "Data Scadenta", @class = "form-control" })
+    @Html.EditorFor(b => b.DataScadenta, new { htmlAttributes = new { @class = "form-control" } })
     @Html.ValidationMessageFor(b => b.DataScadenta, "", new { @class = "text-danger" })
     <br />
     <br />

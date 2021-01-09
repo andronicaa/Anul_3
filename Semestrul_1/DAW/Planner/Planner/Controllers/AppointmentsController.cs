@@ -16,7 +16,9 @@ namespace Planner.Controllers
 
         public ActionResult Index()
         {
-            IEnumerable<Appointment> apt = ctx.Appointments.ToList();
+            // determin user-ul curent
+            var userId = User.Identity.GetUserId();
+            IEnumerable<Appointment> apt = ctx.Appointments.Where(p => p.User_Id == userId).ToList();
             return View(apt);
         }
 
@@ -24,6 +26,7 @@ namespace Planner.Controllers
         {
             // caut in baza de date item-ul cu id-ul corespunzator
             Appointment apt = ctx.Appointments.Find(id);
+            
             return View(apt);
         }
 
@@ -32,30 +35,56 @@ namespace Planner.Controllers
         public ActionResult NewApt()
         {
             Appointment apt = new Appointment();
+            apt.Data = DateTime.Now;
             return View(apt);
         }
         
         [HttpPost]
         public ActionResult CreateApt(Appointment apt)
         {
+            if (!ModelState.IsValid)
+            {
+                var modelErrors = new List<string>();
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var modelError in modelState.Errors)
+                    {
+                        modelErrors.Add(modelError.ErrorMessage);
+                    }
+                }
+
+                foreach (var item in modelErrors)
+                {
+                    System.Console.WriteLine(item);
+                }
+
+            }
+
+
+            var userId = User.Identity.GetUserId();
+            if (userId != null)
+            {
+                apt.User_Id = userId;
+            }
+            Person prs = ctx.Persons.Where(p => p.UserId == userId).FirstOrDefault();
+            apt.Person = prs;
             try
             {
-                if (ModelState.IsValid)
-                {
+               
+                    
                     // caut utilizatorul curent
-                    var userId = User.Identity.GetUserId();
                     // caut in baza de date persoana corespunzatoare utilizatorului curent
-                    Person prs = ctx.Persons.Where(p => p.UserId == userId).FirstOrDefault();
-                    apt.Person = prs;
+                    
                     ctx.Appointments.Add(apt);
                     ctx.SaveChanges();
                     return RedirectToAction("Index", "Appointments");
-                }
-                return View("NewApt", apt);
+               
+               
             } catch(Exception e)
             {
                 return View("NewApt", apt);
             }
+            
         }
 
         [Route("appointments/editapt/{id}")]
@@ -70,16 +99,33 @@ namespace Planner.Controllers
         [HttpPost]
         public ActionResult UpdateApt(int id, Appointment aptReq)
         {
+            if (!ModelState.IsValid)
+            {
+                var modelErrors = new List<string>();
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var modelError in modelState.Errors)
+                    {
+                        modelErrors.Add(modelError.ErrorMessage);
+                    }
+                }
+
+                foreach (var item in modelErrors)
+                {
+                    System.Console.WriteLine(item);
+                }
+
+            }
             try
             {
-                if (ModelState.IsValid)
-                {
+                
                     // caut item ul in baza de date
                     var userId = User.Identity.GetUserId();
                     // caut in baza de date persoana corespunzatoare utilizatorului curent
                     Person prs = ctx.Persons.Where(p => p.UserId == userId).FirstOrDefault();
 
                     Appointment apt = ctx.Appointments.Find(id);
+                    apt.User_Id = userId;
                     apt.AppointmentType = aptReq.AppointmentType;
                     apt.Adresa = aptReq.Adresa;
                     apt.Data = aptReq.Data;
@@ -89,9 +135,7 @@ namespace Planner.Controllers
 
                     ctx.SaveChanges();
                     return RedirectToAction("Index", "Appointments");
-                }
-
-                return View("EditApt/" + id, aptReq);
+               
             } catch(Exception e)
             {
                 return View("EditApt/" + id, aptReq);

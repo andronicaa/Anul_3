@@ -273,6 +273,30 @@
     <Compile Include="Migrations\202012301645391_AppointmentDetailsMigration.Designer.cs">
       <DependentUpon>202012301645391_AppointmentDetailsMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101041308216_UserIdForDailyTask.cs" />
+    <Compile Include="Migrations\202101041308216_UserIdForDailyTask.Designer.cs">
+      <DependentUpon>202101041308216_UserIdForDailyTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101041333435_UserIdAddedToApt.cs" />
+    <Compile Include="Migrations\202101041333435_UserIdAddedToApt.Designer.cs">
+      <DependentUpon>202101041333435_UserIdAddedToApt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101041713016_UserIdAddedToInvoice.cs" />
+    <Compile Include="Migrations\202101041713016_UserIdAddedToInvoice.Designer.cs">
+      <DependentUpon>202101041713016_UserIdAddedToInvoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101041717543_InvoiceUserId.cs" />
+    <Compile Include="Migrations\202101041717543_InvoiceUserId.Designer.cs">
+      <DependentUpon>202101041717543_InvoiceUserId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101041941164_UserInvoice.cs" />
+    <Compile Include="Migrations\202101041941164_UserInvoice.Designer.cs">
+      <DependentUpon>202101041941164_UserInvoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101041948565_RemoveUserIdFromInvoice.cs" />
+    <Compile Include="Migrations\202101041948565_RemoveUserIdFromInvoice.Designer.cs">
+      <DependentUpon>202101041948565_RemoveUserIdFromInvoice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -306,10 +330,16 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\appointment.jpg" />
     <Content Include="Content\Images\background-image.jpg" />
-    <Content Include="Content\Images\paico-oficial-wFbvRRFTRoc-unsplash.jpg" />
-    <Content Include="Content\Images\shopping_list.jpg" />
+    <Content Include="Content\Images\bill.png" />
+    <Content Include="Content\Images\Parc-eolien-Logan-Colorado.jpg" />
+    <Content Include="Content\Images\profile_cropped.jpg" />
+    <Content Include="Content\Images\shopping_list_crop.jpg" />
     <Content Include="Content\Images\todo.jpg" />
+    <Content Include="Content\Images\todooo.jpg" />
+    <Content Include="Content\Images\todos.jpg" />
+    <Content Include="Content\Images\To_Do_List.png" />
     <Content Include="Content\LICENSE.txt" />
+    <Content Include="Content\Style\EditInvoiceStyle.css" />
     <Content Include="Content\Style\home.css" />
     <Content Include="Content\Style\IndexLista.css" />
     <Content Include="favicon.ico" />
@@ -511,6 +541,7 @@
     <Content Include="Views\Products\AfiseazaCumparaturiUrgente.cshtml" />
     <Content Include="Views\Appointments\AppointmentDetails.cshtml" />
     <Content Include="Views\Appointments\OrderAppointments.cshtml" />
+    <Content Include="Views\PersonContactInfoViewModels\GetAllUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -597,6 +628,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012301645391_AppointmentDetailsMigration.resx">
       <DependentUpon>202012301645391_AppointmentDetailsMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101041308216_UserIdForDailyTask.resx">
+      <DependentUpon>202101041308216_UserIdForDailyTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101041333435_UserIdAddedToApt.resx">
+      <DependentUpon>202101041333435_UserIdAddedToApt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101041713016_UserIdAddedToInvoice.resx">
+      <DependentUpon>202101041713016_UserIdAddedToInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101041717543_InvoiceUserId.resx">
+      <DependentUpon>202101041717543_InvoiceUserId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101041941164_UserInvoice.resx">
+      <DependentUpon>202101041941164_UserInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101041948565_RemoveUserIdFromInvoice.resx">
+      <DependentUpon>202101041948565_RemoveUserIdFromInvoice.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

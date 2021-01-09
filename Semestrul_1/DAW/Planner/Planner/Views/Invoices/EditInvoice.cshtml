@@ -1,66 +1,77 @@
 ﻿@model Planner.Models.Invoice
 
+<link rel="stylesheet" href="~/Content/Style/EditInvoiceStyle.css"/>
 
-
-<h2>Edit Invoice</h2>
+<h3><strong>@Model.TipFactura</strong></h3>
 
 @using (Html.BeginForm(actionName: "UpdateInvoice", controllerName: "Invoices", method: FormMethod.Post, routeValues: new { id = Model.InvoiceId }))
 {
+<div class="col-lg-4 blurredContainer">
+    <div class="formContainer">
+        @if (User.IsInRole("Admin"))
+        {
+        <div class="formInContainer">
+            @Html.HiddenFor(b => b.InvoiceId)
+            <br />
 
-    <!--camp ascund pentru a retine id-ul obiectului-->
-    if (User.IsInRole("Admin"))
-    {
-        @Html.HiddenFor(b => b.InvoiceId)
-        <br />
+            @Html.Label("TipFactura", "Tip Factura: ")
+            <br />
+            @Html.EditorFor(b => b.TipFactura, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(b => b.TipFactura, "", new { @class = "text-danger" })
+            <br />
+            <br />
+            @Html.Label("DataEmitere", "Data emitere:")
+            <br />
+            @Html.EditorFor(b => b.DataEmitere, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(b => b.DataEmitere, "", new { @class = "text-danger" })
+            <br />
+            <br />
+            @Html.Label("DataScadenta", "DataScadenta:")
+            <br />
+            @Html.EditorFor(b => b.DataScadenta, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(b => b.DataScadenta, "", new { @class = "text-danger" })
+            <br />
+            <br />
+            @Html.Label("TotalPlata", "TotalPlata:")
+            <br />
+            @Html.EditorFor(b => b.TotalPlata, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(b => b.TotalPlata, "", new { @class = "text-danger" })
+            <br />
+            <br />
+            @Html.Label("Status", "Status:")
+            <br />
+            @Html.EnumDropDownListFor(b => b.Status, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(b => b.TotalPlata, "", new { @class = "text-danger" })
+            <br />
+        </div>
+            
+        }
 
-        @Html.Label("TipFactura", "Tip Factura: ")
-        <br />
-        @Html.EditorFor(b => b.TipFactura, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(b => b.TipFactura, "", new { @class = "text-danger" })
-        <br />
-        <br />
-        @Html.Label("DataEmitere", "Data emitere:")
-        <br />
-        @Html.EditorFor(b => b.DataEmitere, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(b => b.DataEmitere, "", new { @class = "text-danger" })
-        <br />
-        <br />
-        @Html.Label("DataScadenta", "DataScadenta:")
-        <br />
-        @Html.EditorFor(b => b.DataScadenta, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(b => b.DataScadenta, "", new { @class = "text-danger" })
-        <br />
-        <br />
-        @Html.Label("TotalPlata", "TotalPlata:")
-        <br />
-        @Html.EditorFor(b => b.TotalPlata, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(b => b.TotalPlata, "", new { @class = "text-danger" })
-        <br />
-        <br />
-        @Html.Label("Status", "Status:")
-        <br />
-        @Html.EnumDropDownListFor(b => b.Status, htmlAttributes: new { @class = "form-control" })
-        @Html.ValidationMessageFor(b => b.TotalPlata, "", new { @class = "text-danger" })
-        <br />
-    }
 
-    if (User.IsInRole("Child"))
-    {
-        @Html.HiddenFor(b => b.InvoiceId)
-        @Html.HiddenFor(b => b.TipFactura)
-        @Html.HiddenFor(b => b.DataEmitere)
-        @Html.HiddenFor(b => b.DataScadenta)
-        @Html.HiddenFor(b => b.TotalPlata)
-        <p>@Model.TipFactura</p>
-        <p>@Model.DataEmitere</p>
-        <p>@Model.DataScadenta</p>
-        @Html.Label("Status", "Status:")
-        <br />
-        @Html.EnumDropDownListFor(b => b.Status, htmlAttributes: new { @class = "form-control" })
-        @Html.ValidationMessageFor(b => b.TotalPlata, "", new { @class = "text-danger" })
-        <br />
-    }
+        <!--camp ascund pentru a retine id-ul obiectului-->
+        @if (User.IsInRole("Child"))
+        {
+            @Html.HiddenFor(b => b.InvoiceId)
+            @Html.HiddenFor(b => b.TipFactura)
+            @Html.HiddenFor(b => b.DataEmitere)
+            @Html.HiddenFor(b => b.DataScadenta)
+            @Html.HiddenFor(b => b.TotalPlata)
+            <p>@Model.TipFactura</p>
+            <p>@Model.DataEmitere</p>
+            <p>@Model.DataScadenta</p>
+            @Html.Label("Status", "Status:")
+            <br />
+            @Html.EnumDropDownListFor(b => b.Status, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(b => b.TotalPlata, "", new { @class = "text-danger" })
+            <br />
+        }
 
-    <button class="btn btn-primary" type="submit">Update invoice</button>
+        <button class="btn btn-primary" type="submit">Update invoice</button>
+        <br />
+        <br />
+    </div>
+    
+</div>
 }
 
+    

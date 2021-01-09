@@ -31,6 +31,9 @@ namespace Planner.Models
         [Required]
         public Status Status { get; set; }
 
+        
+        
+
     }
     public enum Status
     {

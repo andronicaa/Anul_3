@@ -1,20 +1,46 @@
 ﻿@model Planner.Models.ShoppingList
 
 
-<h2>Details</h2>
-<h2>@Model.Titlu</h2>
 
 
-@if (Model.Products.Count > 0)
-{
-    foreach (var item in Model.Products)
-    {
-        <p>@item.Cantitate</p>
-        <p>@item.Denumire</p>
-    }
-}
-<br />
-@using (Html.BeginForm(actionName: "DeleteList", controllerName: "ShoppingList", method: FormMethod.Post, routeValues: new { id = Model.ShoppingListId }))
-{
-    <button class="btn btn-danger" type="submit"><i class="fa fa-check" aria-hidden="true"></i> &nbsp; Delete lista</button>
-}
+<div class="panel panel-info">
+    <div class="panel-heading">@Model.Titlu</div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Denumire</th>
+                        <th scope="col">Cantitate</th>
+                        <th scope="col">Descriere</th>
+                        <th scope="col">Necesitate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Products.Count > 0)
+                    {
+                        foreach (var item in Model.Products)
+                        {
+                            <tr>
+                                <td>@item.Denumire</td>
+                                <td>@item.Cantitate</td>
+                                <td>@item.Descriere</td>
+                                <td>@item.Necesitate</td>
+                            </tr>
+                        }
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="panel-footer">
+        @using (Html.BeginForm(actionName: "DeleteList", controllerName: "ShoppingList", method: FormMethod.Post, routeValues: new { id = Model.ShoppingListId }))
+        {
+            <button class="btn btn-danger" type="submit"><i class="fa fa-check" aria-hidden="true"></i> &nbsp; Delete lista</button>
+        }
+    </div>
+</div>
+
+

@@ -2,10 +2,25 @@
     
 
 
-<h2>AppointmentDetails</h2>
-<p>@Model.AppointmentType</p>
-<p>@Model.Data</p>
-<p>@Model.Detalii</p>
-<p>@Model.Adresa</p>
-<p>@Model.Persoane</p>
+<br />
+<br />
+<div class="panel panel-warning">
+    <div class="panel-heading">
+        <p>@Model.AppointmentType</p>
+    </div>
+    <div>
+        <ul>
+            <li><strong>Data:</strong><p>@Model.Data</p></li>
+            <li><strong>Detalii:</strong><p>@Model.Detalii</p></li>
+            <li><strong>Adresa:</strong><p>@Model.Adresa</p></li>
+            <li><strong>Persoane:</strong><p>@Model.Persoane</p></li>
+        </ul>
+    </div>
+    <div class="panel-footer">
+        @using (Html.BeginForm(actionName: "Index", controllerName: "Appointments", method: FormMethod.Get))
+        {
+            <button class="btn btn-info" type="submit"><i class="fa fa-home"></i> &nbsp; Lista intalniri</button>
+        }
+    </div>
+</div>
 

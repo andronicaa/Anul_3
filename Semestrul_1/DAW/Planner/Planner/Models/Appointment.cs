@@ -30,6 +30,9 @@ namespace Planner.Models
         [Required]
         public string Detalii { get; set; }
 
+        [Required]
+        public string User_Id { get; set; }
+
         // o persoana poate avea mai multe intalniri, dar o intalnire apartine doar unei persoane
 
 

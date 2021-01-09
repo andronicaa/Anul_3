@@ -1,0 +1,44 @@
+﻿@model List<Planner.Models.Person>
+
+
+<h3>Lista utilizatorilor</h3>
+<br />
+<br />
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Nume</th>
+                <th scope="col">Prenume</th>
+                <th scope="col">Update</th>
+                <th scope="col">Detalii</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Nume</td>
+                    <td>@item.Prenume</td>
+                    <td>
+                        @using (Html.BeginForm(actionName: "EditPerson", controllerName: "PersonContactInfoViewModels", method: FormMethod.Get, routeValues: new { id = item.PersonId }))
+                        {
+                            <button class="btn btn-warning" type="submit"><i class="fa fa-pencil"></i> &nbsp; Update</button>
+                        }
+                    </td>
+                    <td>
+                        @using (Html.BeginForm(actionName: "Details", controllerName: "PersonContactInfoViewModels", method: FormMethod.Get, routeValues: new { id = item.PersonId }))
+                        {
+                            <button class="btn btn-info" type="submit"><i class="fa fa-info"></i> &nbsp; Detalii</button>
+                        }
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+

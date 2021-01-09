@@ -1,11 +1,6 @@
-﻿body{
-    background-image: url("../Images/paico-oficial-wFbvRRFTRoc-unsplash.jpg");
+﻿body {
+    background-image: url("../Images/To_Do_List.png");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: auto;
-
-}
-
-.bodyCardImg {
-    max-height: 100%;
+    background-size: cover;
 }

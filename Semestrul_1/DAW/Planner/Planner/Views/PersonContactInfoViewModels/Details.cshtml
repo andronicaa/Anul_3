@@ -1,8 +1,34 @@
 ﻿@model Planner.Models.Person
 
+<br />
+<br />
+<div class="col-lg-4">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            @Model.Nume @Model.Prenume
+        </div>
 
-<h1>Details</h1>
-<p>@Model.Nume</p>
-<p>@Model.Prenume</p>
+        <div class="panel-body">
+            <p><i class="fa fa-envelope" aria-hidden="true"></i> &nbsp;  <strong>Email: </strong> @Model.ContactInfo.Email</p>
+            <p><i class="fa fa-phone" aria-hidden="true"></i> &nbsp;  <strong>Nr Telefon: </strong> @Model.ContactInfo.NrTelefon</p>
+            <p><i class="fa fa-address-card" aria-hidden="true"></i> &nbsp;  <strong>Adresa: </strong> @Model.ContactInfo.Adresa</p>
+            <p><i class="fa fa-user" aria-hidden="true"></i> &nbsp;  <strong>Cod Postal: </strong> @Model.ContactInfo.CodPostal</p>
+        </div>
+        <div class="panel-footer">
+            @using (Html.BeginForm(actionName: "EditPerson", controllerName: "PersonContactInfoViewModels", method: FormMethod.Get, routeValues: new { id = Model.PersonId }))
+            {
+                <button class="btn btn-primary" type="submit"><i class="fa fa-edit"></i> &nbsp; Update profile</button>
+            }
+            <br />
+            @using (Html.BeginForm(actionName: "DeletePerson", controllerName: "PersonContactInfoViewModels", method: FormMethod.Post, routeValues: new { id = Model.PersonId }))
+            {
+
+                <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> &nbsp;Delete profile</button>
+            }
+        </div>
+
+    </div>
+</div>
+
 
 

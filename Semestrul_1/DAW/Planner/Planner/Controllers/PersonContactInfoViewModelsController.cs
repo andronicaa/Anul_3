@@ -15,8 +15,15 @@ namespace Planner.Controllers
        
         private ApplicationDbContext ctx = new ApplicationDbContext();
 
-
         [Authorize(Roles = "Admin")]
+        public ActionResult GetAllUsers()
+        {
+            // caut toate persoanele din baza de date
+            IEnumerable<Person> allPrs = ctx.Persons.Include("ContactInfo").ToList();
+            return View(allPrs);
+        }
+
+        [Authorize(Roles = "Admin, Child")]
         // doar adminul poate vedea toate persoanele din baza de date
         public ActionResult Index()
         {

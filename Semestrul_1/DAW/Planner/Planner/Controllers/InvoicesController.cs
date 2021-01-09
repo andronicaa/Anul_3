@@ -1,4 +1,5 @@
-﻿using Planner.Models;
+﻿using Microsoft.AspNet.Identity;
+using Planner.Models;
 using Planner.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace Planner.Controllers
         [Route("invoices/index")]
         public ActionResult Index()
         {
+            
+           
             IEnumerable<Invoice> inv = ctx.Invoices.ToList();
             return View(inv);
         }
@@ -39,6 +42,8 @@ namespace Planner.Controllers
         public ActionResult NewInvoice()
         {
             Invoice inv = new Invoice();
+            inv.DataEmitere = DateTime.Now;
+            inv.DataScadenta = DateTime.Now;
             return View(inv);
         }
 
@@ -47,6 +52,7 @@ namespace Planner.Controllers
         [HttpPost]
         public ActionResult CreateInvoice(Invoice inv)
         {
+           
             try
             {
                 if (ModelState.IsValid)
@@ -56,6 +62,7 @@ namespace Planner.Controllers
                     return RedirectToAction("Index", "Invoices");
                 }
                 return View("NewInvoice", inv);
+                
             } catch (Exception e)
             {
                 return View("NewInvoice", inv);
@@ -85,6 +92,7 @@ namespace Planner.Controllers
         [HttpPost]
         public ActionResult UpdateInvoice(int id, Invoice invReq)
         {
+           
             try
             {
                 if (ModelState.IsValid)
