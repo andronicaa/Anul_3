@@ -36,6 +36,7 @@ namespace Planner.Models
         public DbSet<ContactInfo> ContactInfos { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ShoppingList> ShoppingLists { get; set; }
+        public DbSet<ShoppingListProductJoin> ShoppingListProductJoins { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
         public static ApplicationDbContext Create()

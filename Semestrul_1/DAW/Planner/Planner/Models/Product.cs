@@ -26,7 +26,7 @@ namespace Planner.Models
 
 
         // many-to-many relation
-        public ICollection<ShoppingList> ShoppingLists { get; set; }
+        public ICollection<ShoppingListProductJoin> ShoppingListProductJoins { get; set; }
     }
     public enum Necesitate
     {

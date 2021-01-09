@@ -134,7 +134,7 @@ namespace Planner.Controllers
         {
             // caut in baza de date lista de cumparaturi corespunzatoare
             ShoppingList lst = ctx.ShoppingLists.Find(id);
-            lst.Products = (ICollection<Product>)list.ShoppingProducts;
+            Product prd = ctx.Products.Find(list.ShoppingListId);
             return RedirectToAction("Index", "ShoppingList");
         }
 

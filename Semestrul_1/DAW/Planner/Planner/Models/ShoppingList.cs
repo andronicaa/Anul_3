@@ -16,10 +16,10 @@ namespace Planner.Models
         [StringLength(15, ErrorMessage = "Titlul trebuie sa fie de lungime cuprinsa intre 4 si 15.", MinimumLength = 4)]
         public string Titlu { get; set; }
 
-        // o lista de cumparaturi poate sa aiba mai multe produse si un produs poate sa apartina mai multor liste
+        
 
         // many-to-many relation
-        public ICollection<Product> Products { get; set; }
+        public ICollection<ShoppingListProductJoin> ShoppingListProductJoins { get; set; }
 
         [NotMapped]
         public IEnumerable<SelectListItem> ProductsList { get; set; }

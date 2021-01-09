@@ -274,3 +274,5 @@ C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Plann
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.InvoiceUserId.resources
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.UserInvoice.resources
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.RemoveUserIdFromInvoice.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.JoinTable.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.ManyToManyMigr.resources

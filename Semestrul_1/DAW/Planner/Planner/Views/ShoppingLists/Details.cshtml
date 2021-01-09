@@ -1,0 +1,26 @@
+﻿@model Planner.Models.ShoppingList
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ShoppingList</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Titlu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titlu)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ShoppingListId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
