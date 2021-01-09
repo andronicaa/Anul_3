@@ -137,6 +137,7 @@ namespace Planner.Controllers
         public ActionResult TotalFacturiLunaCurenta()
         {
             // aflu care este luna curenta
+            
             DateTime dataCurenta = DateTime.Now;
             int lunaCurenta = dataCurenta.Month;
             double totalPlata = 0;

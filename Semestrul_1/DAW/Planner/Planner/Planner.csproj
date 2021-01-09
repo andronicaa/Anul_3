@@ -329,6 +329,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\appointment.jpg" />
+    <Content Include="Content\Images\apt_card_img.png" />
     <Content Include="Content\Images\background-image.jpg" />
     <Content Include="Content\Images\bill.png" />
     <Content Include="Content\Images\Parc-eolien-Logan-Colorado.jpg" />
@@ -339,9 +340,11 @@
     <Content Include="Content\Images\todos.jpg" />
     <Content Include="Content\Images\To_Do_List.png" />
     <Content Include="Content\LICENSE.txt" />
+    <Content Include="Content\Style\apt.css" />
     <Content Include="Content\Style\EditInvoiceStyle.css" />
     <Content Include="Content\Style\home.css" />
     <Content Include="Content\Style\IndexLista.css" />
+    <Content Include="Content\Style\person.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

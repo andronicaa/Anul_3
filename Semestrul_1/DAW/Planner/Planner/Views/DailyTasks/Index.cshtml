@@ -1,5 +1,5 @@
 ﻿@model List<Planner.Models.DailyTask>
-
+<link rel="stylesheet" href="~/Content/Style/apt.css" />
 <h2>To do</h2>
 @using (Html.BeginForm(actionName: "NewTask", controllerName: "DailyTasks", method: FormMethod.Post))
 {
@@ -11,7 +11,7 @@
 
     @foreach (var item in Model)
     {
-        <div class="col-xs-4">
+        <div class="col-lg-5">
             <div class="panel panel-info" style="width: 18rem">
                 <div class="panel-heading">
                     @item.TitluTask

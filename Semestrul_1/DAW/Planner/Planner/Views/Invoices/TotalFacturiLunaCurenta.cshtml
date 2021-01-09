@@ -1,12 +1,12 @@
 ﻿@model Planner.Models.ViewModels.InvoiceViewModel
-
+<link rel="stylesheet" href="~/Content/Style/apt.css" />
 <br />
 <br />
 
 
 <div class="panel panel-danger">
     <div class="panel-heading">
-        <h3>Facturi scadente in luna curenta: @DateTime.Now.Month</h3>
+        <h3>Facturi scadente in luna curenta: @DateTime.Now.ToString("MMMM")</h3>
     </div>
     <div class="panel-body">
         <div class="table-responsive">

@@ -1,35 +1,55 @@
 ﻿@model Planner.Models.Invoice
-
+<link rel="stylesheet" href="~/Content/Style/apt.css" />
+<br />
+<br />
 
 @using (Html.BeginForm(actionName: "CreateInvoice", controllerName: "Invoices", method: FormMethod.Post))
 {
-    @Html.Label("TipFactura", "Tip Factura: ")
-    <br />
-    @Html.TextBoxFor(b => b.TipFactura, null, new { placeholder = "Tip factura", @class = "form-control" })
-    @Html.ValidationMessageFor(b => b.TipFactura, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("DataEmitere", "Data Emitere:")
-    <br />
-    @Html.EditorFor(b => b.DataEmitere, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(b => b.DataEmitere, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("DataScadenta", "Data Scadenta:")
-    <br />
-    @Html.EditorFor(b => b.DataScadenta, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(b => b.DataScadenta, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("TotalPlata", "Total plata:")
-    <br />
-    @Html.TextBoxFor(b => b.TotalPlata, null, new { placeholder = "Suma", @class = "form-control" })
-    @Html.ValidationMessageFor(b => b.TotalPlata, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("Status", "Status")
-    @Html.EnumDropDownListFor(b => b.Status, htmlAttributes: new { @class = "form-control" })
-    <br />
-    <button class="btn btn-primary" type="submit">Adauga Factura</button>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3>Adauga factura</h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                @Html.Label("TipFactura", "Tip Factura: ")
+                <br />
+                @Html.TextBoxFor(b => b.TipFactura, null, new { placeholder = "Tip factura", @class = "form-control" })
+                @Html.ValidationMessageFor(b => b.TipFactura, "", new { @class = "text-danger" })
+                <br />
+                <br />
+                @Html.Label("DataEmitere", "Data Emitere:")
+                <br />
+                @Html.EditorFor(b => b.DataEmitere, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(b => b.DataEmitere, "", new { @class = "text-danger" })
+                <br />
+                <br />
+                @Html.Label("DataScadenta", "Data Scadenta:")
+                <br />
+                @Html.EditorFor(b => b.DataScadenta, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(b => b.DataScadenta, "", new { @class = "text-danger" })
+                <br />
+                <br />
+            </div>
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                @Html.Label("TotalPlata", "Total plata:")
+                <br />
+                @Html.TextBoxFor(b => b.TotalPlata, null, new { placeholder = "Suma", @class = "form-control" })
+                @Html.ValidationMessageFor(b => b.TotalPlata, "", new { @class = "text-danger" })
+                <br />
+                <br />
+                @Html.Label("Status", "Status")
+                @Html.EnumDropDownListFor(b => b.Status, htmlAttributes: new { @class = "form-control" })
+                <br />
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button class="btn btn-success" type="submit"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp;Adauga Factura</button>
+        </div>
+    </div>
+    
+   
+    
 }
 

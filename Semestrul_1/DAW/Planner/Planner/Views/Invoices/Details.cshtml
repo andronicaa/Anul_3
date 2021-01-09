@@ -1,8 +1,12 @@
 ﻿@model Planner.Models.Invoice
-
+<link rel="stylesheet" href="~/Content/Style/apt.css" />
 <br />
 <br />
-
+@using (Html.BeginForm(actionName: "Index", controllerName: "Invoices", method: FormMethod.Post))
+{
+    <button class="btn btn-info" type="submit"><i class="fa fa-arrow-left"></i> &nbsp;Home</button>
+}
+<br />
 <div class="panel panel-info">
     <div class="panel-heading">@Model.TipFactura</div>
     <div class="panel-body">

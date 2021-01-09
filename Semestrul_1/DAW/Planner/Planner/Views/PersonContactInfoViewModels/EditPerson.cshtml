@@ -1,46 +1,67 @@
 ﻿@model Planner.Models.ViewModels.PersonContactInfoViewModel
+<link rel="stylesheet" href="~/Content/Style/person.css"/>
+<br />
+<br />
 
 @using (Html.BeginForm(actionName: "UpdatePerson", controllerName: "PersonContactInfoViewModels", method: FormMethod.Post, routeValues:
 new { id = Model.Person.PersonId }))
 {
-    @Html.HiddenFor(b => b.Person.PersonId)
-    @Html.Label("Nume", "Nume: ")
-    <br />
-    @Html.EditorFor(b => b.Person.Nume, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(b => b.Person.Nume, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("Prenume", "Prenume:")
-    <br />
-    @Html.EditorFor(b => b.Person.Prenume, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(b => b.Person.Prenume, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("Adresa", "Adresa:")
-    <br />
-    @Html.EditorFor(b => b.ContactInfo.Adresa, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(b => b.ContactInfo.Adresa, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("NrTelefon", "NrTelefon:")
-    <br />
-    @Html.EditorFor(b => b.ContactInfo.NrTelefon, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(b => b.ContactInfo.NrTelefon, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("Email", "Email:")
-    <br />
-    @Html.EditorFor(b => b.ContactInfo.Email, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(b => b.ContactInfo.Email, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("CodPostal", "CodPostal:")
-    <br />
-    @Html.EditorFor(b => b.ContactInfo.CodPostal, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(b => b.ContactInfo.CodPostal, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    <button class="btn btn-primary" type="submit">Update profil</button>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3><i class="fa fa-pencil" aria-hidden="true"></i> &nbsp; Editeaza profil</h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                @Html.HiddenFor(b => b.Person.PersonId)
+                @Html.Label("Nume", "Nume: ")
+                <br />
+                @Html.EditorFor(b => b.Person.Nume, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(b => b.Person.Nume, "", new { @class = "text-danger" })
+                <br />
+                <br />
+                @Html.Label("Prenume", "Prenume:")
+                <br />
+                @Html.EditorFor(b => b.Person.Prenume, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(b => b.Person.Prenume, "", new { @class = "text-danger" })
+                <br />
+                <br />
+                @Html.Label("Adresa", "Adresa:")
+                <br />
+                @Html.EditorFor(b => b.ContactInfo.Adresa, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(b => b.ContactInfo.Adresa, "", new { @class = "text-danger" })
+                <br />
+                <br />
+            </div>
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                @Html.Label("NrTelefon", "NrTelefon:")
+                <br />
+                @Html.EditorFor(b => b.ContactInfo.NrTelefon, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(b => b.ContactInfo.NrTelefon, "", new { @class = "text-danger" })
+                <br />
+                <br />
+                @Html.Label("Email", "Email:")
+                <br />
+                @Html.EditorFor(b => b.ContactInfo.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(b => b.ContactInfo.Email, "", new { @class = "text-danger" })
+                <br />
+                <br />
+                @Html.Label("CodPostal", "CodPostal:")
+                <br />
+                @Html.EditorFor(b => b.ContactInfo.CodPostal, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(b => b.ContactInfo.CodPostal, "", new { @class = "text-danger" })
+                <br />
+                <br />
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button class="btn btn-primary" type="submit">Update profil</button>
+        </div>
+    </div>
+    
+    
+    
 }
 
 

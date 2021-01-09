@@ -1,7 +1,7 @@
 ﻿@model  Planner.Models.ViewModels.AppointmentViewModel
 
-
-<h3>Lista ordonata dupa data a intalnirilor</h3>
+<link rel="stylesheet" href="~/Content/Style/apt.css" />
+<h3>Lista ordonata dupa data a programarilor</h3>
 @using (Html.BeginForm(actionName: "Index", controllerName: "Appointments", method: FormMethod.Get))
 {
     <button class="btn btn-info" type="submit"><i class="fa fa-home"></i> &nbsp; Pagina principata</button>

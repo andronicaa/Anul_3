@@ -1,5 +1,12 @@
 ﻿@model Planner.Models.Person
 
+<link rel="stylesheet" href="~/Content/Style/person.css" />
+<br />
+
+@using (Html.BeginForm(actionName: "GetAllUsers", controllerName: "PersonContactInfoViewModels", method: FormMethod.Get))
+{
+    <button class="btn btn-info" type="submit"><i class="fa fa-arrow-left"></i> &nbsp; Home</button>
+}
 <br />
 <br />
 <div class="col-lg-4">
@@ -29,6 +36,8 @@
 
     </div>
 </div>
+
+
 
 
 

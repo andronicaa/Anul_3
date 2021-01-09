@@ -1,32 +1,52 @@
 ﻿@model Planner.Models.DailyTask
+<link rel="stylesheet" href="~/Content/Style/apt.css" />
 
-<h1>NewTask</h1>
+<br />
+<br />
 
 @using (Html.BeginForm(actionName: "CreateTask", controllerName: "DailyTasks", method: FormMethod.Post))
 {
-    @Html.Label("TitluTask", "Titlu task: ")
-    <br />
-    @Html.TextBoxFor(b => b.TitluTask, null, new { placeholder = "Descriere activitate", @class = "form-control" })
-    @Html.ValidationMessageFor(b => b.TitluTask, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("Prioritate", "Prioritate:")
-    <br />
-    @Html.EnumDropDownListFor(b => b.Prioritate, htmlAttributes: new { @class = "form-control" })
-    @Html.ValidationMessageFor(b => b.Prioritate, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("Deadline", "Deadline:")
-    <br />
-    @Html.EditorFor(b => b.Deadline, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(b => b.Deadline, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("Detalii", "Detalii:")
-    <br />
-    @Html.TextBoxFor(b => b.Detalii, null, new { placeholder = "Detalii...", @class = "form-control" })
-    @Html.ValidationMessageFor(b => b.Detalii, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    <button class="btn btn-primary" type="submit">Adauga Task</button>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3>Adauga task nou</h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                @Html.Label("TitluTask", "Titlu task: ")
+                <br />
+                @Html.TextBoxFor(b => b.TitluTask, null, new { placeholder = "Descriere activitate", @class = "form-control" })
+                @Html.ValidationMessageFor(b => b.TitluTask, "", new { @class = "text-danger" })
+                <br />
+                <br />
+                @Html.Label("Prioritate", "Prioritate:")
+                <br />
+                @Html.EnumDropDownListFor(b => b.Prioritate, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(b => b.Prioritate, "", new { @class = "text-danger" })
+                <br />
+                <br />
+            </div>
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                @Html.Label("Deadline", "Deadline:")
+                <br />
+                @Html.EditorFor(b => b.Deadline, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(b => b.Deadline, "", new { @class = "text-danger" })
+                <br />
+                <br />
+                @Html.Label("Detalii", "Detalii:")
+                <br />
+                @Html.TextBoxFor(b => b.Detalii, null, new { placeholder = "Detalii...", @class = "form-control" })
+                @Html.ValidationMessageFor(b => b.Detalii, "", new { @class = "text-danger" })
+                <br />
+                <br />
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button class="btn btn-success" type="submit"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp;Adauga Task</button>
+        </div>
+    </div>
+    
+    
+    
 }

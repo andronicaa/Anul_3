@@ -1,44 +1,61 @@
 ﻿@model Planner.Models.Appointment
 
 
-<h2>Editeaza intalnire</h2>
+
 <br />
 <br />
 @using (Html.BeginForm(actionName: "UpdateApt", controllerName: "Appointments", method: FormMethod.Post, routeValues: new { id = Model.AppointmentId }))
 {
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3>Editeaza intalnire</h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                <!--camp ascund pentru a retine id-ul obiectului-->
+                @Html.Label("AppointmentType", "Tip programare: ")
+                <br />
+                @Html.EditorFor(b => b.AppointmentType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(b => b.AppointmentType, "", new { @class = "text-danger" })
+                <br />
+                <br />
+                @Html.Label("Data", "Data:")
+                <br />
+                @Html.EditorFor(b => b.Data, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(b => b.Data, "", new { @class = "text-danger" })
+                <br />
+                <br />
+                @Html.Label("Adresa", "Adresa:")
+                <br />
+                @Html.EditorFor(b => b.Adresa, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(b => b.Adresa, "", new { @class = "text-danger" })
+                <br />
+                <br />
+            </div>
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                @Html.Label("Persoane", "Persoane:")
+                <br />
+                @Html.EditorFor(b => b.Persoane, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(b => b.Persoane, "", new { @class = "text-danger" })
+                <br />
+                <br />
+                @Html.Label("Detalii", "Detalii:")
+                <br />
+                @Html.EditorFor(b => b.Detalii, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(b => b.Detalii, "", new { @class = "text-danger" })
+                <br />
+                <br />
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button class="btn btn-warning" type="submit"><i class="fa fa-pencil" aria-hidden="true"></i> &nbsp; Update</button>
+        </div>
+    </div>
+    
+   
 
-    <!--camp ascund pentru a retine id-ul obiectului-->
-    @Html.Label("AppointmentType", "Appointment Type: ")
-    <br />
-    @Html.EditorFor(b => b.AppointmentType, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(b => b.AppointmentType, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("Data", "Data:")
-    <br />
-    @Html.EditorFor(b => b.Data, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(b => b.Data, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("Adresa", "Adresa:")
-    <br />
-    @Html.EditorFor(b => b.Adresa, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(b => b.Adresa, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("Persoane", "Persoane:")
-    <br />
-    @Html.EditorFor(b => b.Persoane, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(b => b.Persoane, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("Detalii", "Detalii:")
-    <br />
-    @Html.EditorFor(b => b.Detalii, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(b => b.Detalii, "", new { @class = "text-danger" })
-    <br />
-    <br />
-
-    <button class="btn btn-primary" type="submit">Editeaza intalnire</button>
+    
 }
 
