@@ -11,12 +11,12 @@ namespace Planner.Models
     {
         [Key]
         public int Id { get; set; }
-        public int ShoppingListRef { get; set; }
+        public int ShoppingListId { get; set; }
        
         public ShoppingList ShoppingList { get; set; }
         
         
-        public int ProductRef { get; set; }
+        public int ProductId { get; set; }
        
         public Product Product { get; set; }
     }

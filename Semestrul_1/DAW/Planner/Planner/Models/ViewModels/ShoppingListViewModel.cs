@@ -10,6 +10,6 @@ namespace Planner.Models.ViewModels
     {
         public int ShoppingListId { get; set; }
         public string Titlu { get; set; }
-        public IEnumerable<SelectListItem> ShoppingProducts { get; set; }
+        public IEnumerable<Product> ShoppingProducts { get; set; }
     }
 }

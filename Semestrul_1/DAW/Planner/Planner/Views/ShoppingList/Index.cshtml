@@ -31,9 +31,9 @@
             </div>
             <div class="panel-body">
                 <ul class="list-group list-group-flush">
-                    @foreach (var prd in item.Products)
+                    @foreach (var prd in item.ShoppingListProductJoins)
                     {
-                        <li class="list-group-item">@prd.Denumire, @prd.Cantitate</li>
+                        <li class="list-group-item">@prd.ProductId</li>
 
                     }
                 </ul>
@@ -47,12 +47,14 @@
                     <button class="btn btn-info" type="submit"><i class="fa fa-info" aria-hidden="true"></i> &nbsp; Detalii lista</button>
                 }
             </div>
-                
+
         </div>
 
     </div>
 
 }
+
+
 
 
 
