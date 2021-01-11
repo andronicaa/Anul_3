@@ -1,35 +1,54 @@
 ﻿@model Planner.Models.Product
 
+<link rel="stylesheet" href="~/Content/Style/apt.css"/>
 
-<h2>Add new product</h2>
-
+<br />
+<br />
 @using (Html.BeginForm(actionName: "CreateProduct", controllerName: "Products", method: FormMethod.Post))
 {
-    @Html.Label("Denumire", "Denumire: ")
-    <br />
-    @Html.TextBoxFor(b => b.Denumire, null, new { placeholder = "Denumire", @class = "form-control" })
-    @Html.ValidationMessageFor(b => b.Denumire, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("Cantitate", "Cantitate:")
-    <br />
-    @Html.TextBoxFor(b => b.Cantitate, null, new { placeholder = "Cantitate", @class = "form-control" })
-    @Html.ValidationMessageFor(b => b.Cantitate, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("Descriere", "Descriere:")
-    <br />
-    @Html.TextBoxFor(b => b.Descriere, null, new { placeholder = "Descriere", @class = "form-control" })
-    @Html.ValidationMessageFor(b => b.Descriere, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    @Html.Label("Necesitate", "Necesitate: ")
-    <br />
-    @Html.EnumDropDownListFor(b => b.Necesitate, htmlAttributes: new { @class = "form-control" })
-    @Html.ValidationMessageFor(b => b.Necesitate, "", new { @class = "text-danger" })
-    <br />
-    <br />
-    <button class="btn btn-primary" type="submit">Adauga produs</button>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h2>Adauga produs nou</h2>
+        </div>
+        <div class="panel-body">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                @Html.Label("Denumire", "Denumire: ")
+                <br />
+                @Html.TextBoxFor(b => b.Denumire, null, new { placeholder = "Denumire", @class = "form-control" })
+                @Html.ValidationMessageFor(b => b.Denumire, "", new { @class = "text-danger" })
+                <br />
+                <br />
+                @Html.Label("Cantitate", "Cantitate:")
+                <br />
+                @Html.TextBoxFor(b => b.Cantitate, null, new { placeholder = "Cantitate", @class = "form-control" })
+                @Html.ValidationMessageFor(b => b.Cantitate, "", new { @class = "text-danger" })
+                <br />
+                <br />
+            </div>
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                @Html.Label("Descriere", "Descriere:")
+                <br />
+                @Html.TextBoxFor(b => b.Descriere, null, new { placeholder = "Descriere", @class = "form-control" })
+                @Html.ValidationMessageFor(b => b.Descriere, "", new { @class = "text-danger" })
+                <br />
+                <br />
+                @Html.Label("Necesitate", "Necesitate: ")
+                <br />
+                @Html.EnumDropDownListFor(b => b.Necesitate, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(b => b.Necesitate, "", new { @class = "text-danger" })
+                <br />
+                <br />
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button class="btn btn-success" type="submit"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp;Adauga produs</button>
+        </div>
+    </div>
+    
+    
+    
 }
 
 

@@ -125,15 +125,11 @@ namespace Planner.Controllers
 
                 ctx.SaveChanges();
                 return RedirectToAction("Index", "personcontactinfoviewmodels");
+
             } catch(Exception e)
             {
                 return View("NewPerson", pcv);
             }
-                
-            
-
-
-
 
 
         }
@@ -159,10 +155,13 @@ namespace Planner.Controllers
                 person.UserName = prs.UserName;
 
                 ContactInfo ct = new ContactInfo();
+                ct.PersonRef = prs.PersonId;
                 ct.Adresa = prs.ContactInfo.Adresa;
                 ct.NrTelefon = prs.ContactInfo.NrTelefon;
                 ct.Email = prs.ContactInfo.Email;
                 ct.CodPostal = prs.ContactInfo.CodPostal;
+                ct.Person = ctx.Persons.Where(p => p.PersonId == ct.PersonRef).FirstOrDefault();
+
                 PersonContactInfoViewModel pc = new PersonContactInfoViewModel
                 {
                     Person = person,
@@ -204,22 +203,28 @@ namespace Planner.Controllers
                 // actualizez datele din bd
                 prs.Nume = pcv.Person.Nume;
                 prs.Prenume = pcv.Person.Prenume;
-                var userId = User.Identity.GetUserId();
-                var userName = User.Identity.GetUserName();
-                prs.UserId = userId;
-                prs.UserName = userName;
+                //var userId = User.Identity.GetUserId();
+                //var userName = User.Identity.GetUserName();
+                prs.UserId = pcv.Person.UserId;
+                prs.UserName = pcv.Person.UserName;
                 // salvez modificarile
 
                 // trebuie sa salvez si modificarile in contactInfo
+                prs.ContactInfo.PersonRef = prs.PersonId;
                 prs.ContactInfo.NrTelefon = pcv.ContactInfo.NrTelefon;
                 prs.ContactInfo.Adresa = pcv.ContactInfo.Adresa;
                 prs.ContactInfo.Email = pcv.ContactInfo.Email;
                 prs.ContactInfo.CodPostal = pcv.ContactInfo.CodPostal;
+                prs.ContactInfo.Person = prs;
+               
                 ctx.SaveChanges();
                 return RedirectToAction("Index", "personcontactinfoviewmodels");
+                
+                
+                
             } catch(Exception e)
             {
-                return RedirectToAction("EditPerson/" + id, "personcontactinfoviewmodels");
+                return View("EditPerson", pcv);
             }
 
             
@@ -239,6 +244,12 @@ namespace Planner.Controllers
             }
             
             ContactInfo cti = ctx.ContactInfos.Where(p => p.PersonRef == id).FirstOrDefault();
+            // trebuie sa caut si programarile in tabelul Appointments
+            IEnumerable<Appointment> apts = ctx.Appointments.Where(p => p.Person.PersonId == prs.PersonId).ToList();
+            foreach (var item in apts)
+            {
+                ctx.Appointments.Remove(item);
+            }
             ctx.ContactInfos.Remove(cti);
             ctx.Persons.Remove(prs);
             ctx.SaveChanges();

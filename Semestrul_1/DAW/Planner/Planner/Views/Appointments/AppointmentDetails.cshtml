@@ -19,7 +19,12 @@
     <div class="panel-footer">
         @using (Html.BeginForm(actionName: "Index", controllerName: "Appointments", method: FormMethod.Get))
         {
-            <button class="btn btn-info" type="submit"><i class="fa fa-home"></i> &nbsp; Lista intalniri</button>
+            <button class="btn btn-info" type="submit"><i class="fa fa-home"></i> &nbsp; Lista programari</button>
+        }
+        <br />
+        @using (Html.BeginForm(actionName: "DeleteApt", controllerName: "Appointments", method: FormMethod.Post, routeValues: new { id = Model.AppointmentId }))
+        {
+            <button class="btn btn-danger" type="submit"><i class="fa fa-home"></i> &nbsp; Sterge programare</button>
         }
     </div>
 </div>

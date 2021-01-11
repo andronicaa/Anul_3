@@ -47,23 +47,27 @@
             </tbody>
         </table>
     </div>
-    using (Html.BeginForm(actionName: "OrderAppointments", controllerName: "Appointments", method: FormMethod.Get))
+    if (Model.Count > 1)
     {
-        <button class="btn btn-warning" type="submit"><i class="fa fa-list"></i> &nbsp; Lista ordonata a intalnirilor</button>
+        using (Html.BeginForm(actionName: "OrderAppointments", controllerName: "Appointments", method: FormMethod.Get))
+        {
+            <button class="btn btn-warning" type="submit"><i class="fa fa-list"></i> &nbsp; Lista ordonata a intalnirilor</button>
+        }
     }
+
     <br />
     <br />
     using (Html.BeginForm(actionName: "NewApt", controllerName: "Appointments", method: FormMethod.Get))
     {
-        <button class="btn btn-warning" type="submit"><i class="fa fa-plus"></i> &nbsp; Adauga intalnire</button>
+        <button class="btn btn-warning" type="submit"><i class="fa fa-plus"></i> &nbsp; Adauga programare</button>
     }
 }
 else
 {
-    <h3>Nu este programata nicio intalnire</h3>
+    <h3>Nicio programare</h3>
     using (Html.BeginForm(actionName: "NewApt", controllerName: "Appointments", method: FormMethod.Get))
     {
-        <button class="btn btn-warning" type="submit"><i class="fa fa-plus"></i> &nbsp; Adauga intalnire</button>
+        <button class="btn btn-warning" type="submit"><i class="fa fa-plus"></i> &nbsp; Adauga programare</button>
     }
 }
 

@@ -19,8 +19,6 @@ namespace Planner.Controllers
         [Route("invoices/index")]
         public ActionResult Index()
         {
-            
-           
             IEnumerable<Invoice> inv = ctx.Invoices.ToList();
             return View(inv);
         }
@@ -32,6 +30,10 @@ namespace Planner.Controllers
         {
             // caut factura in baza de date cu id-ul dat
             Invoice invDet = ctx.Invoices.Find(id);
+            if (invDet == null)
+            {
+                return HttpNotFound("Nu exista factura cu id-ul dat");
+            }
             return View(invDet);
         }
 
@@ -78,6 +80,10 @@ namespace Planner.Controllers
             // caut in baza de date factura corespunzatoate id-ului
             Invoice inv = ctx.Invoices.Find(id);
             Invoice childInv = ctx.Invoices.Find(id);
+            if (inv == null || childInv == null)
+            {
+                return HttpNotFound("Nu exista factura cu id-ul dat");
+            }
             if (User.IsInRole("Admin"))
             {
                 return View(inv);
@@ -99,20 +105,21 @@ namespace Planner.Controllers
                 {
                    
                         
-                        Invoice inv = ctx.Invoices.Find(id);
-                        inv.TipFactura = invReq.TipFactura;
-                        inv.DataEmitere = invReq.DataEmitere;
-                        inv.DataScadenta = invReq.DataScadenta;
-                        inv.TotalPlata = invReq.TotalPlata;
-                        inv.Status = invReq.Status;
-               
+                    Invoice inv = ctx.Invoices.Find(id);
+                    inv.TipFactura = invReq.TipFactura;
+                    inv.DataEmitere = invReq.DataEmitere;
+                    inv.DataScadenta = invReq.DataScadenta;
+                    inv.TotalPlata = invReq.TotalPlata;
+                    inv.Status = invReq.Status;
+                    
+                    // salvez modificarile in baza de date
                     ctx.SaveChanges();
                     return RedirectToAction("Index", "Invoices");
                 }
-                return View("EditInvoice/" + id, invReq);
+                return View("EditInvoice", invReq);
             } catch (Exception e)
             {
-                return View("EditInvoice/" + id, invReq);
+                return View("EditInvoice", invReq);
             }
         }
 
@@ -124,7 +131,11 @@ namespace Planner.Controllers
         {
             // caut factura in baza de date
             Invoice inv = ctx.Invoices.Find(id);
-
+            if (inv == null)
+            {
+                return HttpNotFound("Nu exista factura cu id-ul dat");
+            }
+            // stergem factura din baza de date
             ctx.Invoices.Remove(inv);
             ctx.SaveChanges();
 
@@ -143,7 +154,7 @@ namespace Planner.Controllers
             double totalPlata = 0;
 
             InvoiceViewModel inv = new InvoiceViewModel();
-            // caut toate facturile din baza de date care au data scadenta in aceasta luna
+            // caut toate facturile din baza de date care au data scadenta in luna curenta
             IEnumerable<Invoice> invoices = ctx.Invoices.Where(p => p.DataScadenta.Month == lunaCurenta).ToList();
             inv.Invoices = invoices;
 
@@ -152,6 +163,7 @@ namespace Planner.Controllers
                 totalPlata = totalPlata + item.TotalPlata;
             }
             inv.TotalSuma = totalPlata;
+
             // le trimit catre un view
             return View(inv);
 

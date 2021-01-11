@@ -1,5 +1,7 @@
 ﻿@model List<Planner.Models.Product>
 
+
+<link rel="stylesheet" href="~/Content/Style/apt.css" />
 <h3>Produse</h3>
 <br />
 @using (Html.BeginForm(actionName: "NewProduct", controllerName: "Products", method: FormMethod.Get))
@@ -35,3 +37,8 @@
     </tbody>
 </table>
 
+@using (Html.BeginForm(actionName: "Index", controllerName: "ShoppingList", method: FormMethod.Get))
+{
+
+<button class="btn btn-warning" type="submit"><i class="fa fa-list" aria-hidden="true"></i> &nbsp;Liste cumparaturi</button>
+}

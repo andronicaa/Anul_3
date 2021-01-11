@@ -1,11 +1,13 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
+<br />
+<link rel="stylesheet" href="~/Content/Style/lista.css" />
 <h3>Liste cumparaturi</h3>
 <br />
-<br />
 
-<p>Produsele din listele de cumparaturi</p>
+
+
 @using (Html.BeginForm(actionName: "Index", controllerName: "Products", method: FormMethod.Get))
 {
 
@@ -31,15 +33,15 @@
             </div>
             <div class="panel-body">
                 <ul class="list-group list-group-flush">
-                    @foreach (var prd in item.ShoppingListProductJoins)
+                    @foreach (var prd in item.Products)
                     {
-                        <li class="list-group-item">@prd.ProductId</li>
+                        <li class="list-group-item">@prd.Denumire, @prd.Cantitate</li>
 
                     }
                 </ul>
                 @using (Html.BeginForm(actionName: "AddProductInList", controllerName: "ShoppingList", method: FormMethod.Post, routeValues: new { id = item.ShoppingListId }))
                 {
-                    <button class="btn btn-secondary" type="submit"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp; Add product</button>
+                    <button class="btn btn-warning" type="submit"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp; Add product</button>
                 }
                 <br />
                 @using (Html.BeginForm(actionName: "Details", controllerName: "ShoppingList", method: FormMethod.Post, routeValues: new { id = item.ShoppingListId }))

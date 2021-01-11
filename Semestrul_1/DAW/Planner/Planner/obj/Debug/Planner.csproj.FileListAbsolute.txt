@@ -276,3 +276,6 @@ C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Plann
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.RemoveUserIdFromInvoice.resources
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.MtMMigration.resources
 C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.ManyToManyDataAdt.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.ManyToManyAgain.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.maenervezi.resources
+C:\Users\Personal\Desktop\Anul_3\Semestrul_1\DAW\Planner\Planner\obj\Debug\Planner.Migrations.DelReq.resources

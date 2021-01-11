@@ -2,7 +2,7 @@
 
 <br />
 <br />
-
+<link rel="stylesheet" href="~/Content/Style/apt.css"/>
 
 @using (Html.BeginForm(actionName: "CreateNewPerson", controllerName: "PersonContactInfoViewModels", method: FormMethod.Post))
 {
@@ -13,7 +13,7 @@
     <div class="panel-body">
         <div class="col-lg-1"></div>
         <div class="col-lg-5">
-
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
             @Html.Label("Nume", "Nume: ")
             <br />
             @Html.TextBoxFor(b => b.Person.Nume, null, new { placeholder = "Nume...", @class = "form-control" })

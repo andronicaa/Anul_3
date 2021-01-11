@@ -11,10 +11,11 @@ namespace Planner.Controllers
     [AllowAnonymous]
     public class DailyTasksController : Controller
     {
+        // se permite accesul utilizatorilor neautentificati
         private ApplicationDbContext _ctx = new ApplicationDbContext();
         public ActionResult Index()
         {
-            // verific daca este cineva conectat in acest moment
+            // verific daca este cineva autentificat in acest moment
             var userId = User.Identity.GetUserId();
             if (userId != null)
             {
@@ -105,7 +106,8 @@ namespace Planner.Controllers
                     var userId = User.Identity.GetUserId();
                     if (userId != null)
                     {
-                        tsk.UserId = userId;
+                        // verific daca este cine autentificat
+                        tsk.UserId = taskReq.UserId;
                     }
                     tsk.TitluTask = taskReq.TitluTask;
                     tsk.Prioritate = taskReq.Prioritate;
@@ -115,11 +117,11 @@ namespace Planner.Controllers
                     _ctx.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                return View("Edit/" + id, taskReq);
+                return View("Edit", taskReq);
             }
             catch (Exception e)
             {
-                return View("Edit/" + id, taskReq);
+                return View("Edit", taskReq);
             }
 
         }
@@ -131,11 +133,11 @@ namespace Planner.Controllers
             DailyTask tsk = _ctx.DailyTasks.FirstOrDefault(predicate => predicate.DailyTaskId == id);
             if (tsk == null)
             {
-                return HttpNotFound();
+                return HttpNotFound("Nu exista task-ul cu id-ul dat");
             }
             _ctx.DailyTasks.Remove(tsk);
             _ctx.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "DailyTasks");
 
         }
     }

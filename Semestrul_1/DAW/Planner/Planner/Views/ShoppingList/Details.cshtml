@@ -1,8 +1,9 @@
-﻿@*@model Planner.Models.ShoppingList
-
-<div>@Model.Titlu</div>
+﻿@model Planner.Models.ShoppingList
 
 
+<link rel="stylesheet" href="~/Content/Style/lista.css" />
+<br />
+<br />
 <div class="panel panel-info">
     <div class="panel-heading">@Model.Titlu</div>
     <div class="panel-body">
@@ -14,6 +15,7 @@
                         <th scope="col">Cantitate</th>
                         <th scope="col">Descriere</th>
                         <th scope="col">Necesitate</th>
+                        <th scope="col">Sterge produs</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,6 +28,12 @@
                                 <td>@item.Cantitate</td>
                                 <td>@item.Descriere</td>
                                 <td>@item.Necesitate</td>
+                                <td>
+                                    @using (Html.BeginForm(actionName: "DeleteProductFromList", controllerName: "ShoppingList", method: FormMethod.Post, routeValues: new { idLista = Model.ShoppingListId, idProdus = item.ProductId }))
+                                    {
+                                        <button class="btn btn-success" type="submit"><i class="fa fa-check" aria-hidden="true"></i> &nbsp; Cumparat</button>
+                                    }
+                                </td>
                             </tr>
                         }
                     }
@@ -40,7 +48,15 @@
         {
             <button class="btn btn-danger" type="submit"><i class="fa fa-check" aria-hidden="true"></i> &nbsp; Delete lista</button>
         }
+        <br />
+        @using (Html.BeginForm(actionName: "EditList", controllerName: "ShoppingList", method: FormMethod.Post, routeValues: new { id = Model.ShoppingListId }))
+        {
+            <button class="btn btn-warning" type="submit"><i class="fa fa-pencil" aria-hidden="true"></i> &nbsp; Editeaza lista</button>
+        }
     </div>
-</div>*@
+</div>
 
-
+@using (Html.BeginForm(actionName: "Index", controllerName: "ShoppingList", method: FormMethod.Get))
+{
+    <button class="btn btn-info" type="submit"><i class="fa fa-home" aria-hidden="true"></i> &nbsp; Toate listele</button>
+}

@@ -1,14 +1,27 @@
 ﻿@model Planner.Models.ShoppingList
 
-
-<h2>Editeaza lista de cumparaturi</h2>
+<link rel="stylesheet" href="~/Content/Style/lista.css"/>
+<br />
+<br />
 @using (Html.BeginForm(actionName: "UpdateList", controllerName: "ShoppingList", method: FormMethod.Post, routeValues: new { id = Model.ShoppingListId }))
 {
-    @Html.Label("Titlu", "Titlu lista cumparaturi: ")
-    <br />
-    @Html.EditorFor(b => b.Titlu, null, new { placeholder = "Descriere activitate", @class = "form-control" })
-    @Html.ValidationMessageFor(b => b.Titlu, "", new { @class = "text-danger" })
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3>Editeaza lista de cumparaturi</h3>
+        </div>
+        <div class="panel-body">
+            @Html.HiddenFor(b => b.ShoppingListId)
+            @Html.Label("Titlu", "Titlu lista cumparaturi: ")
+            <br />
+            @Html.EditorFor(b => b.Titlu, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(b => b.Titlu, "", new { @class = "text-danger" })
 
-    <button class="btn btn-primary" type="submit">Update lista</button>
+        </div>
+        <div class="panel-footer">
+            <button class="btn btn-primary" type="submit">Update lista</button>
+        </div>
+    </div>
+    
+    
 }
 

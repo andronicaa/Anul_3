@@ -15,13 +15,10 @@ namespace Planner.Models.MyValidation
 
             DateTime dateApt = apt.Deadline;
             DateTime dateNow = DateTime.Now;
-            bool cond = true;
-            if (dateApt < dateNow)
-            {
-                cond = false;
-            }
+            bool cond = dateNow.Date.CompareTo(dateApt.Date) <= 0;
 
-            return cond ? ValidationResult.Success : new ValidationResult("Deadline-ul trebuie sa fie in aceeasi zi intr-o zi urmatoare");
+            return cond ? ValidationResult.Success : new ValidationResult("Deadline-ul trebuie sa fie in ziua curenta sau o zi urmatoare");
+            
         }
     }
 }

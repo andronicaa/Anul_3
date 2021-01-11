@@ -2,11 +2,13 @@
 
 <br />
 <br />
+<link rel="stylesheet" href="~/Content/Style/lista.css" />
 
-
-    @Html.HiddenFor(b => b.ShoppingListId)
-    @Html.HiddenFor(b => b.Titlu)
-    <p>@Model.Titlu</p>
+@Html.HiddenFor(b => b.ShoppingListId)
+@Html.HiddenFor(b => b.Titlu)
+<h3>@Model.Titlu</h3>
+<br />
+<br />
 <table class="table table-hover">
     <thead>
         <tr>
@@ -41,7 +43,12 @@
         }
     </tbody>
 </table>
-    
 
+
+@using (Html.BeginForm(actionName: "NewProduct", controllerName: "Products", method: FormMethod.Get))
+{
+
+<button class="btn btn-warning" type="submit"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp;Adauga produs</button>
+}
 
 
