@@ -275,8 +275,34 @@ begin
     values (sys.login_user, sys.database_name, sys.sysevent, sys.dictionary_obj_name, sysdate);
 end;
 
-
-
+-- 8
+create or replace package pachet8 is
+    smin emp_aan.salary%type;
+    smax emp_aan.salary%type;
+    smed emp_aan.salary%type;
+end pachet8;
+-- declansator la nivel de comanda in care se act variabilele din pachet
+create or replace trigger trig81_aan
+before update of salary on emp_aan
+begin
+    select min(salary), avg(salary), max(salary)
+    into pachet8.smin, pachet8.smed, pachet8.smax
+    from emp_aan;
+end;
+/
+-- declansator la nivel de linie care sa realizeze verificare conditiilor
+create or replace trigger trig82_aan
+before update of salary on emp_aan
+for each row
+begin
+    if (:old.salary = pachet8.smin) and (:new.salary > pachet8.smed) then
+        raise_application_error(-20001, 'Acest salariu depaseste valoarea medie');    
+    elsif (:old.salary = pachet8.smax) and (:new.salary < pachet8.smed)
+        raise_application_error(-20001, 'Acest salariu este sub valoarea medie');
+    end if; 
+    
+    
+end;
 
 
 -- EXERCITII
