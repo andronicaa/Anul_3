@@ -297,6 +297,14 @@
     <Compile Include="Migrations\202101041948565_RemoveUserIdFromInvoice.Designer.cs">
       <DependentUpon>202101041948565_RemoveUserIdFromInvoice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101092234188_MtMMigration.cs" />
+    <Compile Include="Migrations\202101092234188_MtMMigration.Designer.cs">
+      <DependentUpon>202101092234188_MtMMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101092243459_ManyToManyDataAdt.cs" />
+    <Compile Include="Migrations\202101092243459_ManyToManyDataAdt.Designer.cs">
+      <DependentUpon>202101092243459_ManyToManyDataAdt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -545,6 +553,11 @@
     <Content Include="Views\Appointments\AppointmentDetails.cshtml" />
     <Content Include="Views\Appointments\OrderAppointments.cshtml" />
     <Content Include="Views\PersonContactInfoViewModels\GetAllUsers.cshtml" />
+    <Content Include="Views\ShoppingLists\Create.cshtml" />
+    <Content Include="Views\ShoppingLists\Delete.cshtml" />
+    <Content Include="Views\ShoppingLists\Details.cshtml" />
+    <Content Include="Views\ShoppingLists\Edit.cshtml" />
+    <Content Include="Views\ShoppingLists\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -649,6 +662,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101041948565_RemoveUserIdFromInvoice.resx">
       <DependentUpon>202101041948565_RemoveUserIdFromInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101092234188_MtMMigration.resx">
+      <DependentUpon>202101092234188_MtMMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101092243459_ManyToManyDataAdt.resx">
+      <DependentUpon>202101092243459_ManyToManyDataAdt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -15,7 +15,11 @@ namespace Planner.Controllers
         // GET: ShoppingList
         public ActionResult Index()
         {
-            var lists = ctx.ShoppingLists.Include("Products");
+            var lists = ctx.ShoppingLists.Include("ShoppingListProductJoins");
+            //var lists = ctx.ShoppingLists.Include(x => x.Todos).Single(p => p.Id.Equals(id));
+            //var tasksItems = user.Todos;
+            //return View(tasksItems);
+
             ViewBag.Lists = lists;
             return View();
         }
@@ -25,8 +29,17 @@ namespace Planner.Controllers
             if (id.HasValue)
             {
                 // caut lista cu detaliile respective
+                ShoppingList list = ctx.ShoppingLists.Where(p => p.ShoppingListId == id).FirstOrDefault();
+                List<Product> productsFromList = new List<Product>();
+                IEnumerable<ShoppingListProductJoin> joinT = ctx.ShoppingListProductJoins.Include("Products").Where(p => p.ShoppingListId == list.ShoppingListId).ToList();
+                foreach (var item in joinT)
+                {
+                    // caut produsul cu id-ul respectiv
+                    Product prd = ctx.Products.Where(p => p.ProductId == item.ProductId).FirstOrDefault();
+
+                }
                 
-                ShoppingList list = ctx.ShoppingLists.Include("Products").Where(p => p.ShoppingListId == id).FirstOrDefault();
+                ShoppingListViewModel slVm = new ShoppingListViewModel();
                 
                 if (list != null)
                 {
@@ -124,17 +137,51 @@ namespace Planner.Controllers
 
             ShoppingListViewModel slVm = new ShoppingListViewModel();
             slVm.ShoppingListId = list.ShoppingListId;
-            slVm.ShoppingProducts = GetAllProducts();
+            slVm.ShoppingProducts = ctx.Products.ToList();
             slVm.Titlu = list.Titlu;
             return View(slVm);
         }
 
         [HttpPost]
-        public ActionResult AddProduct(int id, ShoppingListViewModel list)
+        public ActionResult AddProduct(int idProdus, int idLista)
         {
-            // caut in baza de date lista de cumparaturi corespunzatoare
-            ShoppingList lst = ctx.ShoppingLists.Find(id);
-            lst.Products = (ICollection<Product>)list.ShoppingProducts;
+            // am id-ul listei in care vreau sa adaug produsul
+            // si id-ul produsului pe care vreau sa-l adaug in lista
+            // trebuie sa le adaug in tabelul de join
+            // fac un on obiect de tipul tabelului de join
+            ShoppingListProductJoin joinElem = new ShoppingListProductJoin();
+            joinElem.ProductId = idProdus;
+            joinElem.ShoppingListId = idLista;
+
+            ctx.ShoppingListProductJoins.Add(joinElem);
+            ctx.SaveChanges();
+            // redirectionez care index pentru a vedea daca s-a adaugat produsul in lista
+            return RedirectToAction("Index", "ShoppingList");
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult DeleteProduct(int idLista)
+        {
+            // primesc doar id-ul listei
+            // caut aceasta lista in baza de date
+            ShoppingList sl = ctx.ShoppingLists.Include("ShoppingListProductJoins").Where(p => p.ShoppingListId == idLista).FirstOrDefault();
+            return View(sl);
+
+        }
+
+        // sterge produs din lista de cumparaturi
+        [HttpPost]
+        public ActionResult DeleteProductFromList(int idLista, int idProdus)
+        {
+            // caut acest obiect in baza de date in tabelul de join
+            ShoppingListProductJoin joinEl = ctx.ShoppingListProductJoins.Where(p => p.ShoppingListId == idLista && p.ProductId == idProdus).FirstOrDefault();
+
+            // sterg acest element din baza de date
+            ctx.ShoppingListProductJoins.Remove(joinEl);
+            // salvez modificarile
+            ctx.SaveChanges();
+
+            // ma intorc la pagina de index
             return RedirectToAction("Index", "ShoppingList");
         }
 

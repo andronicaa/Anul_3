@@ -18,7 +18,9 @@ namespace Planner.Controllers
         {
             // determin user-ul curent
             var userId = User.Identity.GetUserId();
-            IEnumerable<Appointment> apt = ctx.Appointments.Where(p => p.User_Id == userId).ToList();
+            // caut persoana in baza de date corespunzatoare
+            Person prs = ctx.Persons.Include("ContactInfo").Where(p => p.UserId == userId).FirstOrDefault();
+            IEnumerable<Appointment> apt = ctx.Appointments.Where(p => prs.PersonId == p.Person.PersonId).ToList();
             return View(apt);
         }
 

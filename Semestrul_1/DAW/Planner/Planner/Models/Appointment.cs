@@ -35,7 +35,7 @@ namespace Planner.Models
 
         // o persoana poate avea mai multe intalniri, dar o intalnire apartine doar unei persoane
 
-
+        
         public virtual Person Person { get; set; }
     }
 }
