@@ -19,7 +19,7 @@ namespace Planner.Models
         
 
         // many-to-many relation
-        public ICollection<ShoppingListProductJoin> ShoppingListProductJoins { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
 
         [NotMapped]
         public IEnumerable<SelectListItem> ProductsList { get; set; }

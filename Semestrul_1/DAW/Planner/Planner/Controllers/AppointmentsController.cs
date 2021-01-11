@@ -20,6 +20,10 @@ namespace Planner.Controllers
             var userId = User.Identity.GetUserId();
             // caut persoana in baza de date corespunzatoare
             Person prs = ctx.Persons.Include("ContactInfo").Where(p => p.UserId == userId).FirstOrDefault();
+            if (prs == null)
+            {
+                return RedirectToAction("Index", "PersonContactInfoVieWModels");
+            }
             IEnumerable<Appointment> apt = ctx.Appointments.Where(p => prs.PersonId == p.Person.PersonId).ToList();
             return View(apt);
         }
@@ -36,6 +40,13 @@ namespace Planner.Controllers
         [Route("appointments/newapt")]
         public ActionResult NewApt()
         {
+            var userId = User.Identity.GetUserId();
+            // caut persoana in baza de date corespunzatoare
+            Person prs = ctx.Persons.Include("ContactInfo").Where(p => p.UserId == userId).FirstOrDefault();
+            if (prs == null)
+            {
+                return RedirectToAction("Index", "PersonContactInfoViewModels");
+            }
             Appointment apt = new Appointment();
             apt.Data = DateTime.Now;
             return View(apt);
@@ -72,16 +83,9 @@ namespace Planner.Controllers
             apt.Person = prs;
             try
             {
-               
-                    
-                    // caut utilizatorul curent
-                    // caut in baza de date persoana corespunzatoare utilizatorului curent
-                    
-                    ctx.Appointments.Add(apt);
-                    ctx.SaveChanges();
-                    return RedirectToAction("Index", "Appointments");
-               
-               
+                ctx.Appointments.Add(apt);
+                ctx.SaveChanges();
+                return RedirectToAction("Index", "Appointments");
             } catch(Exception e)
             {
                 return View("NewApt", apt);
@@ -122,25 +126,31 @@ namespace Planner.Controllers
             {
                 
                     // caut item ul in baza de date
-                    var userId = User.Identity.GetUserId();
                     // caut in baza de date persoana corespunzatoare utilizatorului curent
-                    Person prs = ctx.Persons.Where(p => p.UserId == userId).FirstOrDefault();
+                    Person prs = ctx.Persons.Where(p => p.UserId == aptReq.User_Id).FirstOrDefault();
 
                     Appointment apt = ctx.Appointments.Find(id);
-                    apt.User_Id = userId;
+                    apt.User_Id = aptReq.User_Id;
                     apt.AppointmentType = aptReq.AppointmentType;
                     apt.Adresa = aptReq.Adresa;
                     apt.Data = aptReq.Data;
                     apt.Persoane = aptReq.Persoane;
                     apt.Detalii = aptReq.Detalii;
                     apt.Person = prs;
+                    if (TryUpdateModel(apt))
+                    {
+                        ctx.SaveChanges();
+                        return RedirectToAction("Index", "Appointments");
+                    }
 
-                    ctx.SaveChanges();
-                    return RedirectToAction("Index", "Appointments");
+                    return View("EditApt", aptReq);
+                    
+                    
+                    
                
             } catch(Exception e)
             {
-                return View("EditApt/" + id, aptReq);
+                return View("EditApt", aptReq);
             }
         }
 

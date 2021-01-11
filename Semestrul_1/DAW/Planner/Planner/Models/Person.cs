@@ -16,9 +16,9 @@ namespace Planner.Models
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Prenumele trebuie sa contina doar litere")]
         public string Prenume { get; set; }
 
-        [Required]
+        //[Required]
         public string UserId { get; set; }
-        [Required]
+        //[Required]
         public string UserName { get; set; }
 
         // one-to-one
@@ -26,7 +26,7 @@ namespace Planner.Models
         public virtual ContactInfo ContactInfo { get; set; }
 
         // many-to-one
-        public IEnumerable<Appointment> Appointments { get; set; }
+        public virtual IEnumerable<Appointment> Appointments { get; set; }
 
 
 

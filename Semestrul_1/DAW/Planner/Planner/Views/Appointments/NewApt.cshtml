@@ -15,7 +15,8 @@
         <div class="panel-body">
             <div class="col-lg-1"></div>
             <div class="col-lg-5">
-                @Html.Label("AppointmentType", "Appointment Type: ")
+                @Html.ValidationSummary("", new { @class = "warning" })
+                @Html.Label("AppointmentType", "Tip programare: ")
                 <br />
                 @Html.TextBoxFor(b => b.AppointmentType, null, new { placeholder = "Tip intalnire", @class = "form-control" })
                 @Html.ValidationMessageFor(b => b.AppointmentType, "", new { @class = "text-danger" })
@@ -51,7 +52,7 @@
             </div>
         </div>
         <div class="panel-footer">
-            <button class="btn btn-primary" type="submit"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp;Adauga intalnire</button>
+            <button class="btn btn-primary" type="submit"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp;Adauga programare</button>
         </div>
     </div>
     

@@ -6,6 +6,7 @@
 @using (Html.BeginForm(actionName: "UpdatePerson", controllerName: "PersonContactInfoViewModels", method: FormMethod.Post, routeValues:
 new { id = Model.Person.PersonId }))
 {
+
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3><i class="fa fa-pencil" aria-hidden="true"></i> &nbsp; Editeaza profil</h3>
@@ -13,7 +14,11 @@ new { id = Model.Person.PersonId }))
         <div class="panel-body">
             <div class="col-lg-1"></div>
             <div class="col-lg-5">
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                 @Html.HiddenFor(b => b.Person.PersonId)
+                @Html.HiddenFor(b => b.Person.UserId)
+                @Html.HiddenFor(b => b.Person.UserName)
+                @Html.HiddenFor(b => b.ContactInfo.Person)
                 @Html.Label("Nume", "Nume: ")
                 <br />
                 @Html.EditorFor(b => b.Person.Nume, new { htmlAttributes = new { @class = "form-control" } })

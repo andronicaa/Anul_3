@@ -13,6 +13,7 @@
         <div class="panel-body">
             <div class="col-lg-1"></div>
             <div class="col-lg-5">
+                @Html.ValidationSummary("", new { @class = "warning" })
                 @Html.Label("TitluTask", "Titlu task: ")
                 <br />
                 @Html.TextBoxFor(b => b.TitluTask, null, new { placeholder = "Descriere activitate", @class = "form-control" })

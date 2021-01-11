@@ -305,6 +305,18 @@
     <Compile Include="Migrations\202101092243459_ManyToManyDataAdt.Designer.cs">
       <DependentUpon>202101092243459_ManyToManyDataAdt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101101809429_ManyToManyAgain.cs" />
+    <Compile Include="Migrations\202101101809429_ManyToManyAgain.Designer.cs">
+      <DependentUpon>202101101809429_ManyToManyAgain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101101820272_maenervezi.cs" />
+    <Compile Include="Migrations\202101101820272_maenervezi.Designer.cs">
+      <DependentUpon>202101101820272_maenervezi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101111345490_DelReq.cs" />
+    <Compile Include="Migrations\202101111345490_DelReq.Designer.cs">
+      <DependentUpon>202101111345490_DelReq.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -340,18 +352,28 @@
     <Content Include="Content\Images\apt_card_img.png" />
     <Content Include="Content\Images\background-image.jpg" />
     <Content Include="Content\Images\bill.png" />
+    <Content Include="Content\Images\Checked-Off.jpg" />
+    <Content Include="Content\Images\Checked-Off_1.jpg" />
+    <Content Include="Content\Images\food.png" />
     <Content Include="Content\Images\Parc-eolien-Logan-Colorado.jpg" />
     <Content Include="Content\Images\profile_cropped.jpg" />
+    <Content Include="Content\Images\rftrtyu.jpg" />
+    <Content Include="Content\Images\rftrtyu_1.jpg" />
     <Content Include="Content\Images\shopping_list_crop.jpg" />
+    <Content Include="Content\Images\td.png" />
+    <Content Include="Content\Images\td_crop.png" />
+    <Content Include="Content\Images\td_crop_1.png" />
     <Content Include="Content\Images\todo.jpg" />
     <Content Include="Content\Images\todooo.jpg" />
     <Content Include="Content\Images\todos.jpg" />
     <Content Include="Content\Images\To_Do_List.png" />
     <Content Include="Content\LICENSE.txt" />
+    <Content Include="Content\rftrtyu_1.jpg" />
     <Content Include="Content\Style\apt.css" />
     <Content Include="Content\Style\EditInvoiceStyle.css" />
     <Content Include="Content\Style\home.css" />
     <Content Include="Content\Style\IndexLista.css" />
+    <Content Include="Content\Style\lista.css" />
     <Content Include="Content\Style\person.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -553,11 +575,6 @@
     <Content Include="Views\Appointments\AppointmentDetails.cshtml" />
     <Content Include="Views\Appointments\OrderAppointments.cshtml" />
     <Content Include="Views\PersonContactInfoViewModels\GetAllUsers.cshtml" />
-    <Content Include="Views\ShoppingLists\Create.cshtml" />
-    <Content Include="Views\ShoppingLists\Delete.cshtml" />
-    <Content Include="Views\ShoppingLists\Details.cshtml" />
-    <Content Include="Views\ShoppingLists\Edit.cshtml" />
-    <Content Include="Views\ShoppingLists\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -668,6 +685,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101092243459_ManyToManyDataAdt.resx">
       <DependentUpon>202101092243459_ManyToManyDataAdt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101101809429_ManyToManyAgain.resx">
+      <DependentUpon>202101101809429_ManyToManyAgain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101101820272_maenervezi.resx">
+      <DependentUpon>202101101820272_maenervezi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101111345490_DelReq.resx">
+      <DependentUpon>202101111345490_DelReq.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

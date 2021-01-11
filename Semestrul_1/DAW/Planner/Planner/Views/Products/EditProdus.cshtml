@@ -10,6 +10,7 @@
     <div class="panel-body">
         @using (Html.BeginForm(actionName: "UpdateProdus", controllerName: "Products", method: FormMethod.Post, routeValues: new { id = Model.ProductId }))
         {
+            @Html.HiddenFor(b => b.ProductId)
             @Html.Label("Cantitate", "Cantitate: ")
             <br />
             @Html.EditorFor(b => b.Cantitate, new { htmlAttributes = new { @class = "form-control" } })
