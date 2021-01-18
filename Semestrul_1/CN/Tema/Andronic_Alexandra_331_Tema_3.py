@@ -7,8 +7,8 @@ import math
 def exercitiul_unu():
     # Trebuie sa calculam derivatele partiale in functie de x si y pentru a determina matricile A si b 
     # -----------------------
-    # df(x) = x - 8.0 * y - 7
-    # df(y) = -8.0 * x + 164 * y + 2
+    # df1(x) = x - 8.0 * y - 7
+    # df1(y) = -8.0 * x + 164 * y + 2
     # -----------------------
     # Determinarea matricelor A si b dupa calcularea derivatelor partiale
     A = np.array([[1, -8],[-8, 164]]).astype(float) # Matrice pozitiv definita
@@ -28,10 +28,10 @@ def exercitiul_unu():
 
 
 # Functia pentru care vreau sa calculez punctul de minim
-# def f(x, y):
-#     return 0.5 * x ** 2 - 8.0 * x * y - 7.0 * x + 82.0 * y ** 2 + 2 * y
+def f1(x, y):
+    return 0.5 * x ** 2 - 8.0 * x * y - 7.0 * x + 82.0 * y ** 2 + 2 * y
 
-# Functie care verifica daca o metrice este simetrica si pozitiv definita
+# Functie care verifica daca o matrice este simetrica si pozitiv definita
 def verif_sim_poz_def(A):
 
     # Verific daca matricea este simetrica
@@ -64,9 +64,6 @@ def grid_discret(A, b):
     """
     
     size = 100 # Numar de puncte pe fiecare axa
-    # --------------------
-    # **Am ales in final aceste puncte, insa pe grafic, iteratiile pentru cele doua metode sunt destul de suprapuse si se vede diferenta intre ele doar daca se face zoom**
-    # --------------------
     x1 = np.linspace(-100, 100, size) # Axa x1
     x2 = np.linspace(-4, 6, size) # Axa x2
     X1, X2 = np.meshgrid(x1, x2) # Creeaza un grid pe planul determinat de axele x1 si x2
@@ -156,14 +153,13 @@ def pas_descendent(A, b):
 
     # Reziduu -> ne arata cat de aproape este de solutie valoarea calculata de noi
     reziduu = b - A @ x_k
-    # punctul de oprire
+    # Punctul de oprire
     eps = 1e-8
 
     # Folosesc norma 2
     norma = lambda x: np.linalg.norm(x, ord = 2)
     iteratii = 0
     while norma(reziduu) > eps:
-        # print(x_k)
         iteratii += 1
         # Aceasta valoare determina cat de mult trebuie sa coboram pe gradient -> arata "dimensiunea" pasului la fiecare iteratie
         learning_rate = (reziduu.T @ reziduu) / (reziduu.T @ A @ reziduu)
@@ -181,7 +177,7 @@ def pas_descendent(A, b):
     # Returnez punctul de minim si vectorul cu valorile de la fiecare iteratie
     return [x_k, x_puncte_grafic]
     
-
+# ----------------------- METODA GRADIENTILOR CONJUGATI ---------------------------
 def gradient_conjugat(A, b):
     # Aleg punctul initial
     x_k = np.array([[-10], [1]]).astype(float)
@@ -211,7 +207,7 @@ def gradient_conjugat(A, b):
         reziduu = next_reziduu
         x_puncte_grafic.append(x_k)
 
-    print("Rezultatele pentru exercitiul 2 cu metoda gradientilor conjugati sunt: ")
+    print("Rezultatele pentru exercitiul 1 cu metoda gradientilor conjugati sunt: ")
     print(f"Numarul de iteratii este {iteratii}")
     print(f"Punctul de minim este {x_k}")
     return [x_k, x_puncte_grafic]
@@ -221,8 +217,111 @@ def gradient_conjugat(A, b):
 
 
 # --------------- EXERCITIUL 2 ---------------------------------
+# Functia pentru care vrem sa calculam aproximarea
+def f2(x):
+    return (-1) * math.sin((-4) * x) - 5 * math.cos(4 * x) - 23.55 * x
 
 
+def noduri_chebyshev(k, mrg_inf, mrg_sup, N):
+    # Se folosesc nodurile Chebysev pentru a se imbunatati din punct de vedere numeric eroarea de trunchiere(pentru a evita erorile mari in apropierea marginilor)
+    return (mrg_inf + mrg_sup) / 2 + (mrg_sup - mrg_inf) / 2 * np.cos(np.pi * (N - k) / N)
+
+# Functie ce construieste polinomul cu ajutorul coeficientilor aflati din rezolvarea sistemului
+def evaluare(x, C, N, X):
+    s = C[0]
+    for i in range(1, N + 1):
+        produs = C[i]
+        for j in range(i):
+            produs = produs * (X - x[j])
+        s = s + produs
+    
+    return s
+
+def exercitiul_doi():
+    # Marginile inferioare si superioare([-pi, pi])
+    a = - np.pi
+    b = np.pi
+    # Cat timp nu se indeplineste conditia ca eroarea maxima de trunchiere sa fie mai mica decat o valoare data(1e-5) continuam sa crestem N-ul
+    # Cand conditia va fi satisfacuta => bucla se va opri si astfel va fi ales cel mai mic N
+    N = 1
+    while True:
+        N = N + 1
+        # Afisez N-urile pentru care nu se respecta conditia
+        print(f"Pentru N = {N} nu se respecta conditia pentru eroarea de trunchiere")
+        ret, coeficienti, x, erori, maxim, vals = interpolare_metoda_newton(N, a, b)
+        if ret != -1:
+            print(f"N-ul pentru care se respecta conditia cu eroarea de trunchiere:{N}")
+            # Plotez graficul
+            nr_puncte = 100
+            x_grafic = np.linspace(a, b, nr_puncte)
+            f3 = np.vectorize(f2)
+            y_grafic = f3(x_grafic)
+            
+            y_aproximat = [evaluare(x,coeficienti,N,X) for X in x_grafic]
+
+            # Afisez functia originala, nodurile de interpolare si polinomul
+            plt.figure("Interpolare Lagrange: Metoda Newton")
+            plt.plot(x_grafic, y_grafic, label = "Functia")
+            plt.plot(x_grafic, y_aproximat, linestyle = "-.", label = "Polinom de interpolare")
+            
+            # Afisam pe grafic nodurile de interpolare
+            plt.scatter(x, f3(x), label = "Nodurile de interpolare") 
+            plt.legend()
+            plt.show()
+
+            # Grafic cu eroarea de trunchiere
+            plt.figure("Eroare interpolare cu polinoame Lagrange: metoda Newton")
+            plt.plot(vals, erori, label = "Erori obtinute")
+            plt.hlines(1e-5, xmin = a, xmax = b, color = 'blue')
+            plt.hlines(maxim, xmin = a, xmax = b, color = 'orange', label = "Eroare maxima din algoritmul meu")
+            plt.legend()
+            plt.show()
+
+            return
+
+def interpolare_metoda_newton(N, mrg_inf, mrg_sup):
+
+    # Determin intervalele folosindu-ma de nodurile Chebysev pentru a putea minimiza eroarea de trunchiere
+    x = np.array([noduri_chebyshev(i, mrg_inf, mrg_sup, N) for i in range(N + 1)])
+    
+    # y = f(x)
+    y = np.zeros((N + 1, 1))
+    for i in range(len(x)):
+        y[i] = f2(x[i])
+
+    # Coeficientii se afla dintr-un sistem ce are deasupra diagonalei principale 0 si sub diagonala principala cate un produs de diferente
+    # construim matricea A
+    A = np.zeros((N + 1, N + 1))
+    # Pe prima coloana sunt doar valori de 1
+    A[:,0] = 1
+    for i in range(1, N + 1):
+        produs = 1
+        for j in range(i):
+            produs = produs * (x[i] - x[j])
+            A[i][j + 1] = produs
+
+    
+    # Aflu coeficientii cu metoda substitutiei ascendente
+    coeficienti = sub_ascendenta(A, y)
+    
+    nr_puncte = 100
+    x_grafic = np.linspace(mrg_inf, mrg_sup, nr_puncte)
+    f3 = np.vectorize(f2)
+    y_grafic = f3(x_grafic)
+    y_aproximat = [evaluare(x,coeficienti,N,val) for val in x_grafic]
+
+    erori, er_max = eroare_trunchiere(y_grafic, y_aproximat)
+    if er_max <= 1e-5:
+        return N, coeficienti, x, erori, er_max, x_grafic
+
+    return -1, None, None, None, None, None
+
+
+def eroare_trunchiere(y, y_aproximat):
+    eroare = np.abs(y - y_aproximat)
+    maxim = np.max(eroare)
+
+    return eroare, maxim
 
 
 # ---------------- END EXERCITIUL 2 ----------------------------
@@ -230,7 +329,7 @@ def gradient_conjugat(A, b):
 
 
 # ----------------- EXERCITIUL 3 -------------------------------
-# Functia care trebuie aproximata
+
 
 def exercitiul_trei():
     # Marginea inferioara
@@ -239,25 +338,27 @@ def exercitiul_trei():
     b = math.pi
     int_spline_cubica(a, b)
 
-
-def f(x):
+# Functia care trebuie aproximata
+def f3(x):
     return 3 * math.sin((-2) * x) - 4 * math.cos(4 * x) - 0.31 * x
 
 # Derivata acestei functii
-def df(x):
+def df3(x):
     return (-6) * math.cos(2 * x) + 16 * math.sin(4 * x) - 0.31
 
 
 def int_spline_cubica(mrg_inf, mrg_sup):
+
     # Numarul de intervale
     N = 144
     # Am ales N-ul 144 dupa o verificare intr-un while la fiecare pas, l-am sters deoarece dura prea mult sa se ajunga la acest rezultat
+
     # Diviziune a intervalului [mrg_inf, mrg_sup] ([-pi, pi])
     x = np.zeros((N+1, 1))
     x = np.linspace(mrg_inf, mrg_sup, N + 1)
     y = np.zeros((N + 1, 1))
     for i in range(len(x)):
-        y[i] = f(x[i])
+        y[i] = f3(x[i])
 
     # Calculam coeficientii
     # A - ul
@@ -288,18 +389,18 @@ def int_spline_cubica(mrg_inf, mrg_sup):
     # Ultima valoare din matrice este 1
     B[N][N] = 1
 
-    # Folosesc o discretizare echidistanta, h-ul este mereu acelasi
+    # Folosesc o discretizare echidistanta, h-ul este mereu acelasi(deoarece si intervalele sunt echidistante)
     h = x[1] - x[0]
 
     # Trebuie sa rezolvam sistemul
     # Calculez valorile din matricea W(rezultate din formulele de recurenta)
     W = np.zeros((N + 1, 1))
-    W[0] = df(x[0])
+    W[0] = df3(x[0])
     for i in range(1, N):
         W[i] = 3 * (y[i + 1] - y[i - 1]) / h
-    W[N] = df(x[N])
+    W[N] = df3(x[N])
 
-    # Determin b-ul cu ajutorul lui Gauss cu pivotare partiala
+    # Determin b-ul cu ajutorul factorizarii LU(Gauss cu pivotare partiala)
     b = factorizare_pivotare_partiala(B, W)
     
     # Calculam c si d(cu ajutorul lui b calculat anterior)
@@ -315,12 +416,13 @@ def int_spline_cubica(mrg_inf, mrg_sup):
             return a[j] + b[j] * (X - x[j]) + c[j] * (X - x[j]) ** 2 + d[j] * (X - x[j]) ** 3
         return spline
 
+
     # ---------- GRAFICUL --------
     # Calculez functia in nr_puncte(=100)
     nr_puncte = 100
-    f2 = np.vectorize(f)
+    f4 = np.vectorize(f3)
     x_grafic = np.linspace(mrg_inf, mrg_sup, nr_puncte)
-    y_grafic = f2(x_grafic)
+    y_grafic = f4(x_grafic)
     
     # Functie definita pe intervale(care indeplinesc o anumita conditie)
     
@@ -347,12 +449,13 @@ def int_spline_cubica(mrg_inf, mrg_sup):
     plt.show()
 
     # Calculez eroarea de trunchiere
-    plot_eroare_trunchiere(x_grafic, y_grafic, y_aproximat, mrg_inf, mrg_sup)
+    plot_eroare_trunchiere_ex_3(x_grafic, y_grafic, y_aproximat, mrg_inf, mrg_sup)
 
         
 
 # ----------- Metoda pentru afisarea erorii de trunchiere
-def plot_eroare_trunchiere(x_grafic, y_grafic, y_aprox, mrg_inf, mrg_sup):
+def plot_eroare_trunchiere_ex_3(x_grafic, y_grafic, y_aprox, mrg_inf, mrg_sup):
+
     eroare = np.abs(y_grafic - y_aprox)
     # determinam maximul erorii dintre cele calculate
     er_max = np.max(eroare)
@@ -432,7 +535,7 @@ def sub_ascendenta(U, b):
     # dimensiunea matricei asociate sistemului(este patratica)
     n = U.shape[0]
     # initializam x(vectorul solutie) cu zero
-    x = np.zeros((n, 1))
+    x = np.zeros(n)
     # daca determinantul este egal cu 0(aproximarea sa) => sistemul nu are solutie unica
     # altfel  => are solutie unica(este compatibil determinat)
     # punem conditie ca acesta sa fie mai mare decat o aproximare a lui 0 data de noi(in modul)
@@ -479,10 +582,13 @@ def sub_descendenta(U, b):
 if __name__ == "__main__":
 
     # --------------------- EXERCITIUL 1 ----------------
-    # exercitiul_unu()
+    print("---------------- EXERCITIUL 1 ---------------------")
+    exercitiul_unu()
 
-    # --------------------- EXERCITIUL 3 ---------------
-    
+    # --------------------- EXERCITIUL 2 ---------------
+    print("--------------- EXERCITIUL 2 -----------------------")
+    exercitiul_doi()
 
     # ---------------------- EXERCITIUL 3 ----------------
-    # exercitiul_trei()
+    print("--------------- EXERCITIUL 3 ------------------------")
+    exercitiul_trei()

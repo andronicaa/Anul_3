@@ -58,7 +58,7 @@ def interpolare_metoda_newton(mrg_inf, mrg_sup):
     A = np.zeros((N + 1, N + 1))
     # Are doar 1 pe prima coloana
     A[:,0] = 1
-    # Pe fiecare coloana sub diagonala principala are un produs de diferente
+    # Pe fiecare coloana sub diagonala principala este un produs de diferente
 
     for i in range(1, N + 1):
         p = 1
@@ -78,7 +78,7 @@ def interpolare_metoda_newton(mrg_inf, mrg_sup):
 
     plt.figure("Interpolare cu polinoame Lagrange: Metoda Newton")
     plt.plot(x_grafic, y_grafic, label='Functia data ca parametru')
-    plt.plot(x_grafic, y_polinom, linestyle='--', label='Polinomul')
+    # plt.plot(x_grafic, y_polinom, linestyle='--', label='Polinomul')
     plt.scatter(x, y, label='Nodurile de interpolare')
     plt.legend()
     plt.show()

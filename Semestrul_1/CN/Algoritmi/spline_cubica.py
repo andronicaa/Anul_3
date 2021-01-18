@@ -12,87 +12,98 @@ def df(x):
 
 
 def int_spline_cubica(mrg_inf, mrg_sup):
-    
-    N = 144
-    x = np.zeros((N+1, 1))
-    x = np.linspace(mrg_inf, mrg_sup, N+1)
-    y = np.zeros((N + 1, 1))
-    for i in range(len(x)):
-        y[i] = f(x[i])
+    N = 100
+    while True:
+        N = N + 1
+        print(N)
+        x = np.zeros((N+1, 1))
+        x = np.linspace(mrg_inf, mrg_sup, N+1)
+        y = np.zeros((N + 1, 1))
+        for i in range(len(x)):
+            y[i] = f(x[i])
 
-    # calculam coeficientii
-    # A - ul
-    a = y.copy()
+        # calculam coeficientii
+        # A - ul
+        a = y.copy()
 
-    # B - ul
-    B = np.zeros((N+1, N+1))
+        # B - ul
+        B = np.zeros((N+1, N+1))
 
-    B[0][0] = 1
-    for i in range(1, N):
-        B[i][i - 1] = 1
-        B[i][i] = 4
-        B[i][i + 1] = 1
+        B[0][0] = 1
+        for i in range(1, N):
+            B[i][i - 1] = 1
+            B[i][i] = 4
+            B[i][i + 1] = 1
 
-    B[N][N] = 1
-    # folosesc o discretizare echidistanta, h-ul este mereu acelasi
-    h = x[1] - x[0]
+        B[N][N] = 1
+        # folosesc o discretizare echidistanta, h-ul este mereu acelasi
+        h = x[1] - x[0]
 
-    # trebuie sa rezolvam sistemul
-    W = np.zeros((N + 1, 1))
-    W[0] = df(x[0])
-    for i in range(1, N):
-        W[i] = 3 * (y[i + 1] - y[i - 1]) / h
-    W[N] = df(x[N])
+        # trebuie sa rezolvam sistemul
+        W = np.zeros((N + 1, 1))
+        W[0] = df(x[0])
+        for i in range(1, N):
+            W[i] = 3 * (y[i + 1] - y[i - 1]) / h
+        W[N] = df(x[N])
 
-    
-    b = factorizare_pivotare_partiala(B, W)
-    
-    # calculam c si d
-    c = np.zeros((N, 1))
-    d = np.zeros((N, 1))
-    for i in range(N):
-        c[i] = 3 * (y[i + 1] - y[i]) / (h * h) - (b[i + 1] + 2 * b[i]) / h
-        d[i] = (-2) * (y[i + 1] - y[i]) / (h * h * h) + (b[i + 1] + b[i]) / (h * h)
+        
+        b = factorizare_pivotare_partiala(B, W)
+        
+        # calculam c si d
+        c = np.zeros((N, 1))
+        d = np.zeros((N, 1))
+        for i in range(N):
+            c[i] = 3 * (y[i + 1] - y[i]) / (h * h) - (b[i + 1] + 2 * b[i]) / h
+            d[i] = (-2) * (y[i + 1] - y[i]) / (h * h * h) + (b[i + 1] + b[i]) / (h * h)
 
-    def polinom(j):
-        def spline(X):
-            return a[j] + b[j] * (X - x[j]) + c[j] * (X - x[j]) ** 2 + d[j] * (X - x[j]) ** 3
-        return spline
+        def polinom(j):
+            def spline(X):
+                return a[j] + b[j] * (X - x[j]) + c[j] * (X - x[j]) ** 2 + d[j] * (X - x[j]) ** 3
+            return spline
 
-    nr_puncte = 100
-    f2 = np.vectorize(f)
-    x_grafic = np.linspace(mrg_inf, mrg_sup, nr_puncte)
-    y_grafic = f2(x_grafic)
-    
-    # functie definita pe intervale
-    y_aproximat = np.piecewise(
-    x_grafic,
-    [
-        # conditii
-        (x[i] <= x_grafic) & (x_grafic < x[i + 1])
-        for i in range(N - 1)
-    ],
-    [
-        # polinoamele
-        polinom(i)
-        for i in range(N)
-    ]
-)
-    plt.figure("Interpolare spline cubica")
-    plt.plot(x_grafic, y_grafic, linestyle='--', label="Functia")
-    plt.plot(x_grafic, y_aproximat, label="Interpolarea spline cubica")
-    plt.scatter(x, y, label='Nodurile de interpolare')
-    plt.legend()
-    plt.show()
+        nr_puncte = 100
+        f2 = np.vectorize(f)
+        x_grafic = np.linspace(mrg_inf, mrg_sup, nr_puncte)
+        y_grafic = f2(x_grafic)
+        
+        # functie definita pe intervale
+        y_aproximat = np.piecewise(
+        x_grafic,
+        [
+            # conditii
+            (x[i] <= x_grafic) & (x_grafic < x[i + 1])
+            for i in range(N - 1)
+        ],
+        [
+            # polinoamele
+            polinom(i)
+            for i in range(N)
+        ]
+    )
+        eroare, er_max = eroare_trunchiere(y_grafic, y_aproximat)
+        if  er_max <= 1e-5:
+            plt.figure("Interpolare spline cubica")
+            plt.plot(x_grafic, y_grafic, linestyle='--', label="Functia")
+            plt.plot(x_grafic, y_aproximat, label="Interpolarea spline cubica")
+            plt.scatter(x, y, label='Nodurile de interpolare')
+            plt.legend()
+            plt.show()
 
-    # eroare de trunchiere
-    print(f"x_grafic este {x_grafic}")
-    print(f"y_grafic este {y_grafic}")
-    print(f"y_aproximat este {y_aproximat}")
-    eroare_trunchiere(x_grafic, y_grafic, y_aproximat, mrg_inf, mrg_sup)
+            # eroare de trunchiere
+            print(f"x_grafic este {x_grafic}")
+            print(f"y_grafic este {y_grafic}")
+            print(f"y_aproximat este {y_aproximat}")
+            plot_eroare_trunchiere(x_grafic, y_grafic, y_aproximat, mrg_inf, mrg_sup)
+            return
 
+
+def eroare_trunchiere(y, y_aproximat):
+    eroare = np.abs(y - y_aproximat)
+    maxim = np.max(eroare)
+
+    return eroare, maxim
 # ----------- Metoda pentru afisarea erorii de trunchiere
-def eroare_trunchiere(x_grafic, y_grafic, y_aprox, mrg_inf, mrg_sup):
+def plot_eroare_trunchiere(x_grafic, y_grafic, y_aprox, mrg_inf, mrg_sup):
     eroare = np.abs(y_grafic - y_aprox)
     # determinam maximul erorii dintre cele calculate
     er_max = np.max(eroare)
