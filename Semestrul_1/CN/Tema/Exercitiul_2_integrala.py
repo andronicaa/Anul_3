@@ -3,7 +3,9 @@ import numpy as np
 import math
 
 def f(x, sigma):
-    return (1 / (sigma * math.sqrt(2 * np.pi))) * np.exp(((-1) * (x ** 2)) / (2 * (sigma ** 2)))
+    return (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(((-1) * (x ** 2)) / (2 * (sigma ** 2)))
+
+
 
 def integrare(f, x, metoda):
     sigma = 1.8
@@ -16,6 +18,7 @@ def integrare(f, x, metoda):
 
     # calculam h-ul(echidistant)
     h = x[1] - x[0]
+
     if metoda == 'dreptunghi':
         I = 2 * h * np.sum(y[::2])
     elif metoda == 'trapez':
@@ -32,21 +35,28 @@ def aplica_metode(metoda):
     a = 3
     b = 20
     rez_integrala = []
-    for N in range(a, b):
-        x = np.linspace(mrg_inf, mrg_sup, N)
-        I = integrare(f, x, metoda)
-        rez_integrala.append(I)
+    if metoda == 'dreptunghi' or metoda == 'simpson':
+        for N in range(a, b, 2):
+            x = np.linspace(mrg_inf, mrg_sup, N)
+            I = integrare(f, x, metoda)
+            rez_integrala.append(I)
+    else:
+        for N in range(a, b, 1):
+            x = np.linspace(mrg_inf, mrg_sup, N)
+            I = integrare(f, x, metoda)
+            rez_integrala.append(I)
     return rez_integrala
 
 
 def plot_resp_metode():
     a = 3
-    b = 20
-    interval_ab = range(a, b, 1)
-    plt.figure("Aproximarea integralei folosind formule de cuagratura sumate")
-    plt.plot(interval_ab, aplica_metode('dreptunghi'), label="dreptunghi")
-    plt.plot(interval_ab, aplica_metode('trapez'), label="trapez")
-    plt.plot(interval_ab, aplica_metode('simpson'), label="simpson")
+    b = 20 
+    interval_ds = range(a, b, 2)
+    interval_trp = range(a, b, 1)
+    plt.figure("Aproximarea integralei folosind formule de cuadratura sumate")
+    plt.plot(interval_ds, aplica_metode('dreptunghi'), label="dreptunghi")
+    plt.plot(interval_trp, aplica_metode('trapez'), label="trapez")
+    plt.plot(interval_ds, aplica_metode('simpson'), label="simpson")
     plt.legend()
     plt.show()
 

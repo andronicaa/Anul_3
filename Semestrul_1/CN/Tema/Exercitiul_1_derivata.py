@@ -11,7 +11,6 @@ def sdf(x):
     return (-0.25) * math.cos(0.5 * x)
 
 
-
 def aproximeaza_derivata():
     # DIFERENTE FINITE CENTRALE PENTRU CALCULUL f''(x)
     N = 1
