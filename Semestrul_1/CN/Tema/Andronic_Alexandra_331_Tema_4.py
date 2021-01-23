@@ -50,7 +50,7 @@ def aproximeaza_derivata_2():
         # Derivata aproximata
         y_aproximat = sec_der
 
-        # calculez
+        # calculez eroarea de trunchiere
         eroare = np.abs(y_grafic - y_aproximat)
         # determinam maximul erorii dintre cele calculate
         er_max = np.max(eroare)
@@ -127,7 +127,8 @@ def integrare(f, x, metoda):
         sum = 0
         for k in range(1, m):
             sum = sum + y[k]
-            
+        
+        # aproximarea finala a integralei folosind metoda trapezului
         I = (h / 2) * (y[0] + 2 * sum + y[m])
     elif metoda == 'simpson':
         # -------------- FORMULA DE CUADRATURA SUMATA A LUI SIMPSON ------------
@@ -140,6 +141,7 @@ def integrare(f, x, metoda):
         for k in range(1, m):
             sum_impar = sum_impar + y[2 * k]
         
+        # aproximarea finala a integralei folosind metoda simpson
         I = (h / 3) * (y[0] + 4 * sum_par + 2 * sum_impar + y[2 * m])
         
         
