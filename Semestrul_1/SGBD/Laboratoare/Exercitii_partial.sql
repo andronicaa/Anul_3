@@ -1,8 +1,9 @@
 --1. Pe un tabel dependent din schema de examen implementati cu ajutorul unui trigger o constrangere de integritate la alegere. 
 --(observatii: trebuie sa apara explicit pe ce tabel si care este constrangerea implementata.
--- NU POT SA AM DELETE SI UPDATE IN ACELASI TRIGGER????
--- DELETE ESTE DOAR PENTRU FOR EACH ROW?
--- DACA INCERC INSERAREA UNUI NOU ANGAJAT CARE APARTINE UNUI DEPARTAMENT CARE NU EXISTA
+
+
+
+
 create or replace trigger constr_dept_linie
 before insert or update of department_id on emp_aan
 for each row
@@ -15,7 +16,7 @@ begin
     select department_id 
     bulk collect into tb
     from dept_aan;
-    -- daca departamentul pe care am vrut sa-l inseram odata cu angajatul(sal sa-l actualizam) nu exita => eroare
+    -- daca departamentul pe care am vrut sa-l inseram odata cu angajatul(sau sa-l actualizam) nu exita => eroare
     for i in tb.first..tb.last loop
         if tb(i) = :new.department_id then
             ok := true;
@@ -33,7 +34,7 @@ update emp_aan
 set department_id = 300
 where employee_id = 176;
 
-
+desc employees;
 
 -- ar trebui caz separat si pentru update??
 create or replace package dept_pack as
@@ -56,14 +57,32 @@ create or replace trigger dept_linie
 before delete or update of department_id on dept_aan
 for each row
 begin
-    dbms_output.put_line('A ajuns aici');
-    for i in dept_pack.tb.first..dept_pack.tb.last loop
-        if dept_pack.tb(i).cod_dept = :old.department_id then
-            if dept_pack.tb(i).nr_ang is not null then
-                raise_application_error(-20002, 'Nu se poate elimina sau actualiza acest departament');
+    if updating then
+        for i in dept_pack.tb.first..dept_pack.tb.last loop
+        if dept_pack.tb.exists(i) then
+            if dept_pack.tb(i).cod_dept = :old.department_id then
+                if dept_pack.tb(i).nr_ang <> 0 then
+                    raise_application_error(-20002, 'Nu se poate elimina sau actualiza acest departament');
+                else
+                    
+                    dept_pack.tb.delete(i);
+                end if;
             end if;
-        end if;
+        end if;    
+        end loop;
+    elsif deleting then
+        for i in dept_pack.tb.first..dept_pack.tb.last loop
+        if dept_pack.tb.exists(i) then
+            if dept_pack.tb(i).cod_dept = :old.department_id then
+                if dept_pack.tb(i).nr_ang <> 0 then
+                    raise_application_error(-20002, 'Nu se poate elimina sau actualiza acest departament');
+                else                    
+                    dept_pack.tb(i).cod_dept := :new.department_id;
+                end if;
+            end if;
+        end if;    
     end loop;
+    end if;    
 end dept_linie;
 
 
@@ -111,7 +130,7 @@ begin
         tb(i).cod_factura := c.id_factura;
         j := 1;
         for prd in (select distinct(cod_produs) from contine where cod_factura = c.id_factura) loop
-            -- trebuie sa adaug fiecare produs in tablou
+            -- trebuie sa adaug fiecare produs in tablou            
             tb(i).tablou(j) := prd.cod_produs;
             j := j + 1;
         end loop;
@@ -124,6 +143,7 @@ before insert on contine
 for each row
 declare
     ok boolean := false;
+    nr_elem number;
 begin
     -- parcug vectorul de coduri de facturi si produse asociate
     for i in tb.first..tb.last loop
@@ -135,15 +155,15 @@ begin
                 raise_application_error(-20004, 'Aceasta factura are deja 10 produse distincte');
             else
                 -- trebuie sa vad daca produsul asociat mai exista
+                ok := false;
                 for j in tb(i).tablou.first..tb(i).tablou.last loop
                     if tb(i).tablou(j) = :new.cod_produs then
                         ok := true;
                     end if;                    
                 end loop;
                 if ok = false then
-                    if tb(i).tablou.count >= 10 then
-                        raise_application_error(-20003, 'Deja exista 10 produse distincte pentru aceasta factura');
-                    end if;                                        
+                    nr_elem := tb(i).tablou.count;
+                    tb(i).tablou(nr_elem + 1) := :new.cod_produs;                                      
                 end if;
              end if;
         end if;
@@ -151,7 +171,16 @@ begin
 end trigger_factura_linie;
 
 
-
+declare
+    type tablou_imbr is table of number;
+    timb tablou_imbr := tablou_imbr();
+begin
+    -- incerc sa adaug elemente in el
+    for i in 1..2 loop
+        timb.extend;
+        timb(i) := 1;
+    end loop;
+end;
 
 
 
